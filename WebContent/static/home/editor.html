@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Online Code Competition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="problem_editor">
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Online Code Competition</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="hidden-sm "><a href="#">Home</a></li>
+                <li class="hidden-sm"><a href="#about">Guide</a></li>
+                <li class="active"><a href="page_competitions.html">Competitions</a></li>
+                <li><a href="page_judge_status.html">Judge Status</a></li>
+                <li><a href="page_user_ratings.html">Ranklist</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> My Account <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+                        <li><a href="#"><i class="fa fa-code"></i> Submissions</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container" id="editor_container">
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 col">
+
+            <div id="editor_area" class="">
+                <div id="editor_toolbar">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="btn_full_screen"> <i class="fa fa-arrows-alt"></i>
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="btn_terminal"> <i class="fa fa-terminal"></i>
+
+                        </label>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons">
+                        <a href="#" class="btn btn-default" id="btn_new_code" data-toggle="modal"
+                           data-target="#modal_new_solution"><i class="fa fa-file-o"></i></a>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons" id="theme_group">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="theme" id="theme_chrome" checked="checked" value="chrome">
+                            <i class="fa fa-square-o"></i>
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="theme" id="theme_ambiance" value="ambiance">
+                            <i class="fa fa-square"></i>
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-default" id="btn_font_size"><i class="fa fa-text-height"></i></a>
+                        <a href="#" class="btn btn-default" id="btn_undo"><i class="fa fa-undo"></i></a>
+                        <a href="#" class="btn btn-default" id="btn_redo"><i class="fa fa-repeat"></i></a>
+                    </div>
+
+
+                    <div class="btn-group" data-toggle="buttons" id="language_group">
+                        <label class="btn btn-default">
+                            <input type="radio" name="language" id="language_c" value="c"> C
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="language" id="language_cpp" value="cpp"> C++
+                        </label>
+                        <label class="btn btn-default active">
+                            <input type="radio" name="language" id="language_java" checked="checked" value="java"> Java
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="language" id="language_python" value="python"> Python
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-default" data-toggle="modal"
+                           data-target="#modal_run_solution">Run <i class="fa fa-play"></i></a>
+                        <a href="#" class="btn btn-default">Submit <i class="fa fa-fast-forward"></i></a>
+                    </div>
+                </div>
+                <pre id="editor"></pre>
+                <pre id="terminal">Code result here...</pre>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-1">
+        </div>
+        <div class="col-lg-8 col-md-10 col">
+            <div class="page-header">
+                <h1 id="disable-responsive">Problem Title Here... </h1>
+
+                <ul class="problem_meta">
+                    <li>time limit: <span class="badge">2  sec</span></li>
+                    <li>memory limit: <span class="badge">64 kb</span></li>
+                    <li>difficulty: <span class="badge">114</span></li>
+                    <li><a href="">submissions</a></li>
+                    <li><a href="">discuss</a></li>
+                    <li><a href="">printable</a></li>
+                    <li><a href="">report</a></li>
+                </ul>
+            </div>
+            <p>
+                Now and then you play the following game with your friend. Your friend writes down a sequence consisting
+                of zeroes and ones. You choose a continuous subsequence (for example the subsequence from the third to
+                the fifth digit inclusively) and ask him, whether this subsequence contains even or odd number of ones.
+                Your friend answers your question and you can ask him about another subsequence and so on.
+            </p>
+
+            <p>
+                Your task is to guess the entire sequence of numbers. You suspect some of your friend's answers may not
+                be correct and you want to convict him of falsehood. Thus you have decided to write a program to help
+                you in this matter.
+            </p>
+            <hr>
+
+            <h4>Input</h4>
+
+            <p>Input contains a series of tests. The first line of each test contains one number, which is the length of
+                the sequence of zeroes and ones. This length is less or equal to 109. In the second line, there is one
+                non-negative integer which is the number of questions asked and answers to them. The number of questions
+                and answers is less or equal to 5 000. </p>
+            <hr>
+            <h4>Output</h4>
+
+            <p>
+                Each line of output containing one integer X. Number X says that there exists a sequence of zeroes and
+                ones satisfying first X parity conditions, but there exists none satisfying X + 1 conditions. If there
+                exists a sequence of zeroes and ones satisfying all the given conditions, then number X should be the
+                number of all the questions asked. </p>
+            <hr>
+            <table class="table-responsive table-hover problem_samples">
+                <thead>
+                <tr>
+                    <th>Input</th>
+                    <th>Output</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <pre>10
+5
+1 2 even
+3 4 odd
+5 6 even
+1 6 even
+7 10 odd
+-1</pre>
+                    </td>
+                    <td>
+                        <pre>3</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre>10
+5
+1 2 even
+3 4 odd
+7 10 odd
+-1</pre>
+                    </td>
+                    <td>
+                        <pre>5</pre>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p ><span class="problem_meta">tags:</span>
+                <a class="badge">dynamic programming</a>
+                <a class="badge">data structures</a>
+                <a class="badge">algorithms</a>
+            </p>
+        </div>
+        <div class="col-lg-2 col-md-1">
+        </div>
+    </div>
+
+    <hr>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <ul class="list-inline">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contacts</a></li>
+                    <li class="separator"></li>
+                    <li><a href="#">Problems Archive</a></li>
+                    <li><a href="#">Users Ranklist</a></li>
+                    <li><a href="#">Judge Status</a></li>
+                    <li class="separator"></li>
+                    <li><p>&copy; CDAC, ACTS 2013</p></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="modal fade" id="modal_new_solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create New Solution</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-data form-horizontal" role="form" id="new_solution_form">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="new_solution" id="optionsRadios1" value="c" checked>
+                            Solution in <span class="label label-success">C</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="new_solution" id="optionsRadios2" value="cpp">
+                            Solution in <span class="label label-success">C++</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="new_solution" id="optionsRadios3" value="java">
+                            Solution in <span class="label label-success">Java</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="new_solution" id="optionsRadios4" value="python">
+                            Solution in <span class="label label-success">Python</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createNewSolution(false)">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_run_solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Test Solution</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-data form-horizontal" role="form" id="run_solution_form">
+                    <div class="form-group">
+                        <textarea class="form-control" id="run_input" rows="5"
+                                  placeholder="Enter sample input here..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="runSolution()">Run Solution</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    var editor = ace.edit("editor");
+    var fontSize = 12;
+    var language = "java";
+    var code = {
+        java:"import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}",
+        cpp:"#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout << \"Hello world!\" << endl;\n    return 0;\n}\n",
+        c:"#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\n    printf(\"Hello world!\");\n    return 0;\n}\n",
+        python:""
+    }
+    var key;//generate csrf key here
+
+    $(document).ready(function () {
+        editor.setTheme("ace/theme/" + $("#theme_group input[checked='checked']").val().toString());
+        createNewSolution(language)
+        $("#language_group input").on('change', function () {
+            editor.getSession().setMode("ace/mode/" + this.value);
+        })
+        $("#theme_group input").on('change', function () {
+            editor.setTheme("ace/theme/" + this.value);
+        })
+        $("#btn_full_screen").on('change', function () {
+            if (this.checked) {
+                $("#editor_area").addClass('full_screen');
+                $("body").addClass('full_screen_open');
+            } else {
+                $("#editor_area").removeClass('full_screen');
+                $("body").removeClass('full_screen_open');
+            }
+        })
+        $("#btn_terminal").on('change', function () {
+            if (this.checked)$("#terminal").show(); else $("#terminal").hide();
+        })
+        $("#btn_undo").on('click', function () {
+            editor.undo();
+        })
+        $("#btn_redo").on('click', function () {
+            editor.redo();
+            editor.gotoLine(editor.selection.getCursor().row + 1);
+        })
+        $("#btn_font_size").on('click', function () {
+            fontSize += 2;
+            if (fontSize > 24)fontSize = 12;
+            document.getElementById('editor').style.fontSize = fontSize + 'px';
+        })
+    });
+</script>
+
+</body>
+</html>

@@ -1,94 +1,245 @@
 body {
     padding-top: 70px;
 }
-li.separator{
+
+li.separator {
     border-left: 1px solid #e3e3e3;
     display: inline;
     margin-left: 5px;
 }
-.modal-open{
+
+.modal-open {
     overflow: auto;
 }
-.modal{
+
+.modal {
     overflow: auto;
 }
-#modal_sign_in .modal-dialog{
+
+#modal_sign_in .modal-dialog {
     width: 420px;
 }
-.ratings-table th.problem_cell{
+
+.ratings-table th.problem_cell {
     width: 60px;
     background-color: #f6f6f6;
     border: 1px solid #A1a1a1;
 }
-.ratings-table td:nth-child(2){
-    text-align: left!important;
+
+.ratings-table td:nth-child(2) {
+    text-align: left !important;
 }
-.ratings-table .ratings-row td{
+
+.ratings-table .ratings-row td {
     padding: 5px 3px;
     line-height: 10px;
 }
-.ratings-table tr:hover td.alert-success{
+
+.ratings-table tr:hover td.alert-success {
     background-color: #b6d9ab;
 }
-.ratings-table tr:hover td.alert-danger{
+
+.ratings-table tr:hover td.alert-danger {
     background-color: #e3c2c1;
 }
-.ratings-table tr:hover{
+
+.ratings-table tr:hover {
     background-color: #f6f6f6;
 }
-.ratings-table span.time{
+
+.ratings-table span.time {
     font-size: 90%;
 }
-.ratings-table td{
+
+.ratings-table td {
     font-size: 85%;
     font-family: "courier new";
 }
-.ratings-table td.problem_cell{
+
+.ratings-table td.problem_cell {
     border: 1px solid #A1a1a1;
 }
-.ratings-table td, .ratings-table th{
+
+.ratings-table td, .ratings-table th {
     text-align: center;
-    vertical-align: middle!important;
+    vertical-align: middle !important;
 }
+
 .bs-callout-success {
     background-color: #DFF0D8;
     border-color: #b6d9ab;
 }
+
 .bs-callout-warning {
     background-color: #FAF8F0;
     border-color: #FAEBCC;
 }
+
 .bs-callout-info {
     background-color: #F4F8FA;
     border-color: #BCE8F1;
 }
+
 .bs-callout {
     border-left: 3px solid #EEEEEE;
     margin: 20px 0;
     padding: 20px;
 }
-.disabled{
+
+.disabled {
     color: #c7c7c7;
 }
-.comp-running td{
-    vertical-align: middle!important;
+
+.comp-running td {
+    vertical-align: middle !important;
 }
+
 tr.comp-running {
     height: 30px;
-   border-bottom: 15px solid #dbecd4 !important;
-   border-top: 15px solid #dbecd4 !important;
+    border-bottom: 15px solid #dbecd4 !important;
+    border-top: 15px solid #dbecd4 !important;
 }
-.comp-running td{
-    background-color: #DFF0D8!important;
+
+.comp-running td {
+    background-color: #DFF0D8 !important;
 }
-.counter{
+
+.counter {
     text-align: center;
 }
-.problem_list .label{
+
+.problem_list .label {
     display: block;
-    width: 40px!important;
-    padding: 4px ;
+    width: 40px !important;
+    padding: 4px;
     text-align: center;
     font-weight: bold;
     font-size: 11px;
+}
+
+#editor_container .col {
+    padding: 0;
+    height: 100%;
+}
+
+#editor_container .btn-group{
+    margin: 0 1px;
+}
+#editor_container {
+    top: 60px;
+    bottom: 5px;
+    /*position: absolute;*/
+    width: 100%;
+   /* margin: 0 !important;
+    padding: 0 10px !important;*/
+
+}
+
+#editor, #terminal {
+   /* position: absolute;*/
+    min-height: 600px;
+   /* top: 48px;
+    bottom: 0px;*/
+    width: 100%;
+    border: 1px solid #c6c6c6;
+    border-radius: 0px;
+}
+#terminal{
+    background-color: #151515;
+    font-family: "Courier New";
+    font-size: 14px;
+    color: #FFFFFF;
+    z-index: 100;
+    display: none;
+    padding: 5px;
+    position: absolute;
+    top: 44px;
+    bottom: 0px;
+}
+#editor_area {
+    background-color: #f8f8f8;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+body.full_screen_open{
+    overflow-y: hidden;
+}
+.full_screen {
+    left: 0;
+    min-height: 500px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1030;
+    padding-top: 3px;
+}
+
+#editor_toolbar {
+
+    width: 100%;
+    padding: 5px;
+    background-color: #EAEAEA;
+    background-image: linear-gradient(#FAFAFA, #EAEAEA);
+    background-repeat: repeat-x;
+}
+
+#modal_new_solution .modal-dialog {
+    width: 400px !important;
+}
+
+#modal_new_solution .label-success {
+    background-color: #5CB85C;
+    display: inline-block;
+    margin-right: 13px;
+    padding: 4px 0px;
+    text-align: center;
+    width: 56px;
+}
+#modal_run_solution .modal-dialog{
+    width: 500px;
+}
+#modal_run_solution .modal-body{
+    height: 150px;
+}
+.separator{
+    width: 1px;
+    border-left: 1px solid #e3e3e3;
+    margin: 0 10px;
+}
+.problem_meta .badge{
+    font-size: 12px;
+}
+.problem_meta li:last-child{
+   border: none;
+}
+.problem_meta li{
+    list-style: none;
+
+    display: inline-block;
+    margin: 0px;
+    padding: 2px 14px;
+    border-right: 1px solid #e3e3e3;
+}
+.problem_meta{
+    color: #b4b4b4;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+.problem_samples pre{
+    font-family: "Courier New";
+    border:none;
+    background-color: transparent;
+    font-size: 14px;
+}
+.problem_samples td{
+    vertical-align: top;
+    border-bottom: 1px solid #e3e3e3;
+}
+.problem_samples{
+    width: 100%;
+    margin-bottom: 25px;
+
 }

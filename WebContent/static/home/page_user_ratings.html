@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Code Competition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="user_login">
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Online Code Competition</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class=" hidden-sm"><a href="home_nologin.html">Home</a></li>
+                <li class="hidden-sm"><a href="#about">Guide</a></li>
+                <li><a href="page_competitions.html">Competitions</a></li>
+                <li><a href="page_judge_status.html">Judge Status</a></li>
+                <li class="active"><a href="#contact">Ranklist</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="#">Link</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> My Account <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+                        <li><a href="#"><i class="fa fa-code"></i> Submissions</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+<h1>User Ratings <small style="font-size: 11px;"><a href="">See Ranklist FAQ</a></small></h1>
+<hr>
+<div class="bs-callout bs-callout-info">
+    <h4>How do we calculate scores?</h4>
+    <p>Following ranklist will be generated every <span class="badge">5</span> minutes.</p>
+    <p></p><span class="label label-success">+</span> is accepted solution at first submission.
+        <span class="label label-success">+4</span> is accepted solution at fourth attempt.
+        <span class="label label-danger">-2</span> is failed submissions count. </p>
+    <p>Here some information about score generation. <a href="">See system FAQ for further information</a>.</p>
+</div>
+<div class="table-responsive">
+<table class="table ratings-table table-condensed">
+<thead>
+<tr>
+    <th>#</th>
+    <th>User</th>
+    <th class="problem_cell"><a href="#">A</a></th>
+    <th class="problem_cell"><a href="#">B</a></th>
+    <th class="problem_cell"><a href="#">C</a></th>
+    <th class="problem_cell"><a href="#">D</a></th>
+    <th class="problem_cell"><a href="#">E</a></th>
+    <th class="problem_cell"><a href="#">F</a></th>
+    <th class="problem_cell"><a href="#">G</a></th>
+    <th class="problem_cell"><a href="#">H</a></th>
+    <th class="problem_cell"><a href="#">I</a></th>
+    <th class="problem_cell"><a href="#">J</a></th>
+    <th class="problem_cell"><a href="#">K</a></th>
+    <th>Score</th>
+    <th>Rank</th>
+    <th class="hidden-xs hidden-sm">Updated</th>
+</tr>
+</thead>
+<tbody>
+<tr class=" ratings-row">
+    <td>1</td>
+    <td><a href="#">shavkat_khamidjanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">131:11</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>2</td>
+    <td><a href="#">nurzod_karahanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>3</td>
+    <td><a href="#">videk_yadav</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>4</td>
+    <td><a href="#">rahul_gupta</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>1</td>
+    <td><a href="#">shavkat_khamidjanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">131:11</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>2</td>
+    <td><a href="#">nurzod_karahanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>3</td>
+    <td><a href="#">videk_yadav</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>4</td>
+    <td><a href="#">rahul_gupta</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>1</td>
+    <td><a href="#">shavkat_khamidjanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">131:11</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>2</td>
+    <td><a href="#">nurzod_karahanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>3</td>
+    <td><a href="#">videk_yadav</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>4</td>
+    <td><a href="#">rahul_gupta</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>1</td>
+    <td><a href="#">shavkat_khamidjanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+4<br><span class="time">110:20</span></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">131:11</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class=" ratings-row">
+    <td>2</td>
+    <td><a href="#">nurzod_karahanov</a></td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-danger problem_cell">-2</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="problem_cell">.</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>3</td>
+    <td><a href="#">videk_yadav</a></td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">50:16</span></td>
+    <td class="alert-success problem_cell">+4<br><span class="time">30:14</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+3<br><span class="time">70:57</span></td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>4</td>
+    <td><a href="#">rahul_gupta</a></td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="alert-success problem_cell">+<br><span class="time">14:20</span></td>
+    <td class="alert-danger problem_cell">-1</td>
+    <td class="problem_cell">.</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">110:20</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+<tr class="ratings-row">
+    <td>4</td>
+    <td><a href="#">rahul_gupta</a></td>
+    <td class="problem_cell">.</td>
+    <td class="problem_cell">.</td>
+    <td class="problem_cell">.</td>
+    <td class="problem_cell">.</td>
+    <td class="alert-danger problem_cell">-4</td>
+    <td class=" problem_cell">.</td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">70:57</span></td>
+    <td class=" problem_cell">.</td>
+    <td class="alert-success problem_cell">+<br><span class="time">20:30</span></td>
+    <td class=" problem_cell">.</td>
+    <td>200.1</td>
+    <td>1</td>
+    <td class="hidden-xs hidden-sm">Jan 12,14 7:30:48 PM</td>
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+<hr>
+<footer>
+    <div class="container">
+        <div class="row">
+            <ul class="list-inline">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Guide</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contacts</a></li>
+                <li class="separator"></li>
+                <li><a href="#">Problems Archive</a></li>
+                <li><a href="#">Users Ranklist</a></li>
+                <li><a href="#">Judge Status</a></li>
+                <li class="separator"></li>
+                <li><p>&copy; CDAC, ACTS 2013</p></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</div>
+<!-- /container -->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
