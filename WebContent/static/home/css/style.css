@@ -156,6 +156,10 @@ tr.comp-running {
     top: 44px;
     bottom: 0px;
 }
+#editor_area label{
+    color: #2c592c;
+}
+
 #editor_area {
     background-color: #f8f8f8;
     width: 100%;

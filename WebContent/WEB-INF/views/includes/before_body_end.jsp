@@ -9,15 +9,12 @@
 				<h4 class="modal-title" id="myModalLabel">Sign In</h4>
 			</div>
 			<div class="modal-body">
-				<div id="messages-area">
-					<div class="alert alert-danger alert-dismissable">
-						<button aria-hidden="true" data-dismiss="alert" class="close"
-							type="button">×</button>
-						<div id="message_login"></div>
-					</div>
-				</div>
 
-				<form class="form-data" role="form" id="login_form">
+				<div class="alert alert-danger" id="message_login" style="display:none"></div>
+
+
+				<form class="form-data" role="form" id="login_form"
+					action="${pageContext.request.contextPath}/REST/account/login">
 					<div class="form-group input-group">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
 						<input type="email" class="form-control" id="inputEmail3"
