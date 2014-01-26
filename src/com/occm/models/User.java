@@ -66,6 +66,14 @@ public class User {
 	
 	
 
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
+
+
 	public User(Long id, String email, String password, String fname,
 			String sname, UserStatus status, String image, Role role) {
 		super();

@@ -78,6 +78,7 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
         <h1>Welcome to Coding!</h1>
+        <h2>Howdy, ${requestScope.userFName} ${requestScope.userSName} !!!</h2>
 
         <p>Here is our Online Code Competition Management System and you can enjoy with it forever, read some
             information, read problem, write solution, test submission, win competition!</p>
