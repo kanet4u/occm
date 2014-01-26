@@ -1,22 +1,24 @@
 $(document).ready(function () {
     $("#btn_login").on("click", function () {
         return login();
-    })
-})
+    });
+});
 
 function login() {
     $.ajax({
+    	type:"POST",
         dataType:"json",
-        url:'/REST/account/login',
+        url:$("#login_form").attr('action'),
         data:$("#login_form").serialize(),
         success:function (response) {
             if (response.result == 'SUCCESS') {
                 document.location.reload();
             } else {
-                $("#message_login").text(response.message);
+                $("#message_login").text(response.message).fadeIn();
             }
         }
     });
+    return false;
 }
 
 function runSolution() {
@@ -25,7 +27,8 @@ function runSolution() {
         code:editor.getValue(),
         input:$('#run_input').val(),
         key:key
-    }
+    };
+    
     $.ajax({
         dataType:"json",
         url:'submissions/test',
