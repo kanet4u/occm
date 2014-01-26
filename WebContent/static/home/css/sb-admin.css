@@ -305,9 +305,9 @@ table.dataTable thead .sorting:after {
 .show-grid {
     margin: 15px 0;
 }
-.col_status, .col_edit, .col_delete{
+.action{
     text-align: center;
-    width: 65px;
+    width: 65px!important;
 }
 td.action a:hover{
 
@@ -373,4 +373,12 @@ td.action a{
 #competitions_table .col_status{
     text-align: left;
     width: 80px;
+}
+#submissions_table .col_status{
+    text-align: center;
+    width: 60px!important;
+}
+
+#problems_table tr td:nth-child(2){
+    text-align: center;
 }
