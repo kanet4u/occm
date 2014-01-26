@@ -21,7 +21,7 @@
 					data-target="#modal_sign_in"> <i class="fa fa-sign-in"></i>
 						Sign In
 				</a></li>
-				<li><a href="page_register.html"><i class="fa fa-user"></i>
+				<li><a href="${pageContext.request.contextPath}/home/register"><i class="fa fa-user"></i>
 						Register</a></li>
 			</ul>
 		</div>

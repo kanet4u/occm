@@ -11,7 +11,7 @@
 	<!-- DS bean -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="${jdbc.driver}" p:url="${jdbc.url}" p:username="${jdbc.username}"
-		p:password="${jdbc.password}" p:initialSize="1" p:maxActive="2"
+		p:password="${jdbc.password}" p:initialSize="5" p:maxActive="10"
 		destroy-method="close">
 	</bean>
 	<!-- configure Hibernate 4 specific local session factory bean -->

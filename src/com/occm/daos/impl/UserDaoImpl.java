@@ -38,11 +38,14 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User validate(User user) {
-		String hql = "select u from User u where u.email = :em and c.password = :pa";
+		String hql = "select u from User u where u.email = :em and u.password = :pa";
 
-		return (User) factory.getCurrentSession().createQuery(hql)
+		user = (User) factory.getCurrentSession().createQuery(hql)
 				.setParameter("em", user.getEmail())
 				.setParameter("pa", user.getPassword()).uniqueResult();
+		
+		
+		return user;
 	}
 
 	@SuppressWarnings("unchecked")
