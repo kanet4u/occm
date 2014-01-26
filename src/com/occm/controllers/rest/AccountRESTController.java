@@ -28,7 +28,7 @@ public class AccountRESTController {
 	@ResponseBody
 	public Login login(@RequestParam(value="username", required=true) String userName, 
 	        @RequestParam(value="password", required=true) String password, ModelMap map, HttpSession hs) {
-		System.out.println("Login successful");
+		System.out.println("Entered Login");
 		User user = new User(userName, password);
 		
 		user = service.validate(user);

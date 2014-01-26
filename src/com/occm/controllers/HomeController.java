@@ -1,5 +1,7 @@
 package com.occm.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
@@ -17,12 +20,12 @@ import com.occm.services.interfaces.UserService;
 @RequestMapping(value = { HomeController.URL_MAPPING })
 public class HomeController {
 	public static final String URL_MAPPING = "/home";
-
-	// D.I
+	
 	@Autowired
 	@Qualifier("user_service_dao")
 	private UserService service;
-
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") != null) {
@@ -41,13 +44,13 @@ public class HomeController {
 		System.out.println("Show List of Users: " + map);
 		return URL_MAPPING + "/list_users";
 	}
-	
 	@RequestMapping("/logout")
-	public String logoutContact(Model map,HttpSession hs)
+	public ModelAndView logoutUser(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,HttpSession hs)
 	{
+		 
 		//invalidate 
 		hs.invalidate();
-		return URL_MAPPING + "/index"; // show index.jsp
+		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 
 }
