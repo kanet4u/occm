@@ -3,12 +3,14 @@ package com.occm.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,6 +53,37 @@ public class HomeController {
 		//invalidate 
 		hs.invalidate();
 		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+	
+	@RequestMapping("/register")
+	public String showRegForm(ModelMap map) {
+		map.addAttribute(new User());
+		return URL_MAPPING+"/register";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(
+			@Valid/* @ModelAttribute("user") */User user,
+			BindingResult results, Model map, HttpSession hs) {
+		
+		// chk for P.L errs
+		if (results.hasErrors()) {
+			return URL_MAPPING+"/register";
+		}
+		
+		user = service.register(user);
+		
+		
+		if (user == null) {
+			map.addAttribute("errorMsg", "Registration Failed : As Email already exists.");
+			return URL_MAPPING + "/register";
+		}
+		
+		// Add User in Session to allow browsing as logged in user. 
+		hs.setAttribute("activeUser", user);
+	
+		map.addAttribute("successMsg", "Registration is successful...");
+		return URL_MAPPING;
 	}
 
 }

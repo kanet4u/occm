@@ -1,5 +1,6 @@
 package com.occm.models;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,6 +63,31 @@ public class Problem {
 	@NotNull
 	private int score;
 	
+	@NotNull
+	private Date created;
+	
+	@NotNull
+	private String alias;
+	
+	@NotNull
+	private boolean status;
+	
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
 	public Set<TestCase> testCases = new HashSet<TestCase>();
 	
