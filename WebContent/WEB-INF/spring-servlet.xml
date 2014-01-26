@@ -53,8 +53,9 @@
 			p:paramName="locale123" />
 	</mvc:interceptors>
 
-	<mvc:default-servlet-handler />
+	<!-- <mvc:default-servlet-handler /> -->
+	<mvc:resources mapping="/static/**" location="/static/" />
 
-	<import resource="classpath:/hibernate-persistence.xml" />
+	<!-- <import resource="classpath:/hibernate-persistence.xml" /> -->
 
 </beans>

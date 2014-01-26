@@ -1,4 +1,4 @@
-package com.occm.model.rest.response;
+package com.occm.models.rest.response;
 
 public class Login {
 	
