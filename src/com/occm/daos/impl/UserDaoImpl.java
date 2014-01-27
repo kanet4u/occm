@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.occm.daos.interfaces.UserDao;
+import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserStatus;
 
 @Repository("UserDao")
 public class UserDaoImpl implements UserDao {
@@ -81,11 +83,22 @@ public class UserDaoImpl implements UserDao {
 		Session ref=factory.getCurrentSession();
 		System.out.println("In User Dao : getDetails : Session Ref => ( " + ref + " ) ");
 		return (User) ref.get(User.class,id);
+	}
+	
+	@Override
+	public Role getRole(Long id) {
 		
-		/*String hql = "select u from User u where u.id = :i";
-
-		return (User) factory.getCurrentSession().createQuery(hql)
-				.setParameter("i", id).uniqueResult();*/
+		Session ref=factory.getCurrentSession();
+		System.out.println("In User Dao : getRole : Session Ref => ( " + ref + " ) ");
+		return (Role) ref.get(Role.class,id);
+	}
+	
+	@Override
+	public UserStatus getUserStatus(Long id) {
+		
+		Session ref=factory.getCurrentSession();
+		System.out.println("In User Dao : getUserStatus : Session Ref => ( " + ref + " ) ");
+		return (UserStatus) ref.get(UserStatus.class,id);
 	}
 
 }
