@@ -357,8 +357,12 @@ td.action a{
 #lb_search{
     display: none;
 }
+.dataTables_wrapper label{
+    font-weight: normal;
+}
 .dataTables_filter label{
     width: 80%;
+    float: right;
 }
 .dataTables_filter input{
     width: 100%!important;
@@ -381,4 +385,21 @@ td.action a{
 
 #problems_table tr td:nth-child(2){
     text-align: center;
+}
+.c_teacher{
+    border-right: 1px solid #E3E3E3;
+    display: inline-block;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.action_select{
+    display: block;
+    height: 20px;
+    margin: 0;
+    width: 40px;
+}
+.dataTables_paginate .pagination{
+    margin-top: 0px;
+    float: right;
 }
