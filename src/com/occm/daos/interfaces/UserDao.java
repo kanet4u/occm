@@ -2,8 +2,6 @@ package com.occm.daos.interfaces;
 
 import java.util.Collection;
 
-import com.occm.models.UserStatus;
-import com.occm.models.Role;
 import com.occm.models.User;
 
 public interface UserDao {
@@ -19,9 +17,5 @@ public interface UserDao {
 	User unsubscribe(Long id);
 	
 	User getDetails(Long id);
-
-	Role getRole(Long id);
-
-	UserStatus getUserStatus(Long id);
 	
 }

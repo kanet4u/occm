@@ -42,12 +42,6 @@ public class AccountRESTController {
 		Login response = new Login();
 		
 		if (user != null) {
-			if(!user.getStatus().getStatus().equals("active")){
-				System.out.println("Login Failed");
-				response.setResult("FAILURE");
-				response.setMessage("Login Failed!!! Your account is not currently active.");
-				return response;
-			}
 			hs.setAttribute("activeUser", user);
 			//hs.setAttribute("activeUserActions", new ArrayList<Action>(user.getRole().getActions()));
 			String action;

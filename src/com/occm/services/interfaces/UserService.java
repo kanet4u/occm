@@ -2,9 +2,7 @@ package com.occm.services.interfaces;
 
 import java.util.Collection;
 
-import com.occm.models.Role;
 import com.occm.models.User;
-import com.occm.models.UserStatus;
 
 public interface UserService {
 
@@ -19,8 +17,4 @@ public interface UserService {
 	User unsubscribe(Long id);
 	
 	User getDetails(Long id);
-	
-	Role getRole(Long id);
-
-	UserStatus getUserStatus(Long id);
 }

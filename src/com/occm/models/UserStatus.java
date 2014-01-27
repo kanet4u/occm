@@ -60,10 +60,11 @@ public class UserStatus {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-*/
+
 	@Override
 	public String toString() {
-		return "\nUserStatus [id=" + id + ", status=" + status + "]";
+		return "\nUserStatus [id=" + id + ", status=" + status + ", users="
+				+ users + "]";
 	}
-
+*/
 }
