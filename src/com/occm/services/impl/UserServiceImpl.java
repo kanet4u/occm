@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
+import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserStatus;
 import com.occm.services.interfaces.UserService;
 
 @Service("user_service_dao")
@@ -48,5 +50,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getDetails(Long id) {
 		return dao.getDetails(id);
+	}
+
+	@Override
+	public Role getRole(Long id) {
+		return dao.getRole(id);
+	}
+
+	@Override
+	public UserStatus getUserStatus(Long id) {
+		return dao.getUserStatus(id);
 	}
 }

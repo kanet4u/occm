@@ -1,5 +1,7 @@
 package com.occm.controllers.rest;
 
+import java.util.Iterator;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.occm.models.Action;
+import com.occm.models.FirstVisit;
 import com.occm.models.User;
 import com.occm.models.rest.response.Login;
 import com.occm.services.interfaces.UserService;
@@ -38,6 +42,17 @@ public class AccountRESTController {
 		
 		if (user != null) {
 			hs.setAttribute("activeUser", user);
+			//hs.setAttribute("activeUserActions", new ArrayList<Action>(user.getRole().getActions()));
+			String action;
+			Iterator<Action> itr = user.getRole().getActions().iterator();
+	        while(itr.hasNext())
+	        {
+	            action = itr.next().getAction();
+	            hs.setAttribute(action, true);
+	            
+	        }
+			hs.setAttribute("firstVisit", new FirstVisit(true));
+			
 			System.out.println("Login successful");
 			response.setResult("SUCCESS");
 			response.setUserId(user.getId());

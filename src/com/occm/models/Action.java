@@ -37,11 +37,10 @@ public class Action {
 		this.action = action;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "\nAction [id=" + id + ", action=" + action + ", roles="
-				+ roles + "]";
-	}*/
+		return "\nAction [id=" + id + ", action=" + action + "]";
+	}
 
 	public Long getId() {
 		return id;
