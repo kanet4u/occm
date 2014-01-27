@@ -29,8 +29,6 @@ public class Competition {
 	@NotNull
 	private String details;
 	
-	@NotNull
-	private String url;
 	
 	@Column(name="start_time")
 	private Date startTime;
@@ -55,14 +53,13 @@ public class Competition {
 		super();
 	}
 
-	public Competition(Long id, String title, String details, String url,
+	public Competition(Long id, String title, String details,
 			Date startTime, Date endTime, boolean isLimited,
 			Set<Problem> problems, Set<User> users) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.details = details;
-		this.url = url;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.isLimited = isLimited;
@@ -94,13 +91,6 @@ public class Competition {
 		this.details = details;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 	public Date getStartTime() {
 		return startTime;
@@ -145,7 +135,7 @@ public class Competition {
 	@Override
 	public String toString() {
 		return "\nCompetition [id=" + id + ", title=" + title + ", details="
-				+ details + ", url=" + url + ", startTime=" + startTime
+				+ details  + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", isLimited=" + isLimited
 				+ ", problems=" + problems + ", users=" + users + "]";
 	}

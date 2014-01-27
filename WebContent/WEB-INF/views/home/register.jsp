@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,56 +18,59 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Register</div>
 					<div class="panel-body">
-						<span class="part_border"><div class="info"></div></span>
+						<span class="part_border"><div class="info"></div></span> <span
+							class="part_border"><div class="info"></div></span>
 
-						<div id="messages-area">
-							<div class="alert alert-danger alert-dismissable">
-								<button aria-hidden="true" data-dismiss="alert" class="close"
-									type="button">×</button>
-								<form:errors path="email" cssClass="error" />
+						<form:form method="post" modelAttribute="user"
+							accept-charset="utf-8" role="form" class="form-data"
+							id="form_adminbox_login">
+							
+							<div id="messages-area">
+								<div class="alert alert-danger alert-dismissable">
+									<button aria-hidden="true" data-dismiss="alert" class="close"
+										type="button">×</button>
+									<form:errors path="*" />
+								</div>
 							</div>
-
-						</div>
-
-						<span class="part_border"><div class="info"></div></span>
-
-						<form:form method="post" modelAttribute="user" accept-charset="utf-8" role="form"> 
-							class="form-data" id="form_adminbox_login">
-							<div class="form-group">
-								<input type="text" class="form-control"
-									placeholder="Firstname, Lastname" name="username">
+							
+							<div class="form-group input-group">
+								<spring:message code="email.label" var="emailLabel" />
+								<span class="input-group-addon"><i
+									class="fa fa-user fa-fw"></i></span>
+								<form:input type="text" class="form-control"
+									placeholder="${emailLabel}" path="email" />
 							</div>
 							<div class="form-group input-group">
+								<spring:message code="password.label" var="passwordLabel" />
 								<span class="input-group-addon"><i
-									class="fa fa-user fa-fw"></i></span> <input type="text"
-									class="form-control" placeholder="Login" name="email">
+									class="fa fa-key fa-fw"></i></span>
+								<form:input type="password" class="form-control"
+									autocomplete="off" placeholder="${passwordLabel}"
+									path="password" />
 							</div>
 							<div class="form-group input-group">
+								<spring:message code="fname.label" var="fnameLabel" />
 								<span class="input-group-addon"><i
-									class="fa fa-envelope fa-fw"></i></span> <input type="text"
-									class="form-control" placeholder="Email" name="email">
-							</div>
-
-							<div class="form-group input-group">
-								<span class="input-group-addon"><i
-									class="fa fa-key fa-fw"></i></span> <input type="password"
-									name="password" class="form-control" autocomplite="off"
-									placeholder="Password">
+									class="fa fa-user fa-fw"></i></span>
+								<form:input type="text" class="form-control"
+									placeholder="${fnameLabel}" path="fname" />
 							</div>
 							<div class="form-group input-group">
+								<spring:message code="sname.label" var="snameLabel" />
 								<span class="input-group-addon"><i
-									class="fa fa-repeat fa-fw"></i></span> <input type="password"
-									name="password" class="form-control" autocomplite="off"
-									placeholder="Password Confirmation">
+									class="fa fa-user fa-fw"></i></span>
+								<form:input type="text" class="form-control"
+									placeholder="${snameLabel}" path="sname" />
 							</div>
 
 							<div class="form-group input-group">
 								<div>
-									<button name="submit" style="margin-right: 10px"
-										class="btn btn-primary" type="submit" caption="Sign In">Sign
-										Up</button>
+									<input type="submit" name="submit" style="margin-right: 10px"
+										class="btn btn-primary" type="submit"
+										value="<spring:message code="signup.label" />" />
 								</div>
 							</div>
+							
 						</form:form>
 						<!--END PART [login_form]-->
 					</div>

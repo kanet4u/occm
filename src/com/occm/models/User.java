@@ -17,8 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.occm.models.Role;
-import com.occm.models.UserStatus;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
@@ -26,16 +26,16 @@ public class User {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@NotNull
+	
 	private String email;
 	
-	@NotNull
+	
 	private String password;
 	
-	@NotNull
+	
 	private String fname;
 	
-	@NotNull
+	
 	private String sname;
 	
 	
@@ -43,7 +43,7 @@ public class User {
 	@JoinColumn(name="status")
 	private UserStatus status;
 	
-	@NotNull
+	
 	private String image;
 	
 	
@@ -113,34 +113,47 @@ public class User {
 		this.id = id;
 	}
 
+	@NotNull
+	@Length(min=6, max=64)
+	@Email
 	public String getEmail() {
 		return email;
 	}
-
+	
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	@NotNull
+	@Length(min=3, max=64)
 	public String getPassword() {
 		return password;
 	}
 
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	@NotNull
+	@Length(min=3, max=64)
 	public String getFname() {
 		return fname;
 	}
+
 
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
 
+	@NotNull
+	@Length(min=3, max=64)
 	public String getSname() {
 		return sname;
 	}
 
+	
 	public void setSname(String sname) {
 		this.sname = sname;
 	}

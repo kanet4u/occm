@@ -31,9 +31,6 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") != null) {
-			User user = (User) hs.getAttribute("activeUser");
-			map.addAttribute("userFName", user.getFname());
-			map.addAttribute("userSName", user.getSname());
 			return URL_MAPPING + "/home";
 		}
 		return URL_MAPPING + "/index"; // show index.jsp
@@ -56,7 +53,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/register")
-	public String showRegForm(ModelMap map) {
+	public String showRegForm(Model map) {
+		
 		map.addAttribute(new User());
 		return URL_MAPPING+"/register";
 	}
@@ -66,24 +64,38 @@ public class HomeController {
 			@Valid/* @ModelAttribute("user") */User user,
 			BindingResult results, Model map, HttpSession hs) {
 		
+		
+		
+		
 		// chk for P.L errs
 		if (results.hasErrors()) {
 			return URL_MAPPING+"/register";
 		}
 		
+		user.setImage("user.png");
+		user.setStatus(service.getUserStatus(1L));
+		user.setRole(service.getRole(2L));
+		
+		System.out.println("New User Role " + user.getRole());
+		
+		System.out.println("New User Status " + user.getStatus());
+		
 		user = service.register(user);
 		
 		
 		if (user == null) {
+			System.out.println("New User Errors were Found : " + user);
 			map.addAttribute("errorMsg", "Registration Failed : As Email already exists.");
 			return URL_MAPPING + "/register";
 		}
 		
 		// Add User in Session to allow browsing as logged in user. 
 		hs.setAttribute("activeUser", user);
+		
+		System.out.println("New User Successfully Added " + user);
 	
 		map.addAttribute("successMsg", "Registration is successful...");
-		return URL_MAPPING;
+		return URL_MAPPING+"/home";
 	}
 
 }
