@@ -24,7 +24,7 @@ public class Role {
 	@NotNull
 	private String role;
 	
-	@ManyToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch= FetchType.EAGER)
     @JoinTable(name="role_actions", 
                 joinColumns={@JoinColumn(name="role_id")}, 
                 inverseJoinColumns={@JoinColumn(name="action_id")})

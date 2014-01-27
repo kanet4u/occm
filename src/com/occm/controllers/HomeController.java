@@ -34,6 +34,7 @@ public class HomeController {
 			User user = (User) hs.getAttribute("activeUser");
 			map.addAttribute("userFName", user.getFname());
 			map.addAttribute("userSName", user.getSname());
+			
 			return URL_MAPPING + "/home";
 		}
 		return URL_MAPPING + "/index"; // show index.jsp

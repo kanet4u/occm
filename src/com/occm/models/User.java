@@ -47,7 +47,7 @@ public class User {
 	private String image;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name="role")
 	private Role role;
 

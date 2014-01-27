@@ -1,14 +1,9 @@
 package com.occm.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -37,11 +32,10 @@ public class Action {
 		this.action = action;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "\nAction [id=" + id + ", action=" + action + ", roles="
-				+ roles + "]";
-	}*/
+		return "\nAction [id=" + id + ", action=" + action + "]";
+	}
 
 	public Long getId() {
 		return id;

@@ -59,13 +59,15 @@
 	</div>
 
 	<div class="container">
+		<c:if test="${sessionScope.firstVisit.visit}" >
 		<div id="messages-area">
 			<div class="alert alert-success alert-dismissable">
 				<button aria-hidden="true" data-dismiss="alert" class="close"
 					type="button">×</button>
-				You logged in successfully.
+				You logged in successfully. Your privileges are : <c:if test="${sessionScope.create_submission != null }">You can Create Submissions</c:if>
 			</div>
 		</div>
+		</c:if>
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<h1>Welcome to Coding!</h1>
