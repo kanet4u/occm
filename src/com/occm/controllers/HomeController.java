@@ -46,8 +46,6 @@ public class HomeController {
 	@RequestMapping("/logout")
 	public ModelAndView logoutUser(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,HttpSession hs)
 	{
-		 
-		//invalidate 
 		hs.invalidate();
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
@@ -73,8 +71,8 @@ public class HomeController {
 		}
 		
 		user.setImage("user.png");
-		user.setStatus(service.getUserStatus(1L));
-		user.setRole(service.getRole(2L));
+		user.setStatus(service.getUserStatus(1L));	// Default user status is set to inactive
+		user.setRole(service.getRole(2L));			// Default Role of user is set to test-user
 		
 		System.out.println("New User Role " + user.getRole());
 		

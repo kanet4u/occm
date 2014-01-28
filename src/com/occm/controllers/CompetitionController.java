@@ -2,8 +2,8 @@ package com.occm.controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.occm.models.Competition;
-import com.occm.models.CompetitionListDetails;
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -35,43 +34,20 @@ public class CompetitionController {
 		}*/
 
 		Collection<Competition> competitions = service.getCompetitionList();
-		ArrayList<CompetitionListDetails> details = new ArrayList<CompetitionListDetails>();
-		String status = "", timeLeft = "";
-		int userCount, problemCount;
 
 		for (Competition competition : competitions) {
 			Date current = new Date();
-			if (competition.isLimited()) {
-				if (current.compareTo(competition.getStartTime()) >= 0
-						&& current.compareTo(competition.getEndTime()) <= 0) {
-					status = "RUNNING";
-					long duration = competition.getEndTime().getTime() - current.getTime();
-
-					long diffHours = TimeUnit.MILLISECONDS.toHours(duration);
-					long diffMinutes = TimeUnit.MILLISECONDS.toMinutes(duration
-							- TimeUnit.HOURS.toMillis(diffHours));
-					long diffSeconds = TimeUnit.MILLISECONDS.toSeconds(duration
-							- TimeUnit.MINUTES.toMillis(diffMinutes) - TimeUnit.HOURS.toMillis(diffHours) );
-
-					timeLeft = "" + diffHours + " : " + diffMinutes + " : "
-							+ diffSeconds;
-				} else if (current.compareTo(competition.getStartTime()) < 0) {
-					status = "UPCOMMING";
-				} else if (current.compareTo(competition.getEndTime()) > 0) {
-					status = "ARCHIEVED";
-				}
-
-			} else {
-				status = "NEVERENDING";
-			}
-			userCount = competition.getUsers().size();
-			problemCount = competition.getProblems().size();
-			details.add(new CompetitionListDetails(status, userCount,
-					problemCount, timeLeft));
+			competition.setStatus(current);
+			
+			competition.setUserCount(competition.getUsers().size());
+			competition.setProblemCount(competition.getProblems().size());
 		}
 
-		map.addAttribute("userCompetitions", competitions);
-		map.addAttribute("userCompetitionsDetails", details);
+		ArrayList<Competition> sorted = new ArrayList<Competition>();
+		sorted.addAll(competitions);
+		Collections.sort(sorted,Competition.CompetitionStatusComparator);
+		
+		map.addAttribute("userCompetitions", sorted);
 
 		return URL_MAPPING + "/list"; // show index.jsp
 	}

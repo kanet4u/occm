@@ -35,9 +35,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					
-					<c:set var="details" value="${requestScope.userCompetitionsDetails}" />
-					
+
 
 					<c:forEach var="comp" items="${requestScope.userCompetitions}"
 						varStatus="i">
@@ -47,29 +45,30 @@
 							<td><a
 								href="${pageContext.request.contextPath}/competition/${comp.id}">${comp.title}</a></td>
 
-							<td><c:if test="${details[i.index].status =='RUNNING'}">
+							<td><c:if test="${comp.status =='RUNNING'}">
 									<span class="label label-success"><spring:message
 											code="competition.status.running" /></span>
-								</c:if> <c:if test="${details[i.index].status =='UPCOMMING'}">
+								</c:if> <c:if test="${comp.status =='UPCOMMING'}">
 									<span class="label label-info"><spring:message
 											code="competition.status.upcomming" /></span>
 
-								</c:if> <c:if test="${details[i.index].status =='ARCHIEVED'}">
+								</c:if> <c:if test="${comp.status =='ARCHIEVED'}">
 									<span class="label label-warning"><spring:message
 											code="competition.status.archieved" /></span>
 
-								</c:if> <c:if test="${details[i.index].status =='NEVERENDING'}">
+								</c:if> <c:if test="${comp.status =='NEVERENDING'}">
 									<span class="label label-danger"><spring:message
 											code="competition.status.neverending" /></span>
 
 								</c:if></td>
 							<c:if test="${comp.isLimited}">
-								<c:if test="${details[i.index].status =='RUNNING'}">
+								<c:if test="${comp.status =='RUNNING'}">
 									<td colspan="2" class="counter"><h4>
-											<i class="fa fa-spinner fa-spin"></i> ${details[i.index].timeLeft}
+											<i class="fa fa-spinner fa-spin"></i>
+											${comp.timeLeft}
 										</h4></td>
 								</c:if>
-								<c:if test="${details[i.index].status !='RUNNING'}">
+								<c:if test="${comp.status !='RUNNING'}">
 									<td>${comp.startTime}</td>
 									<td>${comp.startTime}</td>
 								</c:if>
@@ -83,17 +82,21 @@
 								<td>${comp.duration}</td>
 							</c:if>
 
-							<td>${details[i.index].userCount}</td>
-							<td>${details[i.index].problemCount}</td>
-							
-							<td><c:if test="${details[i.index].status =='RUNNING'}">
-									<a href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
-								</c:if> <c:if test="${details[i.index].status =='UPCOMMING'}">
-									<a href="${pageContext.request.contextPath}/competition/join/${comp.id}">Join</a>
-								</c:if> <c:if test="${details[i.index].status =='ARCHIEVED'}">
-									<a href="${pageContext.request.contextPath}/competition/view/${comp.id}">view</a>
-								</c:if> <c:if test="${details[i.index].status =='NEVERENDING'}">
-									<a href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
+							<td>${comp.userCount}</td>
+							<td>${comp.problemCount}</td>
+
+							<td><c:if test="${comp.status =='RUNNING'}">
+									<a
+										href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
+								</c:if> <c:if test="${comp.status =='UPCOMMING'}">
+									<a
+										href="${pageContext.request.contextPath}/competition/join/${comp.id}">Join</a>
+								</c:if> <c:if test="${comp.status =='ARCHIEVED'}">
+									<a
+										href="${pageContext.request.contextPath}/competition/view/${comp.id}">view</a>
+								</c:if> <c:if test="${comp.status =='NEVERENDING'}">
+									<a
+										href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
 								</c:if></td>
 						</tr>
 					</c:forEach>

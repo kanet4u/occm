@@ -16,10 +16,10 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class=" hidden-sm active"><a href="#">Home</a></li>
-				<li class=" hidden-sm"><a href="#about">Guide</a></li>
-				<li><a href="page_competitions.html">Competitions</a></li>
-				<li><a href="page_judge_status.html">Judge Status</a></li>
+				<li class=" hidden-sm active"><a href="${pageContext.request.contextPath}">Home</a></li>
+				<li class=" hidden-sm"><a href="${pageContext.request.contextPath}/page/guide">Guide</a></li>
+				<li><a href="${pageContext.request.contextPath}/competition">Competitions</a></li>
+				<li><a href="${pageContext.request.contextPath}/judge">Judge Status</a></li>
 			</ul>
 
 
