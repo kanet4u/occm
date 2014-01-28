@@ -66,4 +66,7 @@ public class UserStatus {
 		return "\nUserStatus [id=" + id + ", status=" + status + "]";
 	}
 
+	public boolean isActive(){
+		return status.equals("active");
+	}
 }
