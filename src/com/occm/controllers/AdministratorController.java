@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -34,7 +35,7 @@ public class AdministratorController {
 		return URL_MAPPING + "/index";
 	}
 
-	@RequestMapping("/login")
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ModelAndView login(
 			@RequestParam(value = "email", required = true) String userName,
 			@RequestParam(value = "password", required = true) String password,
