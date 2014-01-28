@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
@@ -28,8 +29,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<form class="form-horizontal" role="form" method="post"
-						action="/competition/save">
+					<form:form class="form-horizontal" role="form" method="post" modelAttribute="competition">
 
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#c_details" data-toggle="tab">Details</a></li>
@@ -38,7 +38,7 @@
 						</ul>
 
 						<div class="panel-body">
-							<input type="hidden" name="id" id="competition_id" value="12">
+							<input type="hidden" name="id" id="competition_id" value="${competition.id}">
 
 							<div class="tab-content">
 								<div class="tab-pane active" id="c_details">
@@ -47,7 +47,7 @@
 
 										<div class="col-sm-10">
 											<input class="form-control" name="title"
-												id="competition_title" placeholder="Competition Title">
+												id="competition_title" placeholder="Competition Title" value="${competition.title}" />
 										</div>
 
 									</div>
@@ -58,7 +58,7 @@
 										<div class="col-sm-5">
 											<div class="input-group date" id="start_time_picker">
 												<input class="form-control" name="start_time"
-													id="competition_start_time" placeholder="Start Time">
+													id="competition_start_time" placeholder="Start Time" value="${competition.startTime}" />
 												<span class="input-group-addon"><span
 													class="fa fa-calendar"></span> </span>
 											</div>
@@ -70,7 +70,7 @@
 										<div class="col-sm-5">
 											<div class="input-group date" id="end_time_picker">
 												<input class="form-control" name="end_time"
-													id="competition_end_time" placeholder="End Time"> <span
+													id="competition_end_time" placeholder="End Time" value="${competition.endTime}" /> <span
 													class="input-group-addon"><span
 													class="fa fa-calendar"></span> </span>
 											</div>
@@ -83,9 +83,10 @@
 
 										<div class="col-sm-10">
 											<textarea class="form-control" name="details"
-												id="competition_details" placeholder="Description"></textarea>
+												id="competition_details" placeholder="Description">${competition.details}</textarea>
 										</div>
 									</div>
+									<%-- 
 									<hr>
 									<div class="form-group">
 										<label for="competition_details"
@@ -304,7 +305,8 @@
 
 								</div>
 							</div>
-
+							--%>
+				
 
 							<hr>
 							<input type="hidden" name="continue" id="continue" value="0">
@@ -315,7 +317,7 @@
 								</button>
 								<button type="button" class="btn btn-danger btn-delete"
 									action="some/delete/action">Delete</button>
-								<button type="submit" class="btn btn-success">Save</button>
+								<input type="submit" class="btn btn-success" value="Save" />
 								<button type="submit" class="btn btn-success"
 									onclick="return $('#continue').val(1)">Save & Continue
 								</button>
@@ -323,7 +325,7 @@
 							<div class="clearfix"></div>
 
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 

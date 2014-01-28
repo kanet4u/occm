@@ -34,4 +34,6 @@ public interface UserService {
 	Competition getCompetitionDetails(Long id);
 
 	UserCompetitions joinUserCompetition(User user, Competition comp);
+	
+	Competition updateCompetition(Competition comp);
 }
