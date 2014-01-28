@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,12 +36,11 @@ public class AdministratorController {
 		return URL_MAPPING + "/index";
 	}
 
-	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(
 			@RequestParam(value = "email", required = true) String userName,
 			@RequestParam(value = "password", required = true) String password,
-			final RedirectAttributes redirectAttributes, 
-			ModelMap map,
+			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
 
 		User user = service.validate(new User(userName, password));
@@ -68,18 +68,38 @@ public class AdministratorController {
 	}
 
 	@RequestMapping("/users")
-	public String usersList(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
+	public String usersList(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("management_dashboard") == null) {
 			return URL_MAPPING + "/login";
 		}
 		if (hs.getAttribute("user_list") == null) {
-			redirectAttributes.addFlashAttribute("message_error", "Permittion dined!");
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permittion denid!");
 			return "redirect:" + URL_MAPPING;
 		}
-		
+
 		map.addAttribute("users", service.viewAll());
 
 		return URL_MAPPING + "/users/list";
+	}
+
+	@RequestMapping("/users/delete/{id}")
+	public String userDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("management_dashboard") == null) {
+			return URL_MAPPING + "/login";
+		}
+		if (hs.getAttribute("user_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permittion denid!");
+		} else {
+			User u = service.unsubscribe(id);
+			redirectAttributes.addFlashAttribute("message_success",
+					"User " + u.getEmail() + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING + "/users";
 	}
 
 }
