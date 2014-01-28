@@ -113,10 +113,26 @@ public class UserDaoImpl implements UserDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<UserCompetitions> getUserCompetitionList(Long id) {
-		String hql = "select u from UserCompetitions u where u.user_id = :id";
+	public Collection<UserCompetitions> getUserCompetitionList(User user) {
+		String hql = "select u from UserCompetitions u where u.user = :usr and u.approved = 1";
 
-		return factory.getCurrentSession().createQuery(hql).setParameter("id", id).list();
+		return factory.getCurrentSession().createQuery(hql).setParameter("usr", user).list();
 	}
+	
+	@Override
+	public Competition getCompetitionDetails(Long id) {
+		
+		Session ref=factory.getCurrentSession();
+		return (Competition) ref.get(Competition.class,id);
+	}
+	
+	@Override
+	public UserCompetitions joinUserCompetition(User user, Competition comp) {
+		UserCompetitions userComp = new UserCompetitions(user,comp,false);
+		Long id = (Long) factory.getCurrentSession().save(userComp);
+		userComp.setId(id);
+		return userComp;
+	}
+	
 
 }

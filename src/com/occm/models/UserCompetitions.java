@@ -1,5 +1,7 @@
 package com.occm.models;
 
+import java.util.Comparator;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user_competitions")
-public class UserCompetitions {
+public class UserCompetitions implements Comparable<UserCompetitions> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -81,4 +83,43 @@ public class UserCompetitions {
 		return "UserCompetitions [user=" + user + ", competition="
 				+ competition + ", approved=" + approved + "]";
 	}
+	
+	@Override
+	public int compareTo(UserCompetitions comp) {
+		return (int) (this.competition.getId() - comp.competition.getId());
+	}
+
+	public static Comparator<UserCompetitions> UserCompetitionsStatusComparator = new Comparator<UserCompetitions>() {
+
+		public int compare(UserCompetitions comp1, UserCompetitions comp2) {
+
+			String stat1 = comp1.getCompetition().getStatus().toUpperCase();
+			String stat2 = comp2.getCompetition().getStatus().toUpperCase();
+
+			if (stat1.equals(stat2)) {
+				return 0;
+			}
+			if (stat1.equals("RUNNING")) {
+				return -1;
+			}
+			if (stat2.equals("RUNNING")) {
+				return 1;
+			}
+			if (stat1.equals("UPCOMMING")) {
+				return -1;
+			}
+			if (stat2.equals("UPCOMMING")) {
+				return 1;
+			}
+			if (stat1.equals("NEVERENDING")) {
+				return -1;
+			}
+			if (stat2.equals("NEVERENDING")) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+
+	};
 }
