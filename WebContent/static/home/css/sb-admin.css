@@ -403,3 +403,42 @@ td.action a{
     margin-top: 0px;
     float: right;
 }
+.tag_box{
+
+}
+.tag_box label *{
+   vertical-align: middle;
+}
+.tag_box input{
+    margin: -1px 4px 0 0;
+}
+.tag_box label{
+    background-color: #e3e3e3;
+    color: #005174;
+    display: table-cell;
+    font-weight: normal;
+    padding: 5px 6px;
+    cursor: pointer;
+    border-radius: 15px;
+    cursor: pointer;
+    display: table-cell;
+    font-weight: normal;
+    padding: 7px 18px;
+    margin: 4px;
+    float: left;
+}
+
+.tag_box a:hover{
+    background-color: rgba(59, 59, 59, 0.44);
+}
+.tag_box  .fa{
+    line-height: 0;
+}
+.tag_box  a{
+    vertical-align: middle;
+    padding: 7px 15px;
+    border-radius: 14px;
+}
+label.problem_tag {
+    padding: 10px 0px 11px 15px;
+}
