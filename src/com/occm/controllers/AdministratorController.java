@@ -1,10 +1,5 @@
 package com.occm.controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.occm.models.Competition;
-import com.occm.models.CompetitionListDetails;
-import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
 @Controller
