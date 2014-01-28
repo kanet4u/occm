@@ -62,14 +62,14 @@
 							List</a> <a href="${pageContext.request.contextPath}/admin/users/add">Add
 							User</a> <a href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
 				</ul></li>
-			<li class="${requestScope.compactive}"><a
-				href="admin_competitions.html"><i class="fa fa-tasks fa-fw"></i>
-					Competitions <span class="fa arrow"></span></a>
+			
+			<li class="${requestScope.compactive}"><a href="${pageContext.request.contextPath}/admin/competition"><i
+					class="fa fa-tasks fa-fw"></i> Competitions <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
-					<li><a href="admin_competitions.html">Competitions List</a> <a
-						href="admin_competition_requests.html">Join Requests</a> <a
-						href="admin_competition_active.html">Active Competition</a> <a
-						href="admin_competition_add.html">Add Competition</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/competition">Competitions List</a> <a
+						href="${pageContext.request.contextPath}/admin/competition/join">Join Requests</a> <a
+						href="${pageContext.request.contextPath}/admin/competition/active">Active Competition</a> <a
+						href="${pageContext.request.contextPath}/admin/competition/add">Add Competition</a></li>
 				</ul></li>
 			<li class="${requestScope.problemsactive}"><a
 				href="admin_problems.html"><i class="fa fa-superscript fa-fw"></i>
