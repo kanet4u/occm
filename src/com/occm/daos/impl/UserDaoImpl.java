@@ -72,8 +72,9 @@ public class UserDaoImpl implements UserDao {
 		Session ref=factory.getCurrentSession();
 		System.out.println("In User Dao : Unsubscribe : Session Ref => ( " + ref + " ) ");
 		User user = getDetails(id);
-		if(user != null)
+		if(user != null){
 			ref.delete(user);
+		}
 		else
 			System.out.println("In User Dao : Unsubscribe : User Not Found  : ID => ( " + id + " ) ");
 		return user;
@@ -132,6 +133,13 @@ public class UserDaoImpl implements UserDao {
 		Long id = (Long) factory.getCurrentSession().save(userComp);
 		userComp.setId(id);
 		return userComp;
+	}
+	
+	
+	@Override
+	public Competition updateCompetition(Competition comp) {
+		factory.getCurrentSession().update(comp);
+		return comp;
 	}
 	
 

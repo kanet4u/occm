@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,15 +56,8 @@
 											<%-- <td class="col_start ">${comp.startTime}</td>
 											<td class="col_end ">${comp.endTime}</td> --%>
 											<c:if test="${comp.isLimited}">
-												<c:if test="${comp.status =='RUNNING'}">
-													<td colspan="2" class="counter">
-															<i class="fa fa-spinner fa-spin"></i> ${comp.timeLeft}
-														</td>
-												</c:if>
-												<c:if test="${comp.status !='RUNNING'}">
-													<td class="col_start ">${comp.startTime}</td>
-													<td class="col_end ">${comp.startTime}</td>
-												</c:if>
+												<td class="col_start ">${comp.startTime}</td>
+												<td class="col_end ">${comp.endTime}</td>
 											</c:if>
 											<c:if test="${!comp.isLimited}">
 												<td class="col_start ">Never Stated</td>
@@ -71,18 +65,18 @@
 											</c:if>
 											<td class="col_status"><c:if
 													test="${comp.status =='RUNNING'}">
-													<span class="label label-success"><spring:message
+													<b>0</b><span class="label label-success"><spring:message
 															code="competition.status.running" /></span>
 												</c:if> <c:if test="${comp.status =='UPCOMMING'}">
-													<span class="label label-info"><spring:message
+													<b>1</b><span class="label label-info"><spring:message
 															code="competition.status.upcomming" /></span>
 
 												</c:if> <c:if test="${comp.status =='ARCHIEVED'}">
-													<span class="label label-warning"><spring:message
+													<b>2</b><span class="label label-warning"><spring:message
 															code="competition.status.archieved" /></span>
 
 												</c:if> <c:if test="${comp.status =='NEVERENDING'}">
-													<span class="label label-danger"><spring:message
+													<b>3</b><span class="label label-danger"><spring:message
 															code="competition.status.neverending" /></span>
 
 												</c:if></td>
@@ -94,283 +88,7 @@
 													class="fa fa-minus-circle"></i></a></td>
 										</tr>
 									</c:forEach>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-success">running</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-info">upcoming</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="col_username"><a href="admin_add_user.html">Some
-												Competition Title</a></td>
-										<td class="col_start ">Jan 1, 2014 14:30</td>
-										<td class="col_end ">Jan 1, 2014 14:30</td>
-										<td class="col_status"><span class="label label-warning">archive</span></td>
-										<td class="action col_edit"><a href="#"><i
-												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a href="#"><i
-												class="fa fa-minus-circle"></i></a></td>
-									</tr>
-
+									
 								</tbody>
 							</table>
 						</div>

@@ -36,5 +36,7 @@ public interface UserDao {
 	Competition getCompetitionDetails(Long id);
 
 	UserCompetitions joinUserCompetition(User user, Competition comp);
+
+	Competition updateCompetition(Competition comp);
 	
 }

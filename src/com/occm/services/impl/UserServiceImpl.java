@@ -40,11 +40,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(timeout=100)
 	public User update(User user) {
 		return dao.update(user);
 	}
 
 	@Override
+	@Transactional
 	public User unsubscribe(Long id) {
 		return dao.unsubscribe(id);
 	}
@@ -82,6 +84,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserCompetitions joinUserCompetition(User user, Competition comp) {
 		return dao.joinUserCompetition(user, comp);
+	}
+
+	@Override
+	@Transactional
+	public Competition updateCompetition(Competition comp) {
+		return dao.updateCompetition(comp);
 	}
 
 }

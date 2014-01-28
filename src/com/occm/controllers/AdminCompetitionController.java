@@ -8,16 +8,17 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,108 +36,142 @@ public class AdminCompetitionController {
 	private UserService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String index(ModelMap map, HttpSession hs) {
+	public ModelAndView index(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
 		/* map.addAttribute("message_success", "Some Message Here"); */
 		if (hs.getAttribute("management_dashboard") == null) {
-			return URL_MAPPING + "/login";
+			redirectAttributes.addFlashAttribute("message_error",
+					"You don't have proper authorization.");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
 		}
-		
+		if (hs.getAttribute("activeUser") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Please login first...");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
+		}
+
 		Collection<Competition> competitions = service.getCompetitionList();
 
 		for (Competition competition : competitions) {
 			Date current = new Date();
 			competition.setStatus(current);
 			competition.setDuration();
-			
+
 			competition.setUserCount(competition.getUsers().size());
 			competition.setProblemCount(competition.getProblems().size());
 		}
 
 		ArrayList<Competition> sorted = new ArrayList<Competition>();
 		sorted.addAll(competitions);
-		Collections.sort(sorted,Competition.CompetitionStatusComparator);
-		
+		Collections.sort(sorted, Competition.CompetitionStatusComparator);
+
 		map.addAttribute("userCompetitions", sorted);
-		
-		return URL_MAPPING + "/index";
+
+		return new ModelAndView(URL_MAPPING + "/index");
 	}
-	
-	@RequestMapping(value="/join",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView joinList(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
+		return new ModelAndView(URL_MAPPING + "/index");
 	}
-	
-	@RequestMapping(value="/active",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/active", method = RequestMethod.GET)
 	public ModelAndView activeList(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
+		return new ModelAndView(URL_MAPPING + "/index");
 	}
-	
-	@RequestMapping(value="/add",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addCompetition(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
-	}
-	
-	@RequestMapping("/edit/{comp_id}")
-	public ModelAndView editCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
-		
-		return new ModelAndView(URL_MAPPING+"/edit");
-	}
-	@RequestMapping("/delete/{comp_id}")
-	public ModelAndView deleteCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
-		
-		return new ModelAndView("redirect:"+URL_MAPPING);
+		return new ModelAndView(URL_MAPPING + "/index");
 	}
 
-/*	
-	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public ModelAndView login(
-			@RequestParam(value = "email", required = true) String userName,
-			@RequestParam(value = "password", required = true) String password,
-			final RedirectAttributes redirectAttributes, 
-			ModelMap map,
+	@RequestMapping("/edit/{comp_id}")
+	public ModelAndView editCompetition(@PathVariable("comp_id") Long compId,
+			final RedirectAttributes redirectAttributes, Model map,
 			HttpSession hs) {
 
-		User user = service.validate(new User(userName, password));
-		if (user != null) {
-			if (user.getStatus().isActive()) {
-				user.setLoggedIn(hs);
-				redirectAttributes.addFlashAttribute("message_success",
-						"You have successfully logged in.");
-			} else {
-				redirectAttributes.addFlashAttribute("message_error",
-						"User is not active!");
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("message_error",
-					"Email or password incorrect!");
-		}
-		return new ModelAndView("redirect:" + URL_MAPPING);
-	}
-
-	@RequestMapping("/logout")
-	public ModelAndView logoutUser(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		hs.invalidate();
-		return new ModelAndView("redirect:" + URL_MAPPING);
-	}
-
-	@RequestMapping("/users")
-	public String usersList(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("management_dashboard") == null) {
-			return URL_MAPPING + "/login";
+			redirectAttributes.addFlashAttribute("message_error",
+					"You don't have proper authorization.");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
 		}
-		if (hs.getAttribute("user_list") == null) {
-			redirectAttributes.addFlashAttribute("message_error", "Permittion dined!");
-			return "redirect:" + URL_MAPPING;
+
+		Competition comp = (Competition) service.getCompetitionDetails(compId);
+		if (comp == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Competition Not Found");
+			return new ModelAndView("redirect: " + URL_MAPPING);
+		}
+		map.addAttribute("competition", comp);
+		return new ModelAndView(URL_MAPPING + "/edit");
+	}
+
+	@RequestMapping(value = "/edit/{comp_id}", method = RequestMethod.POST)
+	public ModelAndView register(
+			@Valid/* @ModelAttribute("user") */Competition comp,
+			BindingResult results,final RedirectAttributes redirectAttributes, Model map, HttpSession hs) {
+		
+		// chk for P.L errs
+		if (results.hasErrors()) {
+			map.addAttribute("message_error", "Competition Updation Failed");
+			return new ModelAndView(URL_MAPPING + "/edit");
 		}
 		
-		map.addAttribute("users", service.viewAll());
-
-		return URL_MAPPING + "/users/list";
+		
+		comp = service.updateCompetition(comp);
+		
+		redirectAttributes.addFlashAttribute("message_success",
+				"Competition Updated Successfully");
+		return new ModelAndView("redirect:"+URL_MAPPING);
 	}
-*/
+	
+	@RequestMapping("/delete/{comp_id}")
+	public ModelAndView deleteCompetition(@PathVariable("comp_id") Long compId,
+			Model map, HttpSession hs) {
+
+		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+
+	/*
+	 * 
+	 * @RequestMapping(value="/login", method = RequestMethod.POST) public
+	 * ModelAndView login(
+	 * 
+	 * @RequestParam(value = "email", required = true) String userName,
+	 * 
+	 * @RequestParam(value = "password", required = true) String password, final
+	 * RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
+	 * 
+	 * User user = service.validate(new User(userName, password)); if (user !=
+	 * null) { if (user.getStatus().isActive()) { user.setLoggedIn(hs);
+	 * redirectAttributes.addFlashAttribute("message_success",
+	 * "You have successfully logged in."); } else {
+	 * redirectAttributes.addFlashAttribute("message_error",
+	 * "User is not active!"); } } else {
+	 * redirectAttributes.addFlashAttribute("message_error",
+	 * "Email or password incorrect!"); } return new ModelAndView("redirect:" +
+	 * URL_MAPPING); }
+	 * 
+	 * @RequestMapping("/logout") public ModelAndView
+	 * logoutUser(HttpServletRequest httpServletRequest, HttpServletResponse
+	 * httpServletResponse, HttpSession hs) { hs.invalidate(); return new
+	 * ModelAndView("redirect:" + URL_MAPPING); }
+	 * 
+	 * @RequestMapping("/users") public String usersList(final
+	 * RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) { if
+	 * (hs.getAttribute("management_dashboard") == null) { return URL_MAPPING +
+	 * "/login"; } if (hs.getAttribute("user_list") == null) {
+	 * redirectAttributes.addFlashAttribute("message_error",
+	 * "Permittion dined!"); return "redirect:" + URL_MAPPING; }
+	 * 
+	 * map.addAttribute("users", service.viewAll());
+	 * 
+	 * return URL_MAPPING + "/users/list"; }
+	 */
 }
