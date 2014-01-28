@@ -241,6 +241,14 @@ public class Problem {
 		this.score = score;
 	}
 
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public Set<TestCase> getTestCases() {
 		return testCases;
 	}

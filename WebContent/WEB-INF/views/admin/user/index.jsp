@@ -17,10 +17,10 @@
 					<h3 class="page-header">User Management</h3>
 					<ol class="breadcrumb">
 						<li><a href="${pageContext.request.contextPath}/admin">Administration</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/users">User
+						<li><a href="${pageContext.request.contextPath}/admin/user">User
 								Management</a></li>
 						<span class="pull-right admin_action"><a
-							href="${pageContext.request.contextPath}/admin/users/add"><i
+							href="${pageContext.request.contextPath}/admin/user/add"><i
 								class="fa fa-plus"></i> Add New User</a></span>
 					</ol>
 
@@ -47,20 +47,20 @@
 									<tr class="comp-running">
 										<td>${user.id}</td>
 										<td class="col_email"><a
-											href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">${user.email}</a>
+											href="${pageContext.request.contextPath}/admin/user/edit/${user.id}">${user.email}</a>
 										</td>
 										<td class="col_firstname visible-lg">${user.fname}</td>
 										<td class="col_lastname visible-lg">${user.sname}</td>
 										<td class="col_role"><a
 											href="${pageContext.request.contextPath}/admin/roles/edit/${user.role.id}">${user.role.role}</a></td>
 										<td class="action col_status"><b>${user.status.status}</b><a
-											href="${pageContext.request.contextPath}/admin/users/status/${user.id}"><i
+											href="${pageContext.request.contextPath}/admin/user/status/${user.id}"><i
 												class="fa status-${user.status.status}"></i></a></td>
 										<td class="action col_edit"><a
-											href="${pageContext.request.contextPath}/admin/users/edit/${user.id}"><i
+											href="${pageContext.request.contextPath}/admin/user/edit/${user.id}"><i
 												class="fa fa-edit"></i> </a></td>
 										<td class="action col_delete"><a
-											href="${pageContext.request.contextPath}/admin/users/delete/${user.id}"><i
+											href="${pageContext.request.contextPath}/admin/user/delete/${user.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
 								</c:forEach>

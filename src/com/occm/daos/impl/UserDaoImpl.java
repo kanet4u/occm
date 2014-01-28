@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
+import com.occm.models.Problem;
 import com.occm.models.Role;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -112,6 +113,14 @@ public class UserDaoImpl implements UserDao {
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Problem> getProblemList() {
+		String hql = "select u from Problem u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<UserCompetitions> getUserCompetitionList(User user) {

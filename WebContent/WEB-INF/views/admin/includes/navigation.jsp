@@ -55,11 +55,11 @@
 			<li><a href="${pageContext.request.contextPath}/admin"><i
 					class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
 			<li class="${requestScope.usersactive}"><a
-				href="${pageContext.request.contextPath}/admin/users"><i
+				href="${pageContext.request.contextPath}/admin/user"><i
 					class="fa fa-users fa-fw active"></i> Users<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
-					<li><a href="${pageContext.request.contextPath}/admin/users">Users
-							List</a> <a href="${pageContext.request.contextPath}/admin/users/add">Add
+					<li><a href="${pageContext.request.contextPath}/admin/user">Users
+							List</a> <a href="${pageContext.request.contextPath}/admin/user/add">Add
 							User</a> <a href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
 				</ul></li>
 			
@@ -72,12 +72,12 @@
 						href="${pageContext.request.contextPath}/admin/competition/add">Add Competition</a></li>
 				</ul></li>
 			<li class="${requestScope.problemsactive}"><a
-				href="admin_problems.html"><i class="fa fa-superscript fa-fw"></i>
+				href="${pageContext.request.contextPath}/admin/problem"><i class="fa fa-superscript fa-fw"></i>
 					Problems <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="admin_problems.html">Problems List</a> <a
-						href="admin_problem_add.html">Add Problem</a> <a
-						href="admin_problem_tags.html">Problem Tags</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/problem">Problems List</a> <a
+						href="${pageContext.request.contextPath}/admin/problem/add">Add Problem</a> <a
+						href="${pageContext.request.contextPath}/admin/problem/tag">Problem Tags</a></li>
 				</ul></li>
 			<li><a href="admin_submissions.html"><i
 					class="fa fa-code fa-fw"></i> Submission</a></li>

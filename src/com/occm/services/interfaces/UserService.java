@@ -3,6 +3,7 @@ package com.occm.services.interfaces;
 import java.util.Collection;
 
 import com.occm.models.Competition;
+import com.occm.models.Problem;
 import com.occm.models.Role;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -28,6 +29,8 @@ public interface UserService {
 	
 
 	Collection<Competition> getCompetitionList();
+	
+	Collection<Problem> getProblemList();
 	
 	Collection<UserCompetitions> getUserCompetitionList(User user);
 	

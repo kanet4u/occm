@@ -67,12 +67,9 @@ public class AdministratorController {
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 
-	@RequestMapping("/users")
+	@RequestMapping("/user")
 	public String usersList(final RedirectAttributes redirectAttributes,
 			ModelMap map, HttpSession hs) {
-		if (hs.getAttribute("management_dashboard") == null) {
-			return URL_MAPPING + "/login";
-		}
 		if (hs.getAttribute("user_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
@@ -81,10 +78,10 @@ public class AdministratorController {
 		map.addAttribute("usersactive", "active");
 		map.addAttribute("users", service.viewAll());
 
-		return URL_MAPPING + "/users/list";
+		return URL_MAPPING + "/user/index";
 	}
 
-	@RequestMapping("/users/delete/{id}")
+	@RequestMapping("/user/delete/{id}")
 	public String userDelete(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
@@ -99,7 +96,7 @@ public class AdministratorController {
 			redirectAttributes.addFlashAttribute("message_success",
 					"User " + u.getEmail() + " is deleted.");
 		}
-		return "redirect:" + URL_MAPPING + "/users";
+		return "redirect:" + URL_MAPPING + "/user";
 	}
 
 }

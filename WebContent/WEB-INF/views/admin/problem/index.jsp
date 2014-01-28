@@ -50,11 +50,14 @@
 										<td class="col_alias">${problem.alias}</td>
 										<td class="col_title visible-lg visible-md"><a
 											href="${pageContext.request.contextPath}/admin/problem/edit/${problem.id}">
-												${problem.Title}</a></td>
+												${problem.title}</a></td>
 										<td class="col_score">${problem.score}</td>
 										<td class="action col_status"><b>${problem.status}</b><a
 											href="${pageContext.request.contextPath}/admin/problem/status/${problem.id}"><i
-												class="fa status-${problem}"></i></a></td>
+												class="fa status-${problem.status}"></i></a></td>
+										<td class="action col_edit"><a
+											href="${pageContext.request.contextPath}/admin/submission/problem/${problem.id}"><i
+												class="fa fa-code"></i> </a></td>
 										<td class="action col_edit"><a
 											href="${pageContext.request.contextPath}/admin/problem/edit/${problem.id}"><i
 												class="fa fa-edit"></i> </a></td>
@@ -77,7 +80,7 @@
 				$('#users_table').dataTable({
 					"aoColumnDefs" : [ {
 						'bSortable' : false,
-						'aTargets' : [ 6, 7 ]
+						'aTargets' : [ 5, 6, 7 ]
 					} ]
 				});
 				$('#users_table_filter input').attr('placeholder', 'Search')

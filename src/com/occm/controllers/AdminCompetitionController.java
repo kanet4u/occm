@@ -63,12 +63,8 @@ public class AdminCompetitionController {
 			competition.setProblemCount(competition.getProblems().size());
 		}
 
-		ArrayList<Competition> sorted = new ArrayList<Competition>();
-		sorted.addAll(competitions);
-		Collections.sort(sorted, Competition.CompetitionStatusComparator);
-
-		map.addAttribute("userCompetitions", sorted);
-
+		map.addAttribute("userCompetitions", competitions);
+		map.addAttribute("compactive", "active");
 		return new ModelAndView(URL_MAPPING + "/index");
 	}
 
@@ -131,13 +127,23 @@ public class AdminCompetitionController {
 		return new ModelAndView("redirect:"+URL_MAPPING);
 	}
 	
-	@RequestMapping("/delete/{comp_id}")
-	public ModelAndView deleteCompetition(@PathVariable("comp_id") Long compId,
-			Model map, HttpSession hs) {
-
-		return new ModelAndView("redirect:" + URL_MAPPING);
+	
+	@RequestMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, 
+			ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("competition_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			//Competition u = service.unsubscribe(id);
+			redirectAttributes.addFlashAttribute("message_success",
+					"Competition " + id + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING;
 	}
-
+	
 	/*
 	 * 
 	 * @RequestMapping(value="/login", method = RequestMethod.POST) public

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
+import com.occm.models.Problem;
 import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
@@ -39,14 +40,15 @@ public class AdminProblemController {
 		if (hs.getAttribute("problem_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
-			return "redirect:" + URL_MAPPING;
+			return "redirect:/admin";
 		}
-		Collection<Competition> problems = service.getCompetitionList();
+		Collection<Problem> problems = service.getProblemList();
 
 		map.addAttribute("problems", problems);
-		
+		map.addAttribute("problemsactive", "active");
 		return URL_MAPPING + "/index";
 	}
+	
 	
 	@RequestMapping(value="/join",method = RequestMethod.GET)
 	public ModelAndView joinList(HttpServletRequest httpServletRequest,
