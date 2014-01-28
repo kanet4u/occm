@@ -2,6 +2,7 @@ package com.occm.daos.interfaces;
 
 import java.util.Collection;
 
+import com.occm.models.Competition;
 import com.occm.models.UserStatus;
 import com.occm.models.Role;
 import com.occm.models.User;
@@ -23,5 +24,9 @@ public interface UserDao {
 	Role getRole(Long id);
 
 	UserStatus getUserStatus(Long id);
+
+	
+
+	Collection<Competition> getCompetitionList();
 	
 }

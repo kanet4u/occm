@@ -59,7 +59,7 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
 	private Set<Submission> submissions = new HashSet<Submission>();
-
+	
 	public User() {
 		super();
 	}

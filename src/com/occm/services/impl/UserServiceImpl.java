@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
+import com.occm.models.Competition;
 import com.occm.models.Role;
 import com.occm.models.User;
 import com.occm.models.UserStatus;
@@ -60,5 +61,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserStatus getUserStatus(Long id) {
 		return dao.getUserStatus(id);
+	}
+
+	@Override
+	public Collection<Competition> getCompetitionList() {
+		return dao.getCompetitionList();
 	}
 }

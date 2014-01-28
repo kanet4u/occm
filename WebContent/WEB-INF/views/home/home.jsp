@@ -71,7 +71,7 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<h1>Welcome to Coding!</h1>
-			<h2>Howdy, ${sessionScope.activeUser.fname} ${sessionScope.activeUser.lname}
+			<h2>Howdy, ${sessionScope.activeUser.fname} ${sessionScope.activeUser.sname}
 				!!!</h2>
 
 			<p>Here is our Online Code Competition Management System and you

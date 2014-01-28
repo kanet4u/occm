@@ -24,8 +24,11 @@
 				hibernate.format_sql=true
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.auto=update
+				hibernate.connection.zeroDateTimeBehavior=convertToNull
 			</value>
+			
 		</property>
+		
 	</bean>
 	<!-- configure tx mgr bean -->
 	<bean id="transactionManager"

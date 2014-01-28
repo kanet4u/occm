@@ -1,5 +1,6 @@
 package com.occm.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,10 +34,15 @@ public class Competition {
 	
 	
 	@Column(name="start_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date startTime;
 	
 	@Column(name="end_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endTime;
+	
+	@Column(name="duration")
+	private double duration;
 	
 	@NotNull
 	@Column(name="is_limited")
@@ -46,7 +54,7 @@ public class Competition {
                 inverseJoinColumns={@JoinColumn(name="problem_id")})
 	private Set<Problem> problems = new HashSet<Problem>();
 	
-	@ManyToMany(mappedBy="competitions", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy="competitions", fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
 
 	public Competition() {
@@ -64,7 +72,7 @@ public class Competition {
 		this.endTime = endTime;
 		this.isLimited = isLimited;
 		this.problems = problems;
-		this.users = users;
+		/*this.users = users;*/
 	}
 
 	public Long getId() {
@@ -111,6 +119,9 @@ public class Competition {
 	public boolean isLimited() {
 		return isLimited;
 	}
+	public boolean getIsLimited() {
+		return isLimited;
+	}
 
 	public void setLimited(boolean isLimited) {
 		this.isLimited = isLimited;
@@ -137,7 +148,15 @@ public class Competition {
 		return "\nCompetition [id=" + id + ", title=" + title + ", details="
 				+ details  + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", isLimited=" + isLimited
-				+ ", problems=" + problems + ", users=" + users + "]";
+				+ ", problems=" + problems  ;
+	}
+
+	public double getDuration() {
+		return duration;
+	}
+
+	public void setDuration(double duration) {
+		this.duration = duration;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.occm.daos.interfaces.UserDao;
+import com.occm.models.Competition;
 import com.occm.models.Role;
 import com.occm.models.User;
 import com.occm.models.UserStatus;
@@ -99,6 +100,14 @@ public class UserDaoImpl implements UserDao {
 		Session ref=factory.getCurrentSession();
 		System.out.println("In User Dao : getUserStatus : Session Ref => ( " + ref + " ) ");
 		return (UserStatus) ref.get(UserStatus.class,id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Competition> getCompetitionList() {
+		String hql = "select u from Competition u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
 	}
 
 }
