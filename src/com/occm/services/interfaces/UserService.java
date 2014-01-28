@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.occm.models.Competition;
 import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
 
 public interface UserService {
@@ -27,4 +28,6 @@ public interface UserService {
 	
 
 	Collection<Competition> getCompetitionList();
+	
+	Collection<UserCompetitions> getUserCompetitionList(Long id);
 }

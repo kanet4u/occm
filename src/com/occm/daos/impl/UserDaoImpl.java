@@ -13,6 +13,7 @@ import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
 import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
 
 @Repository("UserDao")
@@ -108,6 +109,14 @@ public class UserDaoImpl implements UserDao {
 		String hql = "select u from Competition u";
 
 		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<UserCompetitions> getUserCompetitionList(Long id) {
+		String hql = "select u from UserCompetitions u where u.user_id = :id";
+
+		return factory.getCurrentSession().createQuery(hql).setParameter("id", id).list();
 	}
 
 }

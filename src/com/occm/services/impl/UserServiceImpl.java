@@ -10,6 +10,7 @@ import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
 import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
 import com.occm.services.interfaces.UserService;
 
@@ -66,5 +67,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Collection<Competition> getCompetitionList() {
 		return dao.getCompetitionList();
+	}
+
+	@Override
+	public Collection<UserCompetitions> getUserCompetitionList(Long id) {
+		return dao.getUserCompetitionList(id);
 	}
 }

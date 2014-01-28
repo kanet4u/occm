@@ -1,6 +1,5 @@
 package com.occm.models;
 
-import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
@@ -45,7 +44,7 @@ public class Competition implements Comparable<Competition> {
 	private Date endTime;
 
 	@Column(name = "duration")
-	private double duration;
+	private String duration;
 
 	@NotNull
 	@Column(name = "is_limited")
@@ -163,12 +162,33 @@ public class Competition implements Comparable<Competition> {
 				+ ", isLimited=" + isLimited + ", problems=" + problems;
 	}
 
-	public double getDuration() {
-		return duration;
+	public String getDuration() {
+
+		return this.duration;
 	}
 
-	public void setDuration(double duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+
+	public void setDuration() {
+		if (endTime != null && startTime != null) {
+			long duration = this.getEndTime().getTime()
+					- this.getStartTime().getTime();
+
+			long diffHours = TimeUnit.MILLISECONDS.toHours(duration);
+			long diffMinutes = TimeUnit.MILLISECONDS.toMinutes(duration
+					- TimeUnit.HOURS.toMillis(diffHours));
+			long diffSeconds = TimeUnit.MILLISECONDS.toSeconds(duration
+					- TimeUnit.MINUTES.toMillis(diffMinutes)
+					- TimeUnit.HOURS.toMillis(diffHours));
+
+			this.duration = "" + diffHours + " : " + diffMinutes + " : "
+					+ diffSeconds;
+		}
+		else{
+			duration = "";
+		}
 	}
 
 	public String getStatus() {
@@ -186,7 +206,8 @@ public class Competition implements Comparable<Competition> {
 				long diffMinutes = TimeUnit.MILLISECONDS.toMinutes(duration
 						- TimeUnit.HOURS.toMillis(diffHours));
 				long diffSeconds = TimeUnit.MILLISECONDS.toSeconds(duration
-						- TimeUnit.MINUTES.toMillis(diffMinutes) - TimeUnit.HOURS.toMillis(diffHours) );
+						- TimeUnit.MINUTES.toMillis(diffMinutes)
+						- TimeUnit.HOURS.toMillis(diffHours));
 
 				this.timeLeft = "" + diffHours + " : " + diffMinutes + " : "
 						+ diffSeconds;
@@ -200,6 +221,7 @@ public class Competition implements Comparable<Competition> {
 			status = "NEVERENDING";
 		}
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -240,28 +262,27 @@ public class Competition implements Comparable<Competition> {
 			String stat1 = comp1.getStatus().toUpperCase();
 			String stat2 = comp2.getStatus().toUpperCase();
 
-			if(stat1.equals(stat2)){
+			if (stat1.equals(stat2)) {
 				return 0;
 			}
-			if(stat1.equals("RUNNING")){
+			if (stat1.equals("RUNNING")) {
 				return -1;
 			}
-			if(stat2.equals("RUNNING")){
+			if (stat2.equals("RUNNING")) {
 				return 1;
 			}
-			if(stat1.equals("UPCOMMING")){
+			if (stat1.equals("UPCOMMING")) {
 				return -1;
 			}
-			if(stat2.equals("UPCOMMING")){
+			if (stat2.equals("UPCOMMING")) {
 				return 1;
 			}
-			if(stat1.equals("NEVERENDING")){
+			if (stat1.equals("NEVERENDING")) {
 				return -1;
 			}
-			if(stat2.equals("NEVERENDING")){
+			if (stat2.equals("NEVERENDING")) {
 				return 1;
-			}
-			else{
+			} else {
 				return 0;
 			}
 		}

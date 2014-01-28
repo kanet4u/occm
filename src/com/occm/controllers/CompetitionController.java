@@ -38,6 +38,7 @@ public class CompetitionController {
 		for (Competition competition : competitions) {
 			Date current = new Date();
 			competition.setStatus(current);
+			competition.setDuration();
 			
 			competition.setUserCount(competition.getUsers().size());
 			competition.setProblemCount(competition.getProblems().size());

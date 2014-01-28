@@ -3,6 +3,7 @@ package com.occm.daos.interfaces;
 import java.util.Collection;
 
 import com.occm.models.Competition;
+import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
 import com.occm.models.Role;
 import com.occm.models.User;
@@ -28,5 +29,7 @@ public interface UserDao {
 	
 
 	Collection<Competition> getCompetitionList();
+
+	Collection<UserCompetitions> getUserCompetitionList(Long id);
 	
 }
