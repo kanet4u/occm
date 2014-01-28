@@ -1,10 +1,7 @@
 package com.occm.controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.occm.models.Competition;
-import com.occm.models.CompetitionListDetails;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
@@ -30,11 +30,35 @@ public class AdministratorController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap map, HttpSession hs) {
-		if(hs.getAttribute("management_dashboard")==null){
+		map.addAttribute("message_success","Some Message Here");
+		if (hs.getAttribute("management_dashboard") == null) {
 			return URL_MAPPING + "/login";
 		}
 		return URL_MAPPING + "/index";
 	}
 
-	
+	@RequestMapping("/login")
+	public ModelAndView login(
+			@RequestParam(value = "email", required = true) String userName,
+			@RequestParam(value = "password", required = true) String password,
+			final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
+
+		User user = service.validate(new User(userName, password));
+		if (user != null) {			
+			user.setLoggedIn(hs);
+			redirectAttributes.addFlashAttribute("message_success", "You have successfully logged in.");
+		}else{
+			redirectAttributes.addFlashAttribute("message_error", "Email or password incorrect!");
+		}
+		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+
+	@RequestMapping("/logout")
+	public ModelAndView logoutUser(HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, HttpSession hs) {
+		hs.invalidate();
+		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+
 }

@@ -12,9 +12,13 @@
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/admin/includes/navigation.jsp" />
 		<div id="page-wrapper">
+		
 			<div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header">Dashboard</h3>
+				</div>
+				<div class="col-lg-12">
+					<jsp:include page="/WEB-INF/views/admin/includes/messages.jsp" />
 				</div>
 			</div>
 		</div>
