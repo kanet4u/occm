@@ -23,7 +23,7 @@
 							href="${pageContext.request.contextPath}/admin/users/add"><i
 								class="fa fa-plus"></i> Add New User</a></span>
 					</ol>
-				
+
 					<jsp:include page="/WEB-INF/views/admin/includes/messages.jsp" />
 
 					<div class="table-responsive">
@@ -32,10 +32,9 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th class="col_username">Username</th>
+									<th class="col_email">Email</th>
 									<th class="col_firstname visible-lg">Firstname</th>
 									<th class="col_lastname visible-lg">Lastname</th>
-									<th class="col_email">Email</th>
 									<th class="col_role">Role</th>
 									<th class="action col_status">Status</th>
 									<th class="action col_edit">Edit</th>
@@ -43,258 +42,29 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td class="col_username"><a href="admin_add_user.html">shavkat</a></td>
-									<td class="col_firstname visible-lg">Shavkat</td>
-									<td class="col_lastname visible-lg">Khamidjanov</td>
-									<td class="col_email">homidjonov@gmail.com</td>
-									<td class="col_role">admin</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_disabled">
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>d</b><a href="#"><i
-											class="fa fa-ban"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td class="col_username"><a href="admin_add_user.html">shavkat</a></td>
-									<td class="col_firstname visible-lg">Shavkat</td>
-									<td class="col_lastname visible-lg">Khamidjanov</td>
-									<td class="col_email">homidjonov@gmail.com</td>
-									<td class="col_role">admin</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_new">
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>n</b><a href="#"><i
-											class="fa fa-info-circle"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td class="col_username"><a href="admin_add_user.html">nurzod</a></td>
-									<td class="col_firstname visible-lg">Nurzod</td>
-									<td class="col_lastname visible-lg">Karahanov</td>
-									<td class="col_email">nurzodkarahanov@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_new">
-									<td>4</td>
-									<td class="col_username"><a href="admin_add_user.html">rahul</a></td>
-									<td class="col_firstname visible-lg">Rahul</td>
-									<td class="col_lastname visible-lg">Gupta</td>
-									<td class="col_email">rahulgupta@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>n</b><a href="#"><i
-											class="fa fa-info-circle"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td class="col_username"><a href="admin_add_user.html">nurzod</a></td>
-									<td class="col_firstname visible-lg">Nurzod</td>
-									<td class="col_lastname visible-lg">Karahanov</td>
-									<td class="col_email">nurzodkarahanov@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td class="col_username"><a href="admin_add_user.html">rahul</a></td>
-									<td class="col_firstname visible-lg">Rahul</td>
-									<td class="col_lastname visible-lg">Gupta</td>
-									<td class="col_email">rahulgupta@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td class="col_username"><a href="admin_add_user.html">shavkat</a></td>
-									<td class="col_firstname visible-lg">Shavkat</td>
-									<td class="col_lastname visible-lg">Khamidjanov</td>
-									<td class="col_email">homidjonov@gmail.com</td>
-									<td class="col_role">admin</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_disabled">
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>d</b><a href="#"><i
-											class="fa fa-ban"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td class="col_username"><a href="admin_add_user.html">shavkat</a></td>
-									<td class="col_firstname visible-lg">Shavkat</td>
-									<td class="col_lastname visible-lg">Khamidjanov</td>
-									<td class="col_email">homidjonov@gmail.com</td>
-									<td class="col_role">admin</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_new">
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>n</b><a href="#"><i
-											class="fa fa-info-circle"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td class="col_username"><a href="admin_add_user.html">nurzod</a></td>
-									<td class="col_firstname visible-lg">Nurzod</td>
-									<td class="col_lastname visible-lg">Karahanov</td>
-									<td class="col_email">nurzodkarahanov@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr class="status_new">
-									<td>4</td>
-									<td class="col_username"><a href="admin_add_user.html">rahul</a></td>
-									<td class="col_firstname visible-lg">Rahul</td>
-									<td class="col_lastname visible-lg">Gupta</td>
-									<td class="col_email">rahulgupta@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>n</b><a href="#"><i
-											class="fa fa-info-circle"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td class="col_username"><a href="admin_add_user.html">vivek</a></td>
-									<td class="col_firstname visible-lg">Vivek</td>
-									<td class="col_lastname visible-lg">Yadav</td>
-									<td class="col_email">vivekyadav@gmail.com</td>
-									<td class="col_role">teacher</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td class="col_username"><a href="admin_add_user.html">nurzod</a></td>
-									<td class="col_firstname visible-lg">Nurzod</td>
-									<td class="col_lastname visible-lg">Karahanov</td>
-									<td class="col_email">nurzodkarahanov@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td class="col_username"><a href="admin_add_user.html">rahul</a></td>
-									<td class="col_firstname visible-lg">Rahul</td>
-									<td class="col_lastname visible-lg">Gupta</td>
-									<td class="col_email">rahulgupta@gmail.com</td>
-									<td class="col_role">user</td>
-									<td class="action col_status"><b>a</b><a href="#"><i
-											class="fa fa-check-square-o"></i></a></td>
-									<td class="action col_edit"><a href="admin_user_edit.html"><i
-											class="fa fa-edit"></i> </a></td>
-									<td class="action col_delete"><a href="#"><i
-											class="fa fa-minus-circle"></i></a></td>
-								</tr>
+								<c:forEach var="user" items="${requestScope.users}"
+									varStatus="i">
+									<tr class="comp-running">
+										<td>${user.id}</td>
+										<td class="col_email"><a
+											href="${pageContext.request.contextPath}/admin/users/edit/${user.id}">${user.email}</a>
+										</td>
+										<td class="col_firstname visible-lg">${user.fname}</td>
+										<td class="col_lastname visible-lg">${user.sname}</td>
+										<td class="col_role"><a
+											href="${pageContext.request.contextPath}/admin/roles/edit/${user.role.id}">${user.role.role}</a></td>
+										<td class="action col_status"><b>${user.status.status}</b><a
+											href="${pageContext.request.contextPath}/admin/users/status/${user.id}"><i
+												class="fa status-${user.status.status}"></i></a></td>
+										<td class="action col_edit"><a
+											href="${pageContext.request.contextPath}/admin/users/edit/${user.id}"><i
+												class="fa fa-edit"></i> </a></td>
+										<td class="action col_delete"><a
+											href="${pageContext.request.contextPath}/admin/users/delete/${user.id}"><i
+												class="fa fa-minus-circle"></i></a></td>
+									</tr>
+								</c:forEach>
+
 							</tbody>
 						</table>
 					</div>
@@ -302,5 +72,17 @@
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#users_table').dataTable({
+					"aoColumnDefs" : [ {
+						'bSortable' : false,
+						'aTargets' : [ 6, 7 ]
+					} ]
+				});
+				$('#users_table_filter input').attr('placeholder', 'Search')
+			});
+		</script>
 </body>
 </html>
