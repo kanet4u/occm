@@ -12,18 +12,22 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/admin">Administration</a>
+		<a class="navbar-brand"
+			href="${pageContext.request.contextPath}/admin">Administration</a>
 	</div>
 	<ul class="nav navbar-top-links navbar-right">
+		<li><a href="${pageContext.request.contextPath}/home"><i
+				class="fa fa-home"></i> Home</a></li>
 		<c:if test="${sessionScope.activeUser != null}">
-
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> <b
 					class="caret"></b></a>
 				<ul class="dropdown-menu dropdown-user">
-					<li><a href="${pageContext.request.contextPath}/admin/user/edit/${sessionScope.activeUser.id}"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/user/edit/${sessionScope.activeUser.id}"><i
 							class="fa fa-user fa-fw"></i> User Profile</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/settings"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/settings"><i
 							class="fa fa-gear fa-fw"></i> Settings</a></li>
 					<li class="divider"></li>
 					<li><a href="${pageContext.request.contextPath}/admin/logout"><i
@@ -50,24 +54,26 @@
 			</li>
 			<li><a href="${pageContext.request.contextPath}/admin"><i
 					class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
-			<li class="${requestScope.usersactive}"><a href="${pageContext.request.contextPath}/admin/users"><i
+			<li class="${requestScope.usersactive}"><a
+				href="${pageContext.request.contextPath}/admin/users"><i
 					class="fa fa-users fa-fw active"></i> Users<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
-					<li><a href="${pageContext.request.contextPath}/admin/users">Users List</a> <a
-						href="${pageContext.request.contextPath}/admin/users/add">Add User</a> <a
-						href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/users">Users
+							List</a> <a href="${pageContext.request.contextPath}/admin/users/add">Add
+							User</a> <a href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
 				</ul></li>
-			<li class="${requestScope.compactive}"><a href="admin_competitions.html"><i
-					class="fa fa-tasks fa-fw"></i> Competitions <span class="fa arrow"></span></a>
+			<li class="${requestScope.compactive}"><a
+				href="admin_competitions.html"><i class="fa fa-tasks fa-fw"></i>
+					Competitions <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
 					<li><a href="admin_competitions.html">Competitions List</a> <a
 						href="admin_competition_requests.html">Join Requests</a> <a
 						href="admin_competition_active.html">Active Competition</a> <a
 						href="admin_competition_add.html">Add Competition</a></li>
 				</ul></li>
-			<li class="${requestScope.problemsactive}"><a href="admin_problems.html"><i
-					class="fa fa-superscript fa-fw"></i> Problems <span
-					class="fa arrow"></span></a>
+			<li class="${requestScope.problemsactive}"><a
+				href="admin_problems.html"><i class="fa fa-superscript fa-fw"></i>
+					Problems <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="admin_problems.html">Problems List</a> <a
 						href="admin_problem_add.html">Add Problem</a> <a
