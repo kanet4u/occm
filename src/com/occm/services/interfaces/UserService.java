@@ -29,5 +29,9 @@ public interface UserService {
 
 	Collection<Competition> getCompetitionList();
 	
-	Collection<UserCompetitions> getUserCompetitionList(Long id);
+	Collection<UserCompetitions> getUserCompetitionList(User user);
+	
+	Competition getCompetitionDetails(Long id);
+
+	UserCompetitions joinUserCompetition(User user, Competition comp);
 }

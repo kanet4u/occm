@@ -10,11 +10,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.occm.models.Competition;
+import com.occm.models.FirstVisit;
+import com.occm.models.User;
+import com.occm.models.UserCompetitions;
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -51,6 +57,51 @@ public class CompetitionController {
 		map.addAttribute("userCompetitions", sorted);
 
 		return URL_MAPPING + "/list"; // show index.jsp
+	}
+	
+	@RequestMapping("/join")
+	public ModelAndView showMyCompetitions(Model map, HttpSession hs) {
+		if (hs.getAttribute("activeUser") == null) {
+			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
+		}
+		Collection<UserCompetitions> competitions = service.getUserCompetitionList(((User)hs.getAttribute("activeUser")));
+
+		for (UserCompetitions competition : competitions) {
+			Date current = new Date();
+			competition.getCompetition().setStatus(current);
+			competition.getCompetition().setDuration();
+			
+			competition.getCompetition().setUserCount(competition.getCompetition().getUsers().size());
+			competition.getCompetition().setProblemCount(competition.getCompetition().getProblems().size());
+		}
+
+		ArrayList<UserCompetitions> sorted = new ArrayList<UserCompetitions>();
+		sorted.addAll(competitions);
+		Collections.sort(sorted,UserCompetitions.UserCompetitionsStatusComparator);
+		
+		map.addAttribute("userCompetitions", sorted);
+
+		return new ModelAndView(URL_MAPPING + "/mylist"); // show index.jsp
+	}
+	
+	@RequestMapping("/join/{comp_id}")
+	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
+		if (hs.getAttribute("activeUser") == null) {
+			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
+		}
+		
+		UserCompetitions userComp = service.joinUserCompetition(((User)hs.getAttribute("activeUser")), service.getCompetitionDetails(compId));
+		hs.setAttribute("firstVisit", new FirstVisit(true));
+		if(userComp!=null){
+			hs.setAttribute("msgCode","SUCCESS");
+			hs.setAttribute("msgText","Join request has been send, please wait while the admin approves your request.");
+		}
+		else{
+			hs.setAttribute("msgCode","FAILURE");
+			hs.setAttribute("msgText","Request Failed please try again later.");
+		}
+		
+		return new ModelAndView("redirect:"+URL_MAPPING + "/join"); 
 	}
 
 }

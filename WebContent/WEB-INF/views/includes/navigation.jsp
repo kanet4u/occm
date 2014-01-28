@@ -41,11 +41,11 @@
 						data-toggle="dropdown"><i class="fa fa-user"></i> My Account <b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-envelope-o"></i> Inbox</a></li>
-							<li><a href="#"><i class="fa fa-code"></i> Submissions</a></li>
+							<li><a href="${pageContext.request.contextPath}/account/inbox"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+							<li><a href="${pageContext.request.contextPath}/account/submissions"><i class="fa fa-code"></i> Submissions</a></li>
 							<li class="divider"></li>
-							<li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-							<li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+							<li><a href="${pageContext.request.contextPath}/account/settings"><i class="fa fa-gear"></i> Settings</a></li>
+							<li><a href="${pageContext.request.contextPath}/home/logout"><i class="fa fa-power-off"></i> Logout</a></li>
 						</ul></li>
 				</ul>
 			</c:if>
