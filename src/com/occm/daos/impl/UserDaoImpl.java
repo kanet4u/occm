@@ -13,6 +13,7 @@ import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
 import com.occm.models.Problem;
 import com.occm.models.Role;
+import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -121,6 +122,22 @@ public class UserDaoImpl implements UserDao {
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Tag> getTagList() {
+		String hql = "select u from Tag u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Role> getRoleList() {
+		String hql = "select u from Role u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<UserCompetitions> getUserCompetitionList(User user) {

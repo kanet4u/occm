@@ -60,7 +60,7 @@
 				<ul class="nav nav-second-level ">
 					<li><a href="${pageContext.request.contextPath}/admin/user">Users
 							List</a> <a href="${pageContext.request.contextPath}/admin/user/add">Add
-							User</a> <a href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
+							User</a> <a href="${pageContext.request.contextPath}/admin/user/roles">Roles</a></li>
 				</ul></li>
 			
 			<li class="${requestScope.compactive}"><a href="${pageContext.request.contextPath}/admin/competition"><i
@@ -68,7 +68,6 @@
 				<ul class="nav nav-second-level ">
 					<li><a href="${pageContext.request.contextPath}/admin/competition">Competitions List</a> <a
 						href="${pageContext.request.contextPath}/admin/competition/join">Join Requests</a> <a
-						href="${pageContext.request.contextPath}/admin/competition/active">Active Competition</a> <a
 						href="${pageContext.request.contextPath}/admin/competition/add">Add Competition</a></li>
 				</ul></li>
 			<li class="${requestScope.problemsactive}"><a
@@ -77,7 +76,7 @@
 				<ul class="nav nav-second-level">
 					<li><a href="${pageContext.request.contextPath}/admin/problem">Problems List</a> <a
 						href="${pageContext.request.contextPath}/admin/problem/add">Add Problem</a> <a
-						href="${pageContext.request.contextPath}/admin/problem/tag">Problem Tags</a></li>
+						href="${pageContext.request.contextPath}/admin/problem/tags">Problem Tags</a></li>
 				</ul></li>
 			<li><a href="admin_submissions.html"><i
 					class="fa fa-code fa-fw"></i> Submission</a></li>

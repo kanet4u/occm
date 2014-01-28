@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.occm.models.Competition;
 import com.occm.models.Problem;
 import com.occm.models.Role;
+import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -31,6 +32,10 @@ public interface UserService {
 	Collection<Competition> getCompetitionList();
 	
 	Collection<Problem> getProblemList();
+	
+	Collection<Tag> getTagList();
+	
+	Collection<Role> getRoleList();
 	
 	Collection<UserCompetitions> getUserCompetitionList(User user);
 	

@@ -61,8 +61,8 @@
 										<td class="action col_edit"><a
 											href="${pageContext.request.contextPath}/admin/problem/edit/${problem.id}"><i
 												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a
-											href="${pageContext.request.contextPath}/admin/problem/delete/${problem.id}"><i
+										<td class="action col_delete"><a class="btn-delete" href="#"
+											action="${pageContext.request.contextPath}/admin/problem/delete/${problem.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
 								</c:forEach>

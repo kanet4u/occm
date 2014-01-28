@@ -22,6 +22,10 @@ public class Action {
 	@NotNull
 	private String action;
 	
+	@NotNull
+	private String title;
+
+	
 	//@ManyToMany(mappedBy="actions", fetch = FetchType.LAZY)
 	//private Set<Role> roles = new HashSet<Role>();
 
@@ -31,10 +35,11 @@ public class Action {
 	}
 	
 
-	public Action(Long id, String action) {
+	public Action(Long id, String action, String title) {
 		super();
 		this.id = id;
 		this.action = action;
+		this.title = title;
 	}
 
 	@Override
@@ -58,6 +63,16 @@ public class Action {
 		this.action = action;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	
 	/*public Set<Role> getRoles() {
 		return roles;
 	}

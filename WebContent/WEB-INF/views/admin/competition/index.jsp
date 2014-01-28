@@ -82,8 +82,8 @@
 										<td class="action col_edit"><a
 											href="${pageContext.request.contextPath}/admin/competition/edit/${comp.id}"><i
 												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a
-											href="${pageContext.request.contextPath}/admin/competition/delete/${comp.id}"><i
+										<td class="action col_delete"><a class="btn-delete" href="#"
+											action="${pageContext.request.contextPath}/admin/competition/delete/${comp.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
 								</c:forEach>
@@ -104,7 +104,7 @@
 						'aTargets' : [ 5, 6 ]
 					} ]
 				});
-				$('#competitions_table input').attr('placeholder', 'Search')
+				$('#competitions_table_filter input').attr('placeholder', 'Search')
 			});
 		</script>
 </body>

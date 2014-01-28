@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
 import com.occm.models.Problem;
+import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
@@ -49,6 +50,75 @@ public class AdminProblemController {
 		return URL_MAPPING + "/index";
 	}
 	
+	@RequestMapping("/delete/{id}")
+	public String problemDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		
+		if (hs.getAttribute("problem_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			/*User u = service.unsubscribe(id);*/
+			redirectAttributes.addFlashAttribute("message_success",
+					"Problem " +id + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING;
+	}
+
+	@RequestMapping(value="/tags",method = RequestMethod.GET)
+	public String tags(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
+		if (hs.getAttribute("tag_list") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:/admin";
+		}
+		Collection<Tag> tags = service.getTagList();
+
+		map.addAttribute("tags", tags);
+		map.addAttribute("problemsactive", "active");
+		return URL_MAPPING + "/tags";
+	}
+	
+	@RequestMapping("/tags/delete/{id}")
+	public String tagDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		
+		if (hs.getAttribute("tag_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			/*User u = service.unsubscribe(id);*/
+			redirectAttributes.addFlashAttribute("message_success",
+					"Tag " +id + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING+"/tags";
+	}
+	
+	@RequestMapping(value="/tags/edit", method = RequestMethod.POST)
+	public String tagEdit(
+			@RequestParam(value = "id") long id,
+			@RequestParam(value = "tag", required = true) String tag,
+			final RedirectAttributes redirectAttributes, 
+			ModelMap map,
+			HttpSession hs) {
+		
+		if (hs.getAttribute("tag_edit") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			if(id==-1){
+				//create
+			}else{
+				//edit
+			}
+
+			redirectAttributes.addFlashAttribute("message_success",
+					"Tag <span class='badge'>" +tag + "</span> is saved.");
+		}
+		return "redirect:" + URL_MAPPING+"/tags";
+	}
 	
 	@RequestMapping(value="/join",method = RequestMethod.GET)
 	public ModelAndView joinList(HttpServletRequest httpServletRequest,
@@ -73,11 +143,7 @@ public class AdminProblemController {
 		
 		return new ModelAndView(URL_MAPPING+"/edit");
 	}
-	@RequestMapping("/delete/{comp_id}")
-	public ModelAndView deleteCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
-		
-		return new ModelAndView("redirect:"+URL_MAPPING);
-	}
+	
 
 /*	
 	

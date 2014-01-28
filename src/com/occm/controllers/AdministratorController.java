@@ -85,9 +85,6 @@ public class AdministratorController {
 	public String userDelete(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
-		if (hs.getAttribute("management_dashboard") == null) {
-			return URL_MAPPING + "/login";
-		}
 		if (hs.getAttribute("user_delete") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
@@ -99,4 +96,36 @@ public class AdministratorController {
 		return "redirect:" + URL_MAPPING + "/user";
 	}
 
+
+	@RequestMapping("/user/roles")
+	public String userRoles(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
+		if (hs.getAttribute("role_list") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:" + URL_MAPPING+"/user";
+		}
+		map.addAttribute("usersactive", "active");
+		map.addAttribute("roles", service.getRoleList());
+
+		return URL_MAPPING + "/user/roles";
+	}
+
+	@RequestMapping("/user/roles/delete/{id}")
+	public String userRoleDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("role_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			
+			redirectAttributes.addFlashAttribute("message_success",
+					"Role " +id + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING + "/user/roles";
+	}
+
+
+	
 }
