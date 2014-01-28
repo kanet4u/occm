@@ -78,7 +78,7 @@ public class AdministratorController {
 					"Permittion denid!");
 			return "redirect:" + URL_MAPPING;
 		}
-
+		map.addAttribute("usersactive", "active");
 		map.addAttribute("users", service.viewAll());
 
 		return URL_MAPPING + "/users/list";

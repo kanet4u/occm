@@ -48,16 +48,16 @@
 					</span>
 				</div> <!-- /input-group -->
 			</li>
-			<li><a href="admin_index.html"><i
+			<li><a href="${pageContext.request.contextPath}/admin"><i
 					class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
-			<li><a href="admin_users.html"><i
+			<li class="${requestScope.usersactive}"><a href="${pageContext.request.contextPath}/admin/users"><i
 					class="fa fa-users fa-fw active"></i> Users<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
-					<li><a href="admin_users.html">Users List</a> <a
-						href="admin_user_add.html">Add User</a> <a
-						href="admin_user_roles.html">Roles</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/users">Users List</a> <a
+						href="${pageContext.request.contextPath}/admin/users/add">Add User</a> <a
+						href="${pageContext.request.contextPath}/admin/roles">Roles</a></li>
 				</ul></li>
-			<li><a href="admin_competitions.html"><i
+			<li class="${requestScope.compactive}"><a href="admin_competitions.html"><i
 					class="fa fa-tasks fa-fw"></i> Competitions <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
 					<li><a href="admin_competitions.html">Competitions List</a> <a
@@ -65,7 +65,7 @@
 						href="admin_competition_active.html">Active Competition</a> <a
 						href="admin_competition_add.html">Add Competition</a></li>
 				</ul></li>
-			<li><a href="admin_problems.html"><i
+			<li class="${requestScope.problemsactive}"><a href="admin_problems.html"><i
 					class="fa fa-superscript fa-fw"></i> Problems <span
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
