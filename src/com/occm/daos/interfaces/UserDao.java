@@ -53,5 +53,21 @@ public interface UserDao {
 	Competition updateCompetition(Competition comp);
 
 	Collection<UserCompetitions> getJoinRequestList();
+
+	boolean deleteCompetition(Long id);
+
+	Collection<Problem> getProblemList(Competition comp);
+	
+	Collection<Problem> getAllProblemList();
+	
+	Problem getProblemDetails(Long id);
+	
+	Problem updateProblem(Problem prob);
+	
+	boolean deleteProblem(Long id);
+	
+	Submission addSubmission(Submission submission);
+	
+	
 	
 }

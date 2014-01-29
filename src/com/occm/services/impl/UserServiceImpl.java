@@ -127,4 +127,46 @@ public class UserServiceImpl implements UserService {
 		return dao.updateCompetition(comp);
 	}
 
+	@Override
+	public boolean deleteCompetition(Long id) {
+		// TODO Auto-generated method stub
+		return dao.deleteCompetition(id);
+	}
+
+	@Override
+	public Collection<Problem> getProblemList(Competition comp) {
+		// TODO Auto-generated method stub
+		return dao.getProblemList(comp);
+	}
+
+	@Override
+	public Collection<Problem> getAllProblemList() {
+		// TODO Auto-generated method stub
+		return dao.getAllProblemList();
+	}
+
+	@Override
+	public Problem getProblemDetails(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getProblemDetails(id);
+	}
+
+	@Override
+	public Problem updateProblem(Problem prob) {
+		// TODO Auto-generated method stub
+		return dao.updateProblem(prob);
+	}
+
+	@Override
+	public boolean deleteProblem(Long id) {
+		// TODO Auto-generated method stub
+		return dao.deleteProblem(id);
+	}
+
+	@Override
+	public Submission addSubmission(Submission submission) {
+		// TODO Auto-generated method stub
+		return dao.addSubmission(submission);
+	}
+
 }

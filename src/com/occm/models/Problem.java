@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -63,7 +65,8 @@ public class Problem {
 	@NotNull
 	private int score;
 	
-	@NotNull
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	
 	@NotNull

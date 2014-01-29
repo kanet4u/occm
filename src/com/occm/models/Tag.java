@@ -28,11 +28,10 @@ public class Tag {
 		super();
 	}
 
-	public Tag(Long id, String tag, Set<Problem> problems) {
+	public Tag(Long id, String tag) {
 		super();
 		this.id = id;
 		this.tag = tag;
-		this.problems = problems;
 	}
 
 	public Long getId() {
@@ -61,8 +60,7 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "\nTag [id=" + id + ", tag=" + tag + ", problems=" + problems
-				+ "]";
+		return tag;
 	}
 	
 	

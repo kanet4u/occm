@@ -90,7 +90,6 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-
 			redirectAttributes.addFlashAttribute("message_success",
 					"Join Request " + id + " is deleted.");
 		}
@@ -201,12 +200,19 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			// Competition u = service.unsubscribe(id);
-			redirectAttributes.addFlashAttribute("message_success",
+			if( service.deleteCompetition(id)){
+				redirectAttributes.addFlashAttribute("message_success",
 					"Competition " + id + " is deleted.");
+			}
+			else{
+				redirectAttributes.addFlashAttribute("message_error",
+						"Competition " + id + " is NOT deleted.");
+			}
 		}
 		return "redirect:" + URL_MAPPING;
 	}
+	
+	
 
 	/*
 	 * 

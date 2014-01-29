@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,9 +62,14 @@ public class AdminProblemController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			/*User u = service.unsubscribe(id);*/
-			redirectAttributes.addFlashAttribute("message_success",
-					"Problem " +id + " is deleted.");
+			if( service.deleteProblem(id)){
+				redirectAttributes.addFlashAttribute("message_success",
+					"Problem " + id + " is deleted.");
+			}
+			else{
+				redirectAttributes.addFlashAttribute("message_error",
+						"Problem " + id + " is NOT deleted.");
+			}
 		}
 		return "redirect:" + URL_MAPPING;
 	}
@@ -120,78 +128,62 @@ public class AdminProblemController {
 		return "redirect:" + URL_MAPPING+"/tags";
 	}
 	
-	@RequestMapping(value="/join",method = RequestMethod.GET)
-	public ModelAndView joinList(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
-	}
-	
-	@RequestMapping(value="/active",method = RequestMethod.GET)
-	public ModelAndView activeList(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
-	}
-	
-	@RequestMapping(value="/add",method = RequestMethod.GET)
-	public ModelAndView addCompetition(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING+"/index");
-	}
-	
-	@RequestMapping("/edit/{comp_id}")
-	public ModelAndView editCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
-		
-		return new ModelAndView(URL_MAPPING+"/edit");
-	}
-	
-
-/*	
-	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public ModelAndView login(
-			@RequestParam(value = "email", required = true) String userName,
-			@RequestParam(value = "password", required = true) String password,
-			final RedirectAttributes redirectAttributes, 
-			ModelMap map,
+	@RequestMapping("/edit/{id}")
+	public ModelAndView editCompetition(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, Model map,
 			HttpSession hs) {
 
-		User user = service.validate(new User(userName, password));
-		if (user != null) {
-			if (user.getStatus().isActive()) {
-				user.setLoggedIn(hs);
-				redirectAttributes.addFlashAttribute("message_success",
-						"You have successfully logged in.");
-			} else {
-				redirectAttributes.addFlashAttribute("message_error",
-						"User is not active!");
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("message_error",
-					"Email or password incorrect!");
-		}
-		return new ModelAndView("redirect:" + URL_MAPPING);
-	}
-
-	@RequestMapping("/logout")
-	public ModelAndView logoutUser(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		hs.invalidate();
-		return new ModelAndView("redirect:" + URL_MAPPING);
-	}
-
-	@RequestMapping("/users")
-	public String usersList(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("management_dashboard") == null) {
-			return URL_MAPPING + "/login";
+			redirectAttributes.addFlashAttribute("message_error",
+					"You don't have proper authorization.");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
 		}
-		if (hs.getAttribute("user_list") == null) {
-			redirectAttributes.addFlashAttribute("message_error", "Permittion dined!");
-			return "redirect:" + URL_MAPPING;
+
+		Problem prob = (Problem) service.getProblemDetails(id);
+		Collection<Tag> tagsList = service.getTagList();
+		
+		ArrayList<String> aliasList = new ArrayList<String>();
+		aliasList.add("A");aliasList.add("B");aliasList.add("C");aliasList.add("D");aliasList.add("E");aliasList.add("F");
+		HashMap<String,String> statusList = new HashMap<String,String>();
+		statusList.put("0", "Disabled");
+		statusList.put("1", "Enabled");
+		
+		if (prob == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Problem Not Found");
+			return new ModelAndView("redirect: " + URL_MAPPING);
+		}
+		map.addAttribute("problem", prob);
+		map.addAttribute("tagsList", tagsList);
+		map.addAttribute("aliasList", aliasList);
+		map.addAttribute("statusList", statusList);
+		
+		return new ModelAndView(URL_MAPPING + "/edit");
+	}
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public ModelAndView register(
+			@Valid/* @ModelAttribute("user") */Problem prob,
+			BindingResult results, final RedirectAttributes redirectAttributes,
+			Model map, HttpSession hs) {
+		prob.setCreated(new Date());
+		
+		// chk for P.L errs
+		if (results.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message_error", "Problem Updation Failed");
+			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+prob.getId());
+		}
+
+		prob = service.updateProblem(prob);
+		if(prob==null){
+			redirectAttributes.addFlashAttribute("message_error", "Problem Updation Failed2");
+			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+prob.getId());
 		}
 		
-		map.addAttribute("users", service.viewAll());
 
-		return URL_MAPPING + "/users/list";
+		redirectAttributes.addFlashAttribute("message_success",
+				"Competition Updated Successfully "+prob.getTitle());
+		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
-*/
 }
