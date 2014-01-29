@@ -1,6 +1,7 @@
 package com.occm.controllers;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
+import com.occm.models.Problem;
+import com.occm.models.Tag;
+import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.services.interfaces.UserService;
 
@@ -152,12 +157,17 @@ public class AdminCompetitionController {
 		}
 
 		Competition comp = (Competition) service.getCompetitionDetails(compId);
+		Collection<User> userList = service.viewAll();
+		Collection<Problem> problemList = service.getProblemList();
+		
 		if (comp == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Competition Not Found");
 			return new ModelAndView("redirect: " + URL_MAPPING);
 		}
 		map.addAttribute("competition", comp);
+		map.addAttribute("userList", userList);
+		map.addAttribute("problemList", problemList);
 		return new ModelAndView(URL_MAPPING + "/edit");
 	}
 
@@ -165,20 +175,26 @@ public class AdminCompetitionController {
 	public ModelAndView register(
 			@Valid/* @ModelAttribute("user") */Competition comp,
 			BindingResult results, final RedirectAttributes redirectAttributes,
-			Model map, HttpSession hs) {
+			Model map, HttpSession hs, HttpServletRequest req) {
 
+		System.out.println("post data :"+req.getParameterValues("users"));
+		comp.setUsers(new HashSet<User>(service.getUserList(req.getParameterValues("users"))));
+		System.out.println("new post data :"+comp.getUsers().toString());
 		// chk for P.L errs
-		if (results.hasErrors()) {
-			map.addAttribute("competition", comp);
-			map.addAttribute("message_error", "Competition Updation Failed");
+		/*if (results.hasErrors()) {
+			redirectAttributes.addFlashAttribute("message_error", "Competition Updation Failed");
+			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+comp.getId());
+			Collection<User> userList = service.viewAll();
+			Collection<Problem> problemList = service.getProblemList();
+			map.addAttribute("userList", userList);
+			map.addAttribute("problemList", problemList);
 			return new ModelAndView(URL_MAPPING + "/edit");
-		}
-
+		}*/
+		
 		comp = service.updateCompetition(comp);
 		if(comp==null){
-			map.addAttribute("competition", comp);
-			map.addAttribute("message_error", "Competition Updation Failed");
-			return new ModelAndView(URL_MAPPING + "/edit");
+			redirectAttributes.addFlashAttribute("message_error", "Competition Updation Failed");
+			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+comp.getId());
 		}
 		
 

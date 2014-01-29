@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "competitions")
 public class Competition implements Comparable<Competition> {
@@ -37,10 +39,12 @@ public class Competition implements Comparable<Competition> {
 
 	@Column(name = "start_time")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
 	private Date startTime;
 
 	@Column(name = "end_time")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
 	private Date endTime;
 
 	@Column(name = "duration")
@@ -69,7 +73,7 @@ public class Competition implements Comparable<Competition> {
 	@JoinTable(name = "competition_problems", joinColumns = { @JoinColumn(name = "competition_id") }, inverseJoinColumns = { @JoinColumn(name = "problem_id") })
 	private Set<Problem> problems = new HashSet<Problem>();
 
-	@ManyToMany(mappedBy = "competitions", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "competitions", fetch = FetchType.LAZY)
 	private Set<User> users = new HashSet<User>();
 
 	public Competition() {

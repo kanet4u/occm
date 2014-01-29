@@ -69,9 +69,12 @@ public interface UserService {
 
 	Submission addSubmission(Submission submission);
 	
+	Collection<User> getUserList(String[] ids);
+
 	UserCompetitions isUserJoinedToCompetition(User user, Competition comp);
 
 	boolean isUserJoinedAndAprovedToCompetition(User user, Competition comp);
 
 	Collection<Language> getLanguageList();
+
 }

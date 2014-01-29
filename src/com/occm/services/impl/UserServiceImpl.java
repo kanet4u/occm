@@ -171,6 +171,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Collection<User> getUserList(String[] ids) {
+		// TODO Auto-generated method stub
+		return dao.getUserList(ids);
+	}
+
+	@Override
 	public UserCompetitions isUserJoinedToCompetition(User user, Competition comp) {
 		// TODO Auto-generated method stub
 		return dao.isUserJoinedToCompetition(user, comp);
@@ -196,4 +202,5 @@ public class UserServiceImpl implements UserService {
 
 	
 	
+
 }

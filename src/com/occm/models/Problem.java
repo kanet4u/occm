@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "problems")
 public class Problem {
@@ -66,8 +68,9 @@ public class Problem {
 	@NotNull
 	private int score;
 	
-	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
 	private Date created;
 	
 	@NotNull

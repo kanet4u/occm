@@ -205,48 +205,10 @@
 										<div class="col-sm-12 tag_box" style="min-height: 90px;">
 
 											<form:checkboxes items="${tagsList}" path="tags"
-												delimiter='<span class="">' />
+												delimiter='<span></span>' element='label class="badge"'  itemLabel="tag" itemValue="id"/>
 											<label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Dynamic
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="2"> <span class="">Arrays</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="3"> <span class="">Extremal
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Dynamic
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="2"> <span class="">Arrays</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="3"> <span class="">Extremal
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Dynamic
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="2"> <span class="">Arrays</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="3"> <span class="">Extremal
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Dynamic
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="2"> <span class="">Arrays</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="3"> <span class="">Extremal
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Dynamic
-													Programming</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="2"> <span class="">Arrays</span>
-											</label> <label class="badge"> <input type="checkbox"
-												name="tags[]" value="3"> <span class="">Extremal
-													Programming</span>
-											</label>
+												name="tags[]" value="1"> <span class="">Static CheckBox</span>
+											</label> 
 
 										</div>
 									</div>

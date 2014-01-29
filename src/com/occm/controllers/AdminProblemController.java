@@ -171,8 +171,8 @@ public class AdminProblemController {
 		
 		// chk for P.L errs
 		if (results.hasErrors()) {
-			redirectAttributes.addFlashAttribute("message_error", "Problem Updation Failed");
-			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+prob.getId());
+			//System.out.println("P.L errs");
+			return new ModelAndView(URL_MAPPING + "/edit");
 		}
 
 		prob = service.updateProblem(prob);
