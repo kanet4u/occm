@@ -105,7 +105,7 @@ public class UserCompetitions implements Comparable<UserCompetitions> {
 			if (stat2.equals("RUNNING")) {
 				return 1;
 			}
-			if (stat1.equals("UPCOMMING")) {
+			if (stat1.equals("UPCOMMING")) { 
 				return -1;
 			}
 			if (stat2.equals("UPCOMMING")) {
