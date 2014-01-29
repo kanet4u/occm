@@ -274,3 +274,6 @@ body.full_screen_open {
 .label-UPCOMMING {
 	background-color: #5BC0DE;
 }
+.problem_editor .col{
+	padding:0;
+}

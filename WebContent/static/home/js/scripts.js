@@ -78,17 +78,20 @@ function ticker(id) {
 }
 
 function setEditor() {
-	if ($('#last_submission').attr('last_submission')!="") {
+	if ($('#last_submission').attr('last_submission') != "") {
 		checkLanguage($('#last_submission').attr('last_submission'));
-	}else{
+	} else {
 		createNewSolution(language);
 	}
-	$('#submit_solution_form').submit(function(){
-		$('#submit_language').val($('input[name="language"]:checked').attr('lang_id'));
-		$('#submit_code').val(editor.getValue());
-	});
-	
-	editor.setTheme("ace/theme/" + $("#theme_group input[checked='checked']").val().toString());
+	$('#submit_solution_form').submit(
+			function() {
+				$('#submit_language').val(
+						$('input[name="language"]:checked').attr('lang_id'));
+				$('#submit_code').val(editor.getValue());
+			});
+
+	editor.setTheme("ace/theme/"
+			+ $("#theme_group input[checked='checked']").val().toString());
 
 	$("#language_group input").on('change', function() {
 		editor.getSession().setMode("ace/mode/" + this.value);
@@ -124,4 +127,11 @@ function setEditor() {
 			fontSize = 12;
 		document.getElementById('editor').style.fontSize = fontSize + 'px';
 	});
+}
+
+function refreshPage(time) {
+	timeout = setTimeout(function() {
+		document.location.href = document.location.href;
+		refreshPage(time);
+	}, time);
 }

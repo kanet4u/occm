@@ -163,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Submission> getSubmissionList() {
-		String hql = "select u from Submission u";
+		String hql = "select u from Submission u Order by u.id DESC";
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}

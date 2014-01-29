@@ -11,7 +11,7 @@
 				<li class="separator"></li>
 				<li><a href="${pageContext.request.contextPath}/archieve">Problems Archive</a></li>
 				<li><a href="${pageContext.request.contextPath}/ranklist/all">Users Ranklist</a></li>
-				<li><a href="${pageContext.request.contextPath}/judge">Judge Status</a></li>
+				<li><a href="${pageContext.request.contextPath}/submission">Judge Status</a></li>
 				<li class="separator"></li>
 				<li><p>&copy; CDAC, ACTS 2013</p></li>
 			</ul>

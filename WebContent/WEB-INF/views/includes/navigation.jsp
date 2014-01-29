@@ -16,10 +16,10 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class=" hidden-sm active"><a
-					href="${pageContext.request.contextPath}/home">Home</a></li>
 				<li class=" hidden-sm"><a
-					href="${pageContext.request.contextPath}/page/guide">Guide</a></li>
+					href="${pageContext.request.contextPath}/home">Home</a></li>
+				<%-- <li class=" hidden-sm"><a
+					href="${pageContext.request.contextPath}/page/guide">Guide</a></li> --%>
 				<li><a href="${pageContext.request.contextPath}/competition">Competitions</a></li>
 				<c:if test="${sessionScope.activeUser != null}">
 					<li><a href="${pageContext.request.contextPath}/ranklist">Ranklist</a></li>

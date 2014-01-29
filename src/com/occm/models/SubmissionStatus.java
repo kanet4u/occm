@@ -18,7 +18,7 @@ public class SubmissionStatus {
 	private String name;
 
 	@NotNull
-	private String alias;
+	private String alias; 
 	
 	@NotNull
 	private String severity;

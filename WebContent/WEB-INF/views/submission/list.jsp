@@ -19,6 +19,7 @@
 		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
 		<hr>
 		<div class="breadcrumb-area">
+			
 			<ol class="breadcrumb">
 				<li>Show</li>
 				<li class="active"><a href="#" class="badge">15</a></li>
@@ -26,6 +27,7 @@
 				<li><a href="#">50</a></li>
 				<li><a href="#">100</a></li>
 				<li>per page</li>
+				<!-- <i class="fa fa-spinner fa-spin pull-right"></i>   -->
 			</ol>
 		</div>
 		<div style="min-height: 360px;">
@@ -84,7 +86,7 @@
 		<jsp:include page="/WEB-INF/views/includes/before_body_end.jsp" />
 		<script type="text/javascript">
 			$(document).ready(function() {
-				ticker("#counter");
+				refreshPage(4000);
 			});
 		</script>
 </body>
