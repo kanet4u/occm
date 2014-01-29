@@ -16,8 +16,9 @@
 			Competitions <small style="font-size: 11px;"><a href="">See
 					Competitions FAQ</a></small>
 		</h1>
-		<hr>
 		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
+		<hr>
+		
 		<div style="min-height: 360px;">
 
 			<table

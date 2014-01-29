@@ -65,5 +65,10 @@ public interface UserService {
 	boolean deleteProblem(Long id);
 
 	Submission addSubmission(Submission submission);
+	
+	UserCompetitions isUserJoinedToCompetition(User user, Competition comp);
+
+	boolean isUserJoinedAndAprovedToCompetition(User user, Competition comp);
+
 
 }

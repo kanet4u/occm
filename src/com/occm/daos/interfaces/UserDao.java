@@ -67,6 +67,10 @@ public interface UserDao {
 	boolean deleteProblem(Long id);
 	
 	Submission addSubmission(Submission submission);
+
+	UserCompetitions isUserJoinedToCompetition(User user, Competition comp);
+
+	boolean isUserJoinedAndApprovedToCompetition(User user, Competition comp);
 	
 	
 	
