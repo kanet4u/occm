@@ -31,13 +31,13 @@
 				<div class="col-lg-12">
 					<form:form class="form-horizontal" role="form" method="post"
 						modelAttribute="problem">
-						<%-- <div id="messages-area">
+						<div id="messages-area">
 							<div class="alert alert-success alert-dismissable">
 								<button aria-hidden="true" data-dismiss="alert" class="close"
 									type="button">×</button>
 								<form:errors path="*"></form:errors>
 							</div>
-						</div> --%>
+						</div> 
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#c_details" data-toggle="tab">Details</a></li>
 							<li><a href="#c_input" data-toggle="tab">Input</a></li>
@@ -130,7 +130,7 @@
 
 										<div class="col-sm-10">
 											<form:select class="form-control" path="competition" items="${competitionList}" 
-												id="problem_competition" itemLabel="${competition.title}"  />
+												id="problem_competition" itemLabel="title" itemValue="id" />
 												<%--
 												<option value="1">Some</option>
 											</select>
@@ -228,7 +228,7 @@
 										</div>
 									</div>
 
-								</div>
+								</div> 
 							</div>
 						</div>
 						<input type="hidden" name="continue" id="continue" value="0">

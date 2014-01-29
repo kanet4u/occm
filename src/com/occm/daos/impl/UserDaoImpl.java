@@ -319,6 +319,20 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).setParameterList("lids", lids).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Tag> getTagList(String[] ids) {
+		
+		ArrayList<Long> lids = new ArrayList();
+		for(String id : ids){
+			lids.add(Long.parseLong(id));
+		}
+		
+		String hql = "select u from Tag u where u.id in (:lids)";
+
+		return factory.getCurrentSession().createQuery(hql).setParameterList("lids", lids).list();
+	}
 
 	@Override
 	public Language getLanguage(Long id) {
@@ -333,6 +347,12 @@ public class UserDaoImpl implements UserDao {
 	public Collection<Language> getLanguageList() {
 		String hql = "select u from Language u";
 		return factory.getCurrentSession().createQuery(hql).list();
+	}
+
+	@Override
+	public Tag getTagDetails(Long id) {
+		Session ref = factory.getCurrentSession();
+		return (Tag) ref.get(Tag.class, id);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -142,6 +143,8 @@ public class AdminProblemController {
 
 		Problem prob = (Problem) service.getProblemDetails(id);
 		Collection<Competition> competitionList = (Collection<Competition>) service.getCompetitionList();
+		System.out.println(" Comp List: "+competitionList.size());
+		
 		Collection<Tag> tagsList = service.getTagList();
 		
 		ArrayList<String> aliasList = new ArrayList<String>();
@@ -168,14 +171,22 @@ public class AdminProblemController {
 	public ModelAndView register(
 			@Valid/* @ModelAttribute("user") */Problem prob,
 			BindingResult results, final RedirectAttributes redirectAttributes,
-			Model map, HttpSession hs) {
+			Model map, HttpSession hs, HttpServletRequest req) {
+		
 		prob.setCreated(new Date());
 		
-		// chk for P.L errs
+		prob.setCompetition(service.getCompetitionDetails(Long.parseLong(req.getParameter("competition"))));
+		
+		for(String id :req.getParameterValues("tags")){
+			prob.getTags().add(service.getTagDetails(Long.parseLong(id)));
+		}
+		
+		
+		/*// chk for P.L errs
 		if (results.hasErrors()) {
 			//System.out.println("P.L errs");
 			return new ModelAndView(URL_MAPPING + "/edit");
-		}
+		}*/
 
 		prob = service.updateProblem(prob);
 		if(prob==null){

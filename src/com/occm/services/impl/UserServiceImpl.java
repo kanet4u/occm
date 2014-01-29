@@ -206,6 +206,18 @@ public class UserServiceImpl implements UserService {
 		return dao.getLanguageList();
 	}
 
+	@Override
+	public Collection<Tag> getTagList(String[] ids) {
+		// TODO Auto-generated method stub
+		return dao.getTagList(ids);
+	}
+
+	@Override
+	public Tag getTagDetails(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getTagDetails(id);
+	}
+
 	
 	
 

@@ -79,4 +79,7 @@ public interface UserService {
 
 	Collection<UserStatus> getUserStatusList();
 
+	Collection<Tag> getTagList(String[] ids);
+
+	Tag getTagDetails(Long id);
 }

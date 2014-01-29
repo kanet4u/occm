@@ -94,50 +94,13 @@
 										</div>
 									</div>
 
-									<hr>
-									<div class="form-group">
-										<label for="competition_details"
-											class="col-sm-2 control-label">Teachers</label>
-
-										<div class="col-sm-10">
-
-											<form:checkboxes items="${userList}" path="users"
-												itemLabel="fname" itemValue="id"
-												delimiter='<a href="admin_user_edit.html">view</a>'
-												element='div class="checkbox"' />
-											<div class="checkbox">
-												<label> <input type="checkbox"
-													value="create_problem"> <span class="c_teacher">Vivek
-														Yadav</span> <a href="admin_user_edit.html">view</a>
-												</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox"
-													value="create_problem"> <span class="c_teacher">Shavkat
-														Khamidjanov</span> <a href="admin_user_edit.html">view</a>
-												</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox"
-													value="create_problem"> <span class="c_teacher">Nurzod
-														Karahanov</span> <a href="admin_user_edit.html">view</a>
-												</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox"
-													value="create_problem"> <span class="c_teacher">Manjani
-														Shrivasta</span> <a href="admin_user_edit.html">view</a>
-												</label>
-											</div>
-										</div>
-									</div>
+									
 								</div>
 								<div class="tab-pane" id="c_students">
 									<table class="table table-striped table-hover data-table"
 										id="users_table">
 										<thead>
 											<tr>
-												<th class="col_username">Username</th>
 												<th class="col_email hidden-md hidden-sm">Email</th>
 												<th class="col_firstname">Firstname</th>
 												<th class="col_lastname">Lastname</th>
@@ -146,62 +109,22 @@
 											</tr>
 										</thead>
 										<tbody>
+										<c:forEach items="${userList}" var="u">
 											<tr>
 												<td class="col_username"><label> <input
-														type="checkbox" class="action_select" name="user[]"
-														value="1" checked="checked">shavkat
+														type="checkbox" class="action_select" path="users" value="${u.id}" />
 												</label></td>
-												<td class="col_email hidden-md hidden-sm">homidjonov@gmail.com</td>
-												<td class="col_firstname">Shavkat</td>
-												<td class="col_lastname">Khamidjanov</td>
+												<td class="col_email hidden-md hidden-sm">${u.email}</td>
+												<td class="col_firstname">${u.fname}</td>
+												<td class="col_lastname"> ${u.sname}</td>
 												<td class="action col_status"><b>a</b><a href="#"><i
 														class="fa fa-check-square-o"></i></a></td>
 												<td class="action col_edit"><a
 													href="admin_user_edit.html"><i class="fa fa-edit"></i>
 												</a></td>
 											</tr>
-											<tr>
-												<td class="col_username"><label> <input
-														type="checkbox" class="action_select" name="user[]"
-														value="1" checked="checked">shavkat
-												</label></td>
-												<td class="col_email hidden-md hidden-sm">homidjonov@gmail.com</td>
-												<td class="col_firstname">Shavkat</td>
-												<td class="col_lastname">Khamidjanov</td>
-												<td class="action col_status"><b>a</b><a href="#"><i
-														class="fa fa-check-square-o"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_username"><label> <input
-														type="checkbox" class="action_select" name="user[]"
-														value="1" checked="checked">vivek
-												</label></td>
-												<td class="col_email hidden-md hidden-sm">homidjonov@gmail.com</td>
-												<td class="col_firstname">Shavkat</td>
-												<td class="col_lastname">Khamidjanov</td>
-												<td class="action col_status"><b>a</b><a href="#"><i
-														class="fa fa-check-square-o"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_username"><label> <input
-														type="checkbox" class="action_select" name="user[]"
-														value="1">nurzod
-												</label></td>
-												<td class="col_email hidden-md hidden-sm">homidjonov@gmail.com</td>
-												<td class="col_firstname">Shavkat</td>
-												<td class="col_lastname">Khamidjanov</td>
-												<td class="action col_status"><b>a</b><a href="#"><i
-														class="fa fa-ban"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
+										</c:forEach>
+											
 
 										</tbody>
 									</table>

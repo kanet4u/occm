@@ -178,12 +178,17 @@ public class AdminCompetitionController {
 			Model map, HttpSession hs, HttpServletRequest req) {
 
 		System.out.println("post data :"+req.getParameterValues("users"));
-		comp.setUsers(new HashSet<User>(service.getUserList(req.getParameterValues("users"))));
-		System.out.println("new post data :"+comp.getUsers().toString());
+		
+		
+		for(String id : req.getParameterValues("users")){
+			//comp.getUsers().add(service.getDetails(Long.parseLong(id)));
+			service.joinUserCompetition(service.getDetails(Long.parseLong(id)),comp);
+			
+		}
+		
+		
 		// chk for P.L errs
 		/*if (results.hasErrors()) {
-			redirectAttributes.addFlashAttribute("message_error", "Competition Updation Failed");
-			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+comp.getId());
 			Collection<User> userList = service.viewAll();
 			Collection<Problem> problemList = service.getProblemList();
 			map.addAttribute("userList", userList);

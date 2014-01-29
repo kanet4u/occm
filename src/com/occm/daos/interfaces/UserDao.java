@@ -80,4 +80,8 @@ public interface UserDao {
 	Language getLanguage(Long id);
 	
 	Collection<Language> getLanguageList();
+
+	Collection<Tag> getTagList(String[] ids);
+
+	Tag getTagDetails(Long id);
 }
