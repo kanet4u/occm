@@ -50,4 +50,6 @@ public interface UserService {
 	UserCompetitions joinUserCompetition(User user, Competition comp);
 	
 	Competition updateCompetition(Competition comp);
+
+	Collection<UserCompetitions> getJoinRequestList();
 }

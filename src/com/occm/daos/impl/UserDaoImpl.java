@@ -166,6 +166,16 @@ public class UserDaoImpl implements UserDao {
 		return factory.getCurrentSession().createQuery(hql).setParameter("usr", user).list();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<UserCompetitions> getJoinRequestList() {
+		String hql = "select u from UserCompetitions u where u.approved = 0";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
+
+	
 	@Override
 	public Competition getCompetitionDetails(Long id) {
 		

@@ -106,6 +106,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Collection<UserCompetitions> getJoinRequestList() {
+		return dao.getJoinRequestList();
+	}
+
+	
+	@Override
 	public Competition getCompetitionDetails(Long id) {
 		return dao.getCompetitionDetails(id);
 	}

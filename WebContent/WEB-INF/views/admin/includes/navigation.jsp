@@ -67,7 +67,7 @@
 					class="fa fa-tasks fa-fw"></i> Competitions <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level ">
 					<li><a href="${pageContext.request.contextPath}/admin/competition">Competitions List</a> <a
-						href="${pageContext.request.contextPath}/admin/competition/join">Join Requests</a> <a
+						href="${pageContext.request.contextPath}/admin/competition/request">Join Requests</a> <a
 						href="${pageContext.request.contextPath}/admin/competition/add">Add Competition</a></li>
 				</ul></li>
 			<li class="${requestScope.problemsactive}"><a

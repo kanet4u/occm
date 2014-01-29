@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
 import com.occm.models.User;
+import com.occm.models.UserCompetitions;
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -36,20 +37,14 @@ public class AdminCompetitionController {
 	private UserService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView index(final RedirectAttributes redirectAttributes,
+	public String index(final RedirectAttributes redirectAttributes,
 			ModelMap map, HttpSession hs) {
 		/* map.addAttribute("message_success", "Some Message Here"); */
-		if (hs.getAttribute("management_dashboard") == null) {
+
+		if (hs.getAttribute("competition_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
-					"You don't have proper authorization.");
-			return new ModelAndView(AdministratorController.URL_MAPPING
-					+ "/login");
-		}
-		if (hs.getAttribute("activeUser") == null) {
-			redirectAttributes.addFlashAttribute("message_error",
-					"Please login first...");
-			return new ModelAndView(AdministratorController.URL_MAPPING
-					+ "/login");
+					"Permission Denied");
+			return "redirect:" + AdministratorController.URL_MAPPING;
 		}
 
 		Collection<Competition> competitions = service.getCompetitionList();
@@ -65,9 +60,27 @@ public class AdminCompetitionController {
 
 		map.addAttribute("userCompetitions", competitions);
 		map.addAttribute("compactive", "active");
-		return new ModelAndView(URL_MAPPING + "/index");
+		return URL_MAPPING + "/index";
 	}
 
+	@RequestMapping(value="/request", method = RequestMethod.GET)
+	public String joinRequests(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
+		/* map.addAttribute("message_success", "Some Message Here"); */
+
+		if (hs.getAttribute("competition_join_list") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission Denied");
+			return "redirect:" + URL_MAPPING;
+		}
+
+		Collection<UserCompetitions> competitions = service.getJoinRequestList();
+
+		map.addAttribute("userCompetitions", competitions);
+		map.addAttribute("compactive", "active");
+		return URL_MAPPING + "/request";
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView joinList(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, HttpSession hs) {
@@ -111,39 +124,37 @@ public class AdminCompetitionController {
 	@RequestMapping(value = "/edit/{comp_id}", method = RequestMethod.POST)
 	public ModelAndView register(
 			@Valid/* @ModelAttribute("user") */Competition comp,
-			BindingResult results,final RedirectAttributes redirectAttributes, Model map, HttpSession hs) {
-		
+			BindingResult results, final RedirectAttributes redirectAttributes,
+			Model map, HttpSession hs) {
+
 		// chk for P.L errs
 		if (results.hasErrors()) {
 			map.addAttribute("message_error", "Competition Updation Failed");
 			return new ModelAndView(URL_MAPPING + "/edit");
 		}
-		
-		
+
 		comp = service.updateCompetition(comp);
-		
+
 		redirectAttributes.addFlashAttribute("message_success",
 				"Competition Updated Successfully");
-		return new ModelAndView("redirect:"+URL_MAPPING);
+		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
-	
-	
+
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Long id,
-			final RedirectAttributes redirectAttributes, 
-			ModelMap map,
+			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
 		if (hs.getAttribute("competition_delete") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			//Competition u = service.unsubscribe(id);
+			// Competition u = service.unsubscribe(id);
 			redirectAttributes.addFlashAttribute("message_success",
 					"Competition " + id + " is deleted.");
 		}
 		return "redirect:" + URL_MAPPING;
 	}
-	
+
 	/*
 	 * 
 	 * @RequestMapping(value="/login", method = RequestMethod.POST) public
