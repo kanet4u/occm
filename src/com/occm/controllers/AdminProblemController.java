@@ -41,7 +41,8 @@ public class AdminProblemController {
 	private UserService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String index(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
+	public String index(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("problem_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
@@ -53,21 +54,20 @@ public class AdminProblemController {
 		map.addAttribute("problemsactive", "active");
 		return URL_MAPPING + "/index";
 	}
-	
+
 	@RequestMapping("/delete/{id}")
 	public String problemDelete(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
-		
+
 		if (hs.getAttribute("problem_delete") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			if( service.deleteProblem(id)){
+			if (service.deleteProblem(id)) {
 				redirectAttributes.addFlashAttribute("message_success",
-					"Problem " + id + " is deleted.");
-			}
-			else{
+						"Problem " + id + " is deleted.");
+			} else {
 				redirectAttributes.addFlashAttribute("message_error",
 						"Problem " + id + " is NOT deleted.");
 			}
@@ -75,8 +75,9 @@ public class AdminProblemController {
 		return "redirect:" + URL_MAPPING;
 	}
 
-	@RequestMapping(value="/tags",method = RequestMethod.GET)
-	public String tags(final RedirectAttributes redirectAttributes, ModelMap map, HttpSession hs) {
+	@RequestMapping(value = "/tags", method = RequestMethod.GET)
+	public String tags(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("tag_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
@@ -88,47 +89,45 @@ public class AdminProblemController {
 		map.addAttribute("problemsactive", "active");
 		return URL_MAPPING + "/tags";
 	}
-	
+
 	@RequestMapping("/tags/delete/{id}")
 	public String tagDelete(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
-		
+
 		if (hs.getAttribute("tag_delete") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			/*User u = service.unsubscribe(id);*/
-			redirectAttributes.addFlashAttribute("message_success",
-					"Tag " +id + " is deleted.");
+			/* User u = service.unsubscribe(id); */
+			redirectAttributes.addFlashAttribute("message_success", "Tag " + id
+					+ " is deleted.");
 		}
-		return "redirect:" + URL_MAPPING+"/tags";
+		return "redirect:" + URL_MAPPING + "/tags";
 	}
-	
-	@RequestMapping(value="/tags/edit", method = RequestMethod.POST)
-	public String tagEdit(
-			@RequestParam(value = "id") long id,
+
+	@RequestMapping(value = "/tags/edit", method = RequestMethod.POST)
+	public String tagEdit(@RequestParam(value = "id") long id,
 			@RequestParam(value = "tag", required = true) String tag,
-			final RedirectAttributes redirectAttributes, 
-			ModelMap map,
+			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
-		
+
 		if (hs.getAttribute("tag_edit") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			if(id==-1){
-				//create
-			}else{
-				//edit
+			if (id == -1) {
+				// create
+			} else {
+				// edit
 			}
 
 			redirectAttributes.addFlashAttribute("message_success",
-					"Tag <span class='badge'>" +tag + "</span> is saved.");
+					"Tag <span class='badge'>" + tag + "</span> is saved.");
 		}
-		return "redirect:" + URL_MAPPING+"/tags";
+		return "redirect:" + URL_MAPPING + "/tags";
 	}
-	
+
 	@RequestMapping("/edit/{id}")
 	public ModelAndView editCompetition(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, Model map,
@@ -142,17 +141,23 @@ public class AdminProblemController {
 		}
 
 		Problem prob = (Problem) service.getProblemDetails(id);
-		Collection<Competition> competitionList = (Collection<Competition>) service.getCompetitionList();
-		System.out.println(" Comp List: "+competitionList.size());
-		
+		Collection<Competition> competitionList = (Collection<Competition>) service
+				.getCompetitionList();
+		System.out.println(" Comp List: " + competitionList.size());
+
 		Collection<Tag> tagsList = service.getTagList();
-		
+
 		ArrayList<String> aliasList = new ArrayList<String>();
-		aliasList.add("A");aliasList.add("B");aliasList.add("C");aliasList.add("D");aliasList.add("E");aliasList.add("F");
-		HashMap<String,String> statusList = new HashMap<String,String>();
+		aliasList.add("A");
+		aliasList.add("B");
+		aliasList.add("C");
+		aliasList.add("D");
+		aliasList.add("E");
+		aliasList.add("F");
+		HashMap<String, String> statusList = new HashMap<String, String>();
 		statusList.put("0", "Disabled");
 		statusList.put("1", "Enabled");
-		
+
 		if (prob == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Problem Not Found");
@@ -163,40 +168,116 @@ public class AdminProblemController {
 		map.addAttribute("tagsList", tagsList);
 		map.addAttribute("aliasList", aliasList);
 		map.addAttribute("statusList", statusList);
-		
+
 		return new ModelAndView(URL_MAPPING + "/edit");
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView register(
+	public ModelAndView editCompetition(
 			@Valid/* @ModelAttribute("user") */Problem prob,
 			BindingResult results, final RedirectAttributes redirectAttributes,
 			Model map, HttpSession hs, HttpServletRequest req) {
-		
+
 		prob.setCreated(new Date());
-		
-		prob.setCompetition(service.getCompetitionDetails(Long.parseLong(req.getParameter("competition"))));
-		
-		for(String id :req.getParameterValues("tags")){
+
+		prob.setCompetition(service.getCompetitionDetails(Long.parseLong(req
+				.getParameter("competition"))));
+
+		for (String id : req.getParameterValues("tags")) {
 			prob.getTags().add(service.getTagDetails(Long.parseLong(id)));
 		}
-		
-		
-		/*// chk for P.L errs
-		if (results.hasErrors()) {
-			//System.out.println("P.L errs");
-			return new ModelAndView(URL_MAPPING + "/edit");
-		}*/
+
+		/*
+		 * // chk for P.L errs if (results.hasErrors()) {
+		 * //System.out.println("P.L errs"); return new ModelAndView(URL_MAPPING
+		 * + "/edit"); }
+		 */
 
 		prob = service.updateProblem(prob);
-		if(prob==null){
-			redirectAttributes.addFlashAttribute("message_error", "Problem Updation Failed2");
-			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+prob.getId());
+		if (prob == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Problem Updation Failed2");
+			return new ModelAndView("redirect:" + URL_MAPPING + "/edit/"
+					+ prob.getId());
 		}
-		
 
 		redirectAttributes.addFlashAttribute("message_success",
-				"Competition Updated Successfully "+prob.getTitle());
+				"Competition Updated Successfully " + prob.getTitle());
+		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+
+	@RequestMapping("/add")
+	public ModelAndView addCompetition(
+			final RedirectAttributes redirectAttributes, Model map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("management_dashboard") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"You don't have proper authorization.");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
+		}
+
+		Problem prob = new Problem();
+		Collection<Competition> competitionList = (Collection<Competition>) service
+				.getCompetitionList();
+		System.out.println(" Comp List: " + competitionList.size());
+
+		Collection<Tag> tagsList = service.getTagList();
+
+		ArrayList<String> aliasList = new ArrayList<String>();
+		aliasList.add("A");
+		aliasList.add("B");
+		aliasList.add("C");
+		aliasList.add("D");
+		aliasList.add("E");
+		aliasList.add("F");
+		HashMap<String, String> statusList = new HashMap<String, String>();
+		statusList.put("0", "Disabled");
+		statusList.put("1", "Enabled");
+
+		map.addAttribute("problem", prob);
+		map.addAttribute("competitionList", competitionList);
+		map.addAttribute("tagsList", tagsList);
+		map.addAttribute("aliasList", aliasList);
+		map.addAttribute("statusList", statusList);
+
+		return new ModelAndView(URL_MAPPING + "/edit");
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addCompetition(
+			@Valid/* @ModelAttribute("user") */Problem prob,
+			BindingResult results, final RedirectAttributes redirectAttributes,
+			Model map, HttpSession hs, HttpServletRequest req) {
+
+		prob.setCreated(new Date());
+		if (req.getParameter("competition") != null) {
+			prob.setCompetition(service.getCompetitionDetails(Long
+					.parseLong(req.getParameter("competition"))));
+		}
+		if(req.getParameterValues("tags")!= null){
+			for (String id : req.getParameterValues("tags")) {
+				prob.getTags().add(service.getTagDetails(Long.parseLong(id)));
+			}
+		}
+
+		/*
+		 * // chk for P.L errs if (results.hasErrors()) {
+		 * //System.out.println("P.L errs"); return new ModelAndView(URL_MAPPING
+		 * + "/edit"); }
+		 */
+
+		prob = service.addProblem(prob);
+		if (prob == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Problem Updation Failed2");
+			return new ModelAndView("redirect:" + URL_MAPPING + "/edit/"
+					+ prob.getId());
+		}
+
+		redirectAttributes.addFlashAttribute("message_success",
+				"Competition Updated Successfully " + prob.getTitle());
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 }

@@ -89,4 +89,9 @@ public interface UserDao {
 	Collection<Problem> getCompetitionProblemsList(Competition comp);
 	
 	SubmissionStatus getSubmissionStatus(Long id);
+	
+	Problem addProblem(Problem prob);
+
+	Competition addCompetition(Competition comp);
 }
+
