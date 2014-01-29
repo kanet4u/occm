@@ -175,14 +175,21 @@ public class AdminCompetitionController {
 
 		// chk for P.L errs
 		if (results.hasErrors()) {
+			map.addAttribute("competition", comp);
 			map.addAttribute("message_error", "Competition Updation Failed");
 			return new ModelAndView(URL_MAPPING + "/edit");
 		}
 
 		comp = service.updateCompetition(comp);
+		if(comp==null){
+			map.addAttribute("competition", comp);
+			map.addAttribute("message_error", "Competition Updation Failed");
+			return new ModelAndView(URL_MAPPING + "/edit");
+		}
+		
 
 		redirectAttributes.addFlashAttribute("message_success",
-				"Competition Updated Successfully");
+				"Competition Updated Successfully "+comp.getTitle());
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 
