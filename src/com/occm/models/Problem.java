@@ -26,6 +26,7 @@ public class Problem {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	
 	@ManyToMany(mappedBy="problems", fetch = FetchType.LAZY)
 	private Set<Competition> competitions = new HashSet<Competition>();
 	

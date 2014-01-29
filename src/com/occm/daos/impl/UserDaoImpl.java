@@ -190,12 +190,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public UserCompetitions joinUserCompetition(User user, Competition comp) {
-<<<<<<< HEAD
-		UserCompetitions userComp = new UserCompetitions(user, comp, false);
-		Long id = (Long) factory.getCurrentSession().save(userComp);
-		userComp.setId(id);
-		factory.getCurrentSession().flush();
-=======
 		String hql = "select u from UserCompetitions u where u.user = :user and u.competition = :competition";
 		UserCompetitions userComp;
 		userComp = (UserCompetitions) factory.getCurrentSession()
@@ -207,23 +201,16 @@ public class UserDaoImpl implements UserDao {
 			userComp.setId(id);
 			factory.getCurrentSession().flush();
 		}
-
->>>>>>> branch 'master' of https://github.com/kanet4u/occm
 		return userComp;
 	}
 
 	@Override
 	@Transactional
 	public Competition updateCompetition(Competition comp) {
-<<<<<<< HEAD
-=======
-		System.out.println("compe==> " + comp.getTitle());
->>>>>>> branch 'master' of https://github.com/kanet4u/occm
 		factory.getCurrentSession().update(comp);
 		factory.getCurrentSession().flush();
 		return comp;
 	}
-<<<<<<< HEAD
 
 	@Override
 	public boolean deleteCompetition(Long id) {
@@ -287,7 +274,5 @@ public class UserDaoImpl implements UserDao {
 		factory.getCurrentSession().flush();
 		return submission;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/kanet4u/occm
 
 }

@@ -1,9 +1,6 @@
 package com.occm.controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
-import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.services.interfaces.UserService;
 
@@ -50,8 +46,7 @@ public class AdminCompetitionController {
 		Collection<Competition> competitions = service.getCompetitionList();
 
 		for (Competition competition : competitions) {
-			Date current = new Date();
-			competition.setStatus(current);
+			competition.putStatus();
 			competition.setDuration();
 
 			competition.setUserCount(competition.getUsers().size());
