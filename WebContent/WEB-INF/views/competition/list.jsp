@@ -17,6 +17,7 @@
 					Competitions FAQ</a></small>
 		</h1>
 		<hr>
+		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
 		<div style="min-height: 360px;">
 
 			<table
@@ -35,17 +36,16 @@
 					</tr>
 				</thead>
 				<tbody>
-
-
 					<c:forEach var="comp" items="${requestScope.userCompetitions}"
 						varStatus="i">
-						<tr class="comp-running">
-
+						<tr
+							<c:if test="${comp.status =='RUNNING'}">class="comp-running"</c:if>>
 							<td>${comp.id}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/competition/${comp.id}">${comp.title}</a></td>
 
 							<td><c:if test="${comp.status =='RUNNING'}">
+
 									<span class="label label-success"><spring:message
 											code="competition.status.running" /></span>
 								</c:if> <c:if test="${comp.status =='UPCOMMING'}">
@@ -64,8 +64,8 @@
 							<c:if test="${comp.isLimited}">
 								<c:if test="${comp.status =='RUNNING'}">
 									<td colspan="2" class="counter"><h4>
-											<i class="fa fa-spinner fa-spin"></i>
-											${comp.timeLeft}
+											<i class="fa fa-spinner fa-spin"></i> <span id="counter"
+												left="${comp.timeLeftInSeconds}">${comp.timeLeft}</span>
 										</h4></td>
 								</c:if>
 								<c:if test="${comp.status !='RUNNING'}">
@@ -93,7 +93,7 @@
 										href="${pageContext.request.contextPath}/competition/join/${comp.id}">Join</a>
 								</c:if> <c:if test="${comp.status =='ARCHIEVED'}">
 									<a
-										href="${pageContext.request.contextPath}/competition/view/${comp.id}">view</a>
+										href="${pageContext.request.contextPath}/competition/view/${comp.id}">View</a>
 								</c:if> <c:if test="${comp.status =='NEVERENDING'}">
 									<a
 										href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
@@ -108,5 +108,12 @@
 	</div>
 	<!-- /container -->
 	<jsp:include page="/WEB-INF/views/includes/before_body_end.jsp" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			ticker("#counter");
+		});
+
+		
+	</script>
 </body>
 </html>

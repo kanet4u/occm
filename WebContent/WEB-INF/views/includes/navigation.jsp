@@ -41,7 +41,7 @@
 						data-toggle="dropdown"><i class="fa fa-user"></i> My Account <b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/account/inbox"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+							<li><a href="${pageContext.request.contextPath}/competition/mylist"><i class="fa fa-bar-chart-o"></i> My Competitions</a></li>
 							<li><a href="${pageContext.request.contextPath}/account/submissions"><i class="fa fa-code"></i> Submissions</a></li>
 							<li class="divider"></li>
 							<li><a href="${pageContext.request.contextPath}/account/settings"><i class="fa fa-gear"></i> Settings</a></li>

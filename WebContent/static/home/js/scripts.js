@@ -50,3 +50,23 @@ function createNewSolution(l) {
         $("#language_" + language).attr('checked', 'checked').parent().addClass('active');
     }
 }
+
+function ticker(id) {
+	var left;
+	var h, m, s;
+	var c = $(id);
+	if (c != null) {
+		left = parseInt($(id).attr('left'));
+		tick();
+	}
+	function tick() {
+		left--;
+		h = Math.ceil(left / 3600);
+		m = Math.ceil((left % 3600) / 60);
+		s = (left % 3600) % 60;
+		$(id).text(h + ":" + m + ":" + s);
+		setTimeout(function() {
+			tick();
+		}, 1000);
+	}
+}

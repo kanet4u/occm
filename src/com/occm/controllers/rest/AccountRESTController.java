@@ -33,37 +33,30 @@ public class AccountRESTController {
 	public Login login(@RequestParam(value="username", required=true) String userName, 
 	        @RequestParam(value="password", required=true) String password, ModelMap map, HttpSession hs) {
 		System.out.println("Entered Login");
-		User user = new User(userName, password);
 		
-		user = service.validate(user);
+		User user = service.validate(new User(userName, password));
 		
 		// Send request to API or DAO layer to get the user information
 		Login response = new Login();
 		
+		
 		if (user != null) {
-			hs.setAttribute("activeUser", user);
-			//hs.setAttribute("activeUserActions", new ArrayList<Action>(user.getRole().getActions()));
-			String action;
-			Iterator<Action> itr = user.getRole().getActions().iterator();
-	        while(itr.hasNext())
-	        {
-	            action = itr.next().getAction();
-	            hs.setAttribute(action, true);
-	            
-	        }
-			hs.setAttribute("firstVisit", new FirstVisit(true));
-			
-			System.out.println("Login successful");
-			response.setResult("SUCCESS");
-			response.setUserId(user.getId());
-			response.setUserFName(user.getFname());
-			response.setUserSName(user.getSname());
-			response.setUserEmail(user.getEmail());
-		}
-		else{
-			System.out.println("Login Failed");
+			if (user.getStatus().isActive()) {
+				user.setLoggedIn(hs);
+				System.out.println("You have successfully logged in.");
+				response.setResult("SUCCESS");
+				response.setUserId(user.getId());
+				response.setUserFName(user.getFname());
+				response.setUserSName(user.getSname());
+				response.setUserEmail(user.getEmail());
+				hs.setAttribute("message_success", "You have successfully logged in.");
+			} else {
+				response.setResult("FAILURE");
+				response.setMessage("User is not activated!");
+			}
+		} else {
 			response.setResult("FAILURE");
-			response.setMessage("Login Failed!!! Please Try again with correct User Name and Password");
+			response.setMessage("Email or password is incorrect.");
 		}
 
 		return response;

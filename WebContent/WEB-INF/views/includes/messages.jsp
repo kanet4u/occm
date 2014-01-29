@@ -12,6 +12,9 @@
 				type="button">×</button>
 			${message_error}
 		</div>
+		<%
+			request.getSession().removeAttribute("message_error");
+		%>
 	</c:if>
 	<c:if test="${message_success!=null}">
 		<div class="alert alert-success alert-dismissable">
@@ -19,6 +22,9 @@
 				type="button">×</button>
 			${message_success}
 		</div>
+		<%
+			request.getSession().removeAttribute("message_success");
+		%>
 	</c:if>
 	
 </div>
