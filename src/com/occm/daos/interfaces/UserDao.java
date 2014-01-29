@@ -7,6 +7,7 @@ import com.occm.models.Language;
 import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Submission;
+import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -82,4 +83,6 @@ public interface UserDao {
 	Collection<Language> getLanguageList();
 	
 	Collection<Problem> getCompetitionProblemsList(Competition comp);
+	
+	SubmissionStatus getSubmissionStatus(Long id);
 }

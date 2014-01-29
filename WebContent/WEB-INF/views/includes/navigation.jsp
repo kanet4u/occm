@@ -24,7 +24,7 @@
 				<c:if test="${sessionScope.activeUser != null}">
 					<li><a href="${pageContext.request.contextPath}/ranklist">Ranklist</a></li>
 				</c:if>
-				<li><a href="${pageContext.request.contextPath}/judge">Judge
+				<li><a href="${pageContext.request.contextPath}/submission">Judge
 						Status</a></li>
 			</ul>
 

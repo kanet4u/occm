@@ -1,6 +1,8 @@
 package com.occm.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -9,8 +11,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "submission_status")
 public class SubmissionStatus {
 	
-	@Id
-	private String code;
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private Long code;
 	
 	@NotNull
 	private String name;
@@ -25,7 +27,7 @@ public class SubmissionStatus {
 		super();
 	}
 
-	public SubmissionStatus(String code, String name, String alias, String severity) {
+	public SubmissionStatus(Long code, String name, String alias, String severity) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -33,11 +35,11 @@ public class SubmissionStatus {
 		this.severity = severity;
 	}
 
-	public String getCode() {
+	public Long getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 

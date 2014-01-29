@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2014-01-29 23:36:32
+Date: 2014-01-30 03:27:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -82,28 +82,6 @@ INSERT INTO `competitions` VALUES ('3', '<p>FIRST batch competition. One user ca
 INSERT INTO `competitions` VALUES ('4', '<p>Real power, real code. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '', '2014-01-31 10:36:30', '1', '2014-01-26 10:36:34', 'Real power, real code.');
 
 -- ----------------------------
--- Table structure for `competition_problems`
--- ----------------------------
-DROP TABLE IF EXISTS `competition_problems`;
-CREATE TABLE `competition_problems` (
-  `competition_id` bigint(20) NOT NULL,
-  `problem_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`competition_id`,`problem_id`),
-  KEY `FKA239B8347F23FC79` (`problem_id`),
-  KEY `FKA239B834678780F9` (`competition_id`),
-  CONSTRAINT `FKA239B834678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
-  CONSTRAINT `FKA239B8347F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of competition_problems
--- ----------------------------
-INSERT INTO `competition_problems` VALUES ('1', '1');
-INSERT INTO `competition_problems` VALUES ('2', '1');
-INSERT INTO `competition_problems` VALUES ('3', '1');
-INSERT INTO `competition_problems` VALUES ('4', '1');
-
--- ----------------------------
 -- Table structure for `languages`
 -- ----------------------------
 DROP TABLE IF EXISTS `languages`;
@@ -167,13 +145,16 @@ CREATE TABLE `problems` (
   `status` tinyint(1) NOT NULL,
   `time_limit` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `competition_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKC40B91B4678780F9` (`competition_id`),
+  CONSTRAINT `FKC40B91B4678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of problems
 -- ----------------------------
-INSERT INTO `problems` VALUES ('1', 'A', '2014-01-28 21:56:09', ' <p>\r\n                Now and then you play the following game with your friend. Your friend writes down a sequence consisting\r\n                of zeroes and ones. You choose a continuous subsequence (for example the subsequence from the third to\r\n                the fifth digit inclusively) and ask him, whether this subsequence contains even or odd number of ones.\r\n                Your friend answers your question and you can ask him about another subsequence and so on.\r\n            </p>\r\n\r\n            <p>\r\n                Your task is to guess the entire sequence of numbers. You suspect some of your friend\'s answers may not\r\n                be correct and you want to convict him of falsehood. Thus you have decided to write a program to help\r\n                you in this matter.\r\n            </p>', '<p>Input contains a series of tests. The first line of each test contains one number, which is the length of\r\n                the sequence of zeroes and ones. This length is less or equal to 109. In the second line, there is one\r\n                non-negative integer which is the number of questions asked and answers to them. The number of questions\r\n                and answers is less or equal to 5 000. </p>', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n7 10 odd\r\n-1', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n5 6 even\r\n1 6 even\r\n7 10 odd', '1', '64', '<p>\r\n                Each line of output containing one integer X. Number X says that there exists a sequence of zeroes and\r\n                ones satisfying first X parity conditions, but there exists none satisfying X + 1 conditions. If there\r\n                exists a sequence of zeroes and ones satisfying all the given conditions, then number X should be the\r\n                number of all the questions asked. </p>', '3', '5', '1', '1', '2', 'Very difficult problem');
+INSERT INTO `problems` VALUES ('1', 'A', '2014-01-28 21:56:09', ' <p>\r\n                Now and then you play the following game with your friend. Your friend writes down a sequence consisting\r\n                of zeroes and ones. You choose a continuous subsequence (for example the subsequence from the third to\r\n                the fifth digit inclusively) and ask him, whether this subsequence contains even or odd number of ones.\r\n                Your friend answers your question and you can ask him about another subsequence and so on.\r\n            </p>\r\n\r\n            <p>\r\n                Your task is to guess the entire sequence of numbers. You suspect some of your friend\'s answers may not\r\n                be correct and you want to convict him of falsehood. Thus you have decided to write a program to help\r\n                you in this matter.\r\n            </p>', '<p>Input contains a series of tests. The first line of each test contains one number, which is the length of\r\n                the sequence of zeroes and ones. This length is less or equal to 109. In the second line, there is one\r\n                non-negative integer which is the number of questions asked and answers to them. The number of questions\r\n                and answers is less or equal to 5 000. </p>', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n7 10 odd\r\n-1', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n5 6 even\r\n1 6 even\r\n7 10 odd', '1', '64', '<p>\r\n                Each line of output containing one integer X. Number X says that there exists a sequence of zeroes and\r\n                ones satisfying first X parity conditions, but there exists none satisfying X + 1 conditions. If there\r\n                exists a sequence of zeroes and ones satisfying all the given conditions, then number X should be the\r\n                number of all the questions asked. </p>', '3', '5', '1', '1', '2', 'Very difficult problem', '3');
 
 -- ----------------------------
 -- Table structure for `problem_tags`
@@ -291,18 +272,18 @@ DROP TABLE IF EXISTS `submissions`;
 CREATE TABLE `submissions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `creation_time` datetime DEFAULT NULL,
-  `log` varchar(255) DEFAULT NULL,
+  `log` text,
   `memory` int(11) NOT NULL,
   `path` varchar(255) NOT NULL,
   `runtime` double NOT NULL,
   `score` int(11) NOT NULL,
-  `source_code` varchar(255) NOT NULL,
+  `source_code` text NOT NULL,
   `updation_time` datetime DEFAULT NULL,
   `competition_id` bigint(20) NOT NULL,
   `failed_test_case` bigint(20) DEFAULT NULL,
   `language_id` bigint(20) NOT NULL,
   `problem_id` bigint(20) NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `status` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2912EA7678780F9` (`competition_id`),
@@ -317,67 +298,40 @@ CREATE TABLE `submissions` (
   CONSTRAINT `FK2912EA7C76AE11` FOREIGN KEY (`status`) REFERENCES `submission_status` (`code`),
   CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of submissions
 -- ----------------------------
-INSERT INTO `submissions` VALUES ('3', '2014-01-28 22:17:59', null, '0', '', '0', '0', '#include <stdio.h>\r\n#include <unistd.h> \r\nint main(){\r\n    int a,b;\r\n    while(scanf(\"%d %d\",&a, &b) != EOF)\r\n        printf(\"%d\\n\",a+b);\r\n return 0;\r\n}', null, '1', null, '0', '1', '0', '1');
+INSERT INTO `submissions` VALUES ('1', '2014-01-30 03:25:05', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for `submission_status`
 -- ----------------------------
 DROP TABLE IF EXISTS `submission_status`;
 CREATE TABLE `submission_status` (
-  `code` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `code` bigint(20) NOT NULL AUTO_INCREMENT,
   `alias` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `severity` varchar(255) NOT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of submission_status
 -- ----------------------------
-INSERT INTO `submission_status` VALUES ('0', 'Pending', 'PN', 'info');
-INSERT INTO `submission_status` VALUES ('2', 'Testing', 'RN', 'info');
-INSERT INTO `submission_status` VALUES ('accepted', 'Accepted', 'SC', 'success');
-INSERT INTO `submission_status` VALUES ('compilation_error', 'Compilation Error', 'CE', 'danger');
-INSERT INTO `submission_status` VALUES ('memory_limit', 'Memory Limit Exceed', 'ML', 'warning');
-INSERT INTO `submission_status` VALUES ('output_limit', 'Output Limit Exceed', 'OL', 'warning');
-INSERT INTO `submission_status` VALUES ('restricted_code', 'Restricted Code', 'RC', 'danger');
-INSERT INTO `submission_status` VALUES ('runtime_error', 'Runtime Error', 'RE', 'danger');
-INSERT INTO `submission_status` VALUES ('security_issue', 'Security Issue', 'SI', 'danger');
-INSERT INTO `submission_status` VALUES ('system_error', 'Testing System Error', 'SE', 'warning');
-INSERT INTO `submission_status` VALUES ('time_limit', 'Time Limit Exceed', 'TL', 'warning');
-INSERT INTO `submission_status` VALUES ('wrong_answer', 'Wrong Answer', 'WA', 'warning');
-
--- ----------------------------
--- Table structure for `submission_statuses`
--- ----------------------------
-DROP TABLE IF EXISTS `submission_statuses`;
-CREATE TABLE `submission_statuses` (
-  `code` varchar(32) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`code`),
-  UNIQUE KEY `code_UNIQUE` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of submission_statuses
--- ----------------------------
-INSERT INTO `submission_statuses` VALUES ('0', 'Pending');
-INSERT INTO `submission_statuses` VALUES ('2', 'Testing');
-INSERT INTO `submission_statuses` VALUES ('accepted', 'Accepted');
-INSERT INTO `submission_statuses` VALUES ('compilation_error', 'Compilation Error');
-INSERT INTO `submission_statuses` VALUES ('memory_limit', 'Memory Limit Exceed');
-INSERT INTO `submission_statuses` VALUES ('output_limit', 'Output Limit Exceed');
-INSERT INTO `submission_statuses` VALUES ('restricted_code', 'Restricted Code');
-INSERT INTO `submission_statuses` VALUES ('runtime_error', 'Runtime Error');
-INSERT INTO `submission_statuses` VALUES ('security_issue', 'Security Issue');
-INSERT INTO `submission_statuses` VALUES ('system_error', 'Testing System Error');
-INSERT INTO `submission_statuses` VALUES ('time_limit', 'Time Limit Exceed');
-INSERT INTO `submission_statuses` VALUES ('wrong_answer', 'Wrong Answer');
+INSERT INTO `submission_status` VALUES ('0', 'PN', 'Pending', 'info');
+INSERT INTO `submission_status` VALUES ('1', 'TN', 'Testing', 'info');
+INSERT INTO `submission_status` VALUES ('2', 'TL', 'Time Limit Exceed', 'warning');
+INSERT INTO `submission_status` VALUES ('3', 'WA', 'Wrong Answer', 'warning');
+INSERT INTO `submission_status` VALUES ('4', 'SC', 'Success', 'success');
+INSERT INTO `submission_status` VALUES ('5', 'CE', 'Compilation Error', 'danger');
+INSERT INTO `submission_status` VALUES ('6', 'ML', 'Memory Limit Exceed', 'warning');
+INSERT INTO `submission_status` VALUES ('7', 'OL', 'Output Limit Exceed', 'warning');
+INSERT INTO `submission_status` VALUES ('8', 'RC', 'Restricted Code', 'danger');
+INSERT INTO `submission_status` VALUES ('9', 'RE', 'Runtime Error', 'danger');
+INSERT INTO `submission_status` VALUES ('10', 'SI', 'Security Issue', 'danger');
+INSERT INTO `submission_status` VALUES ('11', 'SE', 'Testing System Error', 'warning');
 
 -- ----------------------------
 -- Table structure for `tags`

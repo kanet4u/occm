@@ -99,17 +99,17 @@ public class ProblemController {
 		submission.setLanguage(language);
 		submission.setSourceCode(sourceCode);
 		submission.setCreationTime(new Date());
+		submission.setStatus(service.getSubmissionStatus(0L));
 		submission.setPath("");
 		submission = service.addSubmission(submission);
+		hs.setAttribute("last_submission", submission);
 		
 		if(submission.getId()>0){
 			hs.setAttribute("message_success", "Submission saved successfully.");
-		}else{
-			hs.setAttribute("message_error", "Submission not saved, try later.");
+			return "redirect:/submission";
 		}
 		
-		hs.setAttribute("last_submission", submission);
-		
+		hs.setAttribute("message_error", "Submission not saved, try later.");
 		return "redirect:" + URL_MAPPING + "/send/" + id;
 	}
 
