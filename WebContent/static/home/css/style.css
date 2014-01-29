@@ -247,3 +247,6 @@ body.full_screen_open{
     margin-bottom: 25px;
 
 }
+#counter{
+	font-family: monospace;
+}

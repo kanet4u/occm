@@ -41,7 +41,7 @@
 
 					<c:forEach var="comp" items="${requestScope.userCompetitions}"
 						varStatus="i">
-						<tr class="comp-running">
+						<tr <c:if test="${comp.status =='RUNNING'}">class="comp-running"</c:if>>
 
 							<td>${comp.competition.id}</td>
 							<td><a
