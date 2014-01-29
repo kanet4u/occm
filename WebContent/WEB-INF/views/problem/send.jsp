@@ -51,21 +51,23 @@
 								class="fa fa-repeat"></i></label>
 						</div>
 
-						
-							<div class="btn-group" data-toggle="buttons" id="language_group">
-								<c:forEach var="language" items="${languages}" varStatus="i">
-									<label class="btn btn-default"> <input type="radio"
-										name="language" id="language_${language.code}"
-										value="${language.id}"> ${language.name}
-									</label>
-								</c:forEach>
-							</div>
-						
+
+						<div class="btn-group" data-toggle="buttons" id="language_group">
+							<c:forEach var="language" items="${languages}" varStatus="i">
+								<label class="btn btn-default"> <input type="radio"
+									name="language" id="language_${language.code}"
+									value="${language.id}"> ${language.name}
+								</label>
+							</c:forEach>
+						</div>
+
 						<div class="btn-group">
 							<label class="btn btn-default" data-toggle="modal"
 								data-target="#modal_run_solution">Run <i
-								class="fa fa-play"></i></label> <label class="btn btn-default">Submit
-								<i class="fa fa-fast-forward"></i>
+								class="fa fa-play"></i>
+							</label> <label class="btn btn-default" data-toggle="modal"
+								data-target="#modal_submit_solution">Submit <i
+								class="fa fa-fast-forward"></i>
 							</label>
 						</div>
 					</div>
@@ -218,6 +220,33 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modal_submit_solution" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form class="" id="submit_solution_form" method="post" >
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Submit Solution</h4>
+					</div>
+					<div class="modal-body">
+						<p>Do you want to submit the solution?</p>
+						<input type="hidden" id="submit_language" name="language">
+						<input type="hidden" id="submit_code" name="code">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary">Submit
+							Solution</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<!-- /container -->
 	<jsp:include page="/WEB-INF/views/includes/before_body_end.jsp" />
 
@@ -233,7 +262,7 @@
 			cpp : "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout << \"Hello world!\" << endl;\n    return 0;\n}\n",
 			c : "#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\n    printf(\"Hello world!\");\n    return 0;\n}\n",
 			python : ""
-		}
+		};
 		var key;//generate csrf key here
 
 		$(document)
@@ -244,16 +273,16 @@
 											+ $(
 													"#theme_group input[checked='checked']")
 													.val().toString());
-							createNewSolution(language)
+							createNewSolution(language);
 							$("#language_group input").on(
 									'change',
 									function() {
 										editor.getSession().setMode(
 												"ace/mode/" + this.value);
-									})
+									});
 							$("#theme_group input").on('change', function() {
 								editor.setTheme("ace/theme/" + this.value);
-							})
+							});
 							$("#btn_full_screen").on(
 									'change',
 									function() {
@@ -268,23 +297,23 @@
 											$("body").removeClass(
 													'full_screen_open');
 										}
-									})
+									});
 							$("#btn_terminal").on('change', function() {
 								if (this.checked)
 									$("#terminal").show();
 								else
 									$("#terminal").hide();
-							})
+							});
 							$("#btn_undo").on('click', function() {
 								editor.undo();
-							})
+							});
 							$("#btn_redo").on(
 									'click',
 									function() {
 										editor.redo();
 										editor.gotoLine(editor.selection
 												.getCursor().row + 1);
-									})
+									});
 							$("#btn_font_size")
 									.on(
 											'click',
@@ -295,7 +324,12 @@
 												document
 														.getElementById('editor').style.fontSize = fontSize
 														+ 'px';
-											})
+											});
+
+							$('#submit_solution_form').submit(function() {
+								$('#submit_language').val($('input[name="language"]').val());
+								$('#submit_code').val(editor.getValue());
+							});
 						});
 	</script>
 </body>

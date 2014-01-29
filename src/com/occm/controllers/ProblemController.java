@@ -85,10 +85,9 @@ public class ProblemController {
 		Language language=service.getLanguage(languageId);
 		Problem problem = service.getProblemDetails(id);
 		
-
 		if (language==null || problem == null || !problem.getStatus()) {
 			hs.setAttribute("message_error", "Request params not valid.");
-			return "redirect:" + HomeController.URL_MAPPING;
+			return "redirect:" + URL_MAPPING + "/send/" + id;
 		}
 		
 		Submission submission = new Submission();

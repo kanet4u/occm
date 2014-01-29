@@ -69,9 +69,7 @@ public class Competition implements Comparable<Competition> {
 	@Transient
 	private long timeLeftInSeconds = 0;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	@JoinTable(name = "competition_problems", joinColumns = { @JoinColumn(name = "competition_id") }, inverseJoinColumns = { @JoinColumn(name = "problem_id") })
-	private Set<Problem> problems = new HashSet<Problem>();
+	
 
 	@ManyToMany(mappedBy = "competitions", fetch = FetchType.LAZY)
 	private Set<User> users = new HashSet<User>();
@@ -81,7 +79,7 @@ public class Competition implements Comparable<Competition> {
 	}
 
 	public Competition(Long id, String title, String details, Date startTime,
-			Date endTime, boolean isLimited, Set<Problem> problems,
+			Date endTime, boolean isLimited,
 			Set<User> users) {
 		super();
 		this.id = id;
@@ -90,7 +88,7 @@ public class Competition implements Comparable<Competition> {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.isLimited = isLimited;
-		this.problems = problems;
+
 		/* this.users = users; */
 	}
 
@@ -146,14 +144,7 @@ public class Competition implements Comparable<Competition> {
 		this.isLimited = isLimited;
 	}
 
-	public Set<Problem> getProblems() {
-		return problems;
-	}
-
-	public void setProblems(Set<Problem> problems) {
-		this.problems = problems;
-	}
-
+	
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -162,13 +153,7 @@ public class Competition implements Comparable<Competition> {
 		this.users = users;
 	}
 
-	@Override
-	public String toString() {
-		return "\nCompetition [id=" + id + ", title=" + title + ", details="
-				+ details + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", isLimited=" + isLimited + ", problems=" + problems;
-	}
-
+	
 	public String getDuration() {
 
 		return this.duration;
@@ -237,7 +222,7 @@ public class Competition implements Comparable<Competition> {
 		putStatus();
 		setDuration();
 		setUserCount(getUsers().size());
-		setProblemCount(getProblems().size());
+
 	}
 
 	public void setStatus(String status) {
