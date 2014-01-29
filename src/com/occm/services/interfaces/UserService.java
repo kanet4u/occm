@@ -3,6 +3,7 @@ package com.occm.services.interfaces;
 import java.util.Collection;
 
 import com.occm.models.Competition;
+import com.occm.models.Language;
 import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
@@ -27,7 +28,9 @@ public interface UserService {
 	User getDetails(Long id);
 
 	Role getRole(Long id);
-
+	
+	Language getLanguage(Long id);
+	
 	UserStatus getUserStatus(Long id);
 
 	Collection<Competition> getCompetitionList();
@@ -70,5 +73,5 @@ public interface UserService {
 
 	boolean isUserJoinedAndAprovedToCompetition(User user, Competition comp);
 
-
+	Collection<Language> getLanguageList();
 }

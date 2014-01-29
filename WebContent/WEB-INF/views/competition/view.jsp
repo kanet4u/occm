@@ -14,7 +14,7 @@
 	<div class="container">
 		<h1>
 			${competition.title} <small style="font-size: 11px;"><a
-				href="${requestScope.userCompetitions}/page/faq#competitions">See
+				href="${pageContext.request.contextPath}/page/faq#competitions">See
 					Competitions FAQ</a></small>
 		</h1>
 		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
@@ -41,12 +41,12 @@
 							<tr>
 								<td>${ problem.alias}</td>
 								<td><a
-									href="${requestScope.userCompetitions}/problem/view/$(problem.id)">${problem.title}</a></td>
+									href="${pageContext.request.contextPath}/problem/view/${problem.id}">${problem.title}</a></td>
 								<td>${problem.timeLimit}</td>
 								<td>${problem.score}</td>
 								<td><a href="page_judge_status.html"><span
 										class="label label-success">SC</span></a></td>
-								<td><a href="problem/send/${problem.id}">Coding</a></td>
+								<td><a href="${pageContext.request.contextPath}/problem/send/${problem.id}">Coding</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

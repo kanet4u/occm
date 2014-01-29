@@ -12,14 +12,20 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Online Code Competition</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/home">Online Code Competition</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class=" hidden-sm active"><a href="${pageContext.request.contextPath}">Home</a></li>
-				<li class=" hidden-sm"><a href="${pageContext.request.contextPath}/page/guide">Guide</a></li>
+				<li class=" hidden-sm active"><a
+					href="${pageContext.request.contextPath}/home">Home</a></li>
+				<li class=" hidden-sm"><a
+					href="${pageContext.request.contextPath}/page/guide">Guide</a></li>
 				<li><a href="${pageContext.request.contextPath}/competition">Competitions</a></li>
-				<li><a href="${pageContext.request.contextPath}/judge">Judge Status</a></li>
+				<c:if test="${sessionScope.activeUser != null}">
+					<li><a href="${pageContext.request.contextPath}/ranklist">Ranklist</a></li>
+				</c:if>
+				<li><a href="${pageContext.request.contextPath}/judge">Judge
+						Status</a></li>
 			</ul>
 
 
@@ -41,11 +47,18 @@
 						data-toggle="dropdown"><i class="fa fa-user"></i> My Account <b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/competition/mylist"><i class="fa fa-bar-chart-o"></i> My Competitions</a></li>
-							<li><a href="${pageContext.request.contextPath}/account/submissions"><i class="fa fa-code"></i> Submissions</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/competition/mylist"><i
+									class="fa fa-bar-chart-o"></i> My Competitions</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/account/submissions"><i
+									class="fa fa-code"></i> Submissions</a></li>
 							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/account/settings"><i class="fa fa-gear"></i> Settings</a></li>
-							<li><a href="${pageContext.request.contextPath}/home/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/account/settings"><i
+									class="fa fa-gear"></i> Settings</a></li>
+							<li><a href="${pageContext.request.contextPath}/home/logout"><i
+									class="fa fa-power-off"></i> Logout</a></li>
 						</ul></li>
 				</ul>
 			</c:if>
