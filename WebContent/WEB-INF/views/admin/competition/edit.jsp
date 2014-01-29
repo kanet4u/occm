@@ -112,7 +112,7 @@
 										<c:forEach items="${userList}" var="u">
 											<tr>
 												<td class="col_username"><label> <input
-														type="checkbox" class="action_select" path="users" value="${u.id}" />
+														type="checkbox" class="action_select" name="users" value="${u.id}" />
 												</label></td>
 												<td class="col_email hidden-md hidden-sm">${u.email}</td>
 												<td class="col_firstname">${u.fname}</td>
