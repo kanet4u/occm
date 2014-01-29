@@ -61,7 +61,8 @@
 										<td class="action col_edit"><a
 											href="${pageContext.request.contextPath}/admin/problem/edit/${problem.id}"><i
 												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a class="btn-delete" href="#"
+										<td class="action col_delete"><a class="btn-delete"
+											href="#"
 											action="${pageContext.request.contextPath}/admin/problem/delete/${problem.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
@@ -73,18 +74,19 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />
+	</div>
+	<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />
 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#users_table').dataTable({
-					"aoColumnDefs" : [ {
-						'bSortable' : false,
-						'aTargets' : [ 5, 6, 7 ]
-					} ]
-				});
-				$('#users_table_filter input').attr('placeholder', 'Search')
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#users_table').dataTable({
+				"aoColumnDefs" : [ {
+					'bSortable' : false,
+					'aTargets' : [ 5, 6, 7 ]
+				} ]
 			});
-		</script>
+			$('#users_table_filter input').attr('placeholder', 'Search')
+		});
+	</script>
 </body>
 </html>

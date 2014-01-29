@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
+import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
+import com.occm.models.Submission;
 import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -137,6 +139,24 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Submission> getSubmissionList() {
+		String hql = "select u from Submission u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Page> getPageList() {
+		String hql = "select u from Page u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	@Override

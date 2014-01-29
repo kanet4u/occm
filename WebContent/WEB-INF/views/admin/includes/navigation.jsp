@@ -78,13 +78,13 @@
 						href="${pageContext.request.contextPath}/admin/problem/add">Add Problem</a> <a
 						href="${pageContext.request.contextPath}/admin/problem/tags">Problem Tags</a></li>
 				</ul></li>
-			<li><a href="admin_submissions.html"><i
+			<li><a href="${pageContext.request.contextPath}/admin/submission"><i
 					class="fa fa-code fa-fw"></i> Submission</a></li>
-			<li><a href="admin_pages.html"><i
+			<li><a href="${pageContext.request.contextPath}/admin/page"><i
 					class="fa fa-file-text fa-fw"></i> Pages & Posts </a></li>
-			<li><a href="admin_bug_reports.html"><i
+			<li><a href="${pageContext.request.contextPath}/admin/bugreport"><i
 					class="fa fa-bug fa-fw"></i> Bug Reports</a></li>
-			<li><a href="admin_settings"><i class="fa fa-wrench fa-fw"></i>
+			<li><a href="${pageContext.request.contextPath}/admin/settings"><i class="fa fa-wrench fa-fw"></i>
 					Settings</a></li>
 
 

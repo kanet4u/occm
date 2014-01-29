@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
+import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
+import com.occm.models.Submission;
 import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -86,6 +88,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Collection<Role> getRoleList() {
 		return dao.getRoleList();
+	}
+	
+	@Override
+	public Collection<Submission> getSubmissionList() {
+		return dao.getSubmissionList();
+	}
+	
+	@Override
+	public Collection<Page> getPageList() {
+		return dao.getPageList();
 	}
 	
 	@Override

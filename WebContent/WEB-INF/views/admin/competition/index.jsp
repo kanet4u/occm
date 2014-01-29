@@ -82,7 +82,8 @@
 										<td class="action col_edit"><a
 											href="${pageContext.request.contextPath}/admin/competition/edit/${comp.id}"><i
 												class="fa fa-edit"></i> </a></td>
-										<td class="action col_delete"><a class="btn-delete" href="#"
+										<td class="action col_delete"><a class="btn-delete"
+											href="#"
 											action="${pageContext.request.contextPath}/admin/competition/delete/${comp.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
@@ -94,18 +95,19 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />
+	</div>
+	<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />
 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#competitions_table').dataTable({
-					"aoColumnDefs" : [ {
-						'bSortable' : false,
-						'aTargets' : [ 5, 6 ]
-					} ]
-				});
-				$('#competitions_table_filter input').attr('placeholder', 'Search')
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#competitions_table').dataTable({
+				"aoColumnDefs" : [ {
+					'bSortable' : false,
+					'aTargets' : [ 5, 6 ]
+				} ]
 			});
-		</script>
+			$('#competitions_table_filter input').attr('placeholder', 'Search')
+		});
+	</script>
 </body>
 </html>

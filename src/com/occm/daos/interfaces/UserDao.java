@@ -3,7 +3,9 @@ package com.occm.daos.interfaces;
 import java.util.Collection;
 
 import com.occm.models.Competition;
+import com.occm.models.Page;
 import com.occm.models.Problem;
+import com.occm.models.Submission;
 import com.occm.models.Tag;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -37,6 +39,10 @@ public interface UserDao {
 	Collection<Tag> getTagList();
 	
 	Collection<Role> getRoleList();
+	
+	Collection<Submission> getSubmissionList();
+	
+	Collection<Page> getPageList();
 	
 	Collection<UserCompetitions> getUserCompetitionList(User user);
 

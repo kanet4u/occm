@@ -15,14 +15,22 @@ public class SubmissionStatus {
 	@NotNull
 	private String name;
 
+	@NotNull
+	private String alias;
+	
+	@NotNull
+	private String severity;
+	
 	public SubmissionStatus() {
 		super();
 	}
 
-	public SubmissionStatus(String code, String name) {
+	public SubmissionStatus(String code, String name, String alias, String severity) {
 		super();
 		this.code = code;
 		this.name = name;
+		this.alias = alias;
+		this.severity = severity;
 	}
 
 	public String getCode() {
@@ -33,6 +41,23 @@ public class SubmissionStatus {
 		this.code = code;
 	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+	
 	public String getName() {
 		return name;
 	}

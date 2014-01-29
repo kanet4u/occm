@@ -14,54 +14,45 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header">User Management</h3>
+					<h3 class="page-header">Role Management</h3>
 					<ol class="breadcrumb">
 						<li><a href="${pageContext.request.contextPath}/admin">Administration</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/user">User
 								Management</a></li>
+						<li class="active">Roles</li>
 						<span class="pull-right admin_action"><a
-							href="${pageContext.request.contextPath}/admin/user/add"><i
-								class="fa fa-plus"></i> Add New User</a></span>
+							href="${pageContext.request.contextPath}/admin/user/roles/add"><i
+								class="fa fa-plus"></i> Add New Role</a></span>
 					</ol>
 
 					<jsp:include page="/WEB-INF/views/admin/includes/messages.jsp" />
 
 					<div class="table-responsive">
 						<table class="table table-striped table-hover data-table"
-							id="users_table">
+							id="roles_table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th class="col_email">Email</th>
-									<th class="col_firstname visible-lg">Firstname</th>
-									<th class="col_lastname visible-lg">Lastname</th>
+									<th style="width: 30px;">ID</th>
 									<th class="col_role">Role</th>
-									<th class="action col_status">Status</th>
 									<th class="action col_edit">Edit</th>
 									<th class="action col_delete">Delete</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="user" items="${requestScope.users}"
+								<c:forEach var="role" items="${requestScope.roles}"
 									varStatus="i">
 									<tr class="comp-running">
-										<td>${user.id}</td>
-										<td class="col_email"><a
-											href="${pageContext.request.contextPath}/admin/user/edit/${user.id}">${user.email}</a>
-										</td>
-										<td class="col_firstname visible-lg">${user.fname}</td>
-										<td class="col_lastname visible-lg">${user.sname}</td>
+										<td>${role.id}</td>
 										<td class="col_role"><a
-											href="${pageContext.request.contextPath}/admin/roles/edit/${user.role.id}">${user.role.role}</a></td>
-										<td class="action col_status"><b>${user.status.status}</b><a
-											href="${pageContext.request.contextPath}/admin/user/status/${user.id}"><i
-												class="fa status-${user.status.status}"></i></a></td>
+											href="${pageContext.request.contextPath}/admin/user/roles/edit/${role.id}">${role.role}</a>
+										</td>
+
 										<td class="action col_edit"><a
-											href="${pageContext.request.contextPath}/admin/user/edit/${user.id}"><i
+											href="${pageContext.request.contextPath}/admin/user/roles/edit/${role.id}"><i
 												class="fa fa-edit"></i> </a></td>
 										<td class="action col_delete"><a class="btn-delete"
 											href="#"
-											action="${pageContext.request.contextPath}/admin/user/delete/${user.id}"><i
+											action="${pageContext.request.contextPath}/admin/user/roles/delete/${role.id}"><i
 												class="fa fa-minus-circle"></i></a></td>
 									</tr>
 								</c:forEach>
@@ -77,13 +68,13 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#users_table').dataTable({
+			$('#roles_table').dataTable({
 				"aoColumnDefs" : [ {
 					'bSortable' : false,
-					'aTargets' : [ 6, 7 ]
+					'aTargets' : [ 2, 3 ]
 				} ]
 			});
-			$('#users_table_filter input').attr('placeholder', 'Search')
+			$('#roles_table_filter input').attr('placeholder', 'Search')
 		});
 	</script>
 </body>
