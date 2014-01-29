@@ -134,7 +134,7 @@ public class AdministratorController {
 	public ModelAndView userEdit(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
 			HttpSession hs) {
-		if (hs.getAttribute("user_delete") == null) {
+		if (hs.getAttribute("user_edit") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		}

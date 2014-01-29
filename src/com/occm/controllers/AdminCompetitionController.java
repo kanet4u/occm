@@ -55,7 +55,7 @@ public class AdminCompetitionController {
 			competition.setDuration();
 
 			competition.setUserCount(competition.getUsers().size());
-			competition.setProblemCount(competition.getProblems().size());
+			competition.setProblemCount(competition.getProblemCount());
 		}
 
 		map.addAttribute("userCompetitions", competitions);

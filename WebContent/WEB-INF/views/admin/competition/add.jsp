@@ -76,7 +76,7 @@
 											</div>
 										</div>
 									</div>
-
+									
 									<div class="form-group">
 										<label for="competition_details"
 											class="col-sm-2 control-label">Details</label>

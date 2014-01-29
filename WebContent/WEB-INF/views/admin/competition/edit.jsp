@@ -82,6 +82,7 @@
 											</div>
 										</div>
 									</div>
+									
 
 									<div class="form-group">
 										<label for="competition_details"
@@ -223,8 +224,8 @@
 											<c:forEach items="${problemList}" var="p">
 												<tr>
 													<td class="col_title"><label> <input
-																type="checkbox" class="action_select" name="problems"
-																value="${p.id}" />${p.title }
+															type="checkbox" class="action_select" name="problems"
+															value="${p.id}" />${p.title }
 													</label></td>
 													<td class="col_id">${p.id}</td>
 													<td class="col_alias">${p.alias}</td>

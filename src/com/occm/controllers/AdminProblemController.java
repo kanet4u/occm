@@ -141,6 +141,7 @@ public class AdminProblemController {
 		}
 
 		Problem prob = (Problem) service.getProblemDetails(id);
+		Collection<Competition> competitionList = (Collection<Competition>) service.getCompetitionList();
 		Collection<Tag> tagsList = service.getTagList();
 		
 		ArrayList<String> aliasList = new ArrayList<String>();
@@ -155,6 +156,7 @@ public class AdminProblemController {
 			return new ModelAndView("redirect: " + URL_MAPPING);
 		}
 		map.addAttribute("problem", prob);
+		map.addAttribute("competitionList", competitionList);
 		map.addAttribute("tagsList", tagsList);
 		map.addAttribute("aliasList", aliasList);
 		map.addAttribute("statusList", statusList);
