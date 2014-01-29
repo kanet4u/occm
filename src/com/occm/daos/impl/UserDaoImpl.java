@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
@@ -41,6 +42,7 @@ public class UserDaoImpl implements UserDao {
 	public User register(User user) {
 		Long id = (Long) factory.getCurrentSession().save(user);
 		user.setId(id);
+		factory.getCurrentSession().flush();
 		return user;
 	}
 
@@ -66,8 +68,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User update(User user) {
-		System.out.println("In User Dao : Update : user => ( " + user + " ) ");
+		//System.out.println("In User Dao : Update : user => ( " + user + " ) ");
 		factory.getCurrentSession().update(user);
+		factory.getCurrentSession().flush();
 		return user;
 	}
 
@@ -78,6 +81,7 @@ public class UserDaoImpl implements UserDao {
 		User user = getDetails(id);
 		if(user != null){
 			ref.delete(user);
+			factory.getCurrentSession().flush();
 		}
 		else
 			System.out.println("In User Dao : Unsubscribe : User Not Found  : ID => ( " + id + " ) ");
@@ -178,7 +182,6 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public Competition getCompetitionDetails(Long id) {
-		
 		Session ref=factory.getCurrentSession();
 		return (Competition) ref.get(Competition.class,id);
 	}
@@ -188,13 +191,17 @@ public class UserDaoImpl implements UserDao {
 		UserCompetitions userComp = new UserCompetitions(user,comp,false);
 		Long id = (Long) factory.getCurrentSession().save(userComp);
 		userComp.setId(id);
+		factory.getCurrentSession().flush();
 		return userComp;
 	}
 	
 	
 	@Override
+	@Transactional
 	public Competition updateCompetition(Competition comp) {
+		System.out.println("compe==> "+comp.getTitle());
 		factory.getCurrentSession().update(comp);
+		factory.getCurrentSession().flush();
 		return comp;
 	}
 	
