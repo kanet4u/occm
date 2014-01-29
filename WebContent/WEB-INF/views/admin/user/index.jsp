@@ -71,6 +71,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/admin/includes/before_body_end.jsp" />

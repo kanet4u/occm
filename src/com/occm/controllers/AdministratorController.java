@@ -1,5 +1,7 @@
 package com.occm.controllers;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.occm.models.Role;
 import com.occm.models.User;
+import com.occm.models.UserStatus;
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -126,6 +130,25 @@ public class AdministratorController {
 		return "redirect:" + URL_MAPPING + "/user/roles";
 	}
 
-
+	@RequestMapping("/user/edit/{id}")
+	public ModelAndView userEdit(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("user_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		}
+		
+		User user = service.getDetails(id);		
+		hs.setAttribute("user", user);
+		
+		Collection<Role> roles = service.getRoleList();
+		hs.setAttribute("roleList", roles);
+		
+		Collection<UserStatus> statusList = service.getUserStatusList();
+		hs.setAttribute("statusList", statusList);
+		
+		return new ModelAndView(URL_MAPPING + "/user/edit");
+	}
 	
 }

@@ -73,6 +73,8 @@ public interface UserDao {
 	boolean isUserJoinedAndApprovedToCompetition(User user, Competition comp);
 
 	Collection<User> getUserList(String[] ids);
+
+	Collection<UserStatus> getUserStatusList();
 	
 	
 	

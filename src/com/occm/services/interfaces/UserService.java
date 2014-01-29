@@ -73,5 +73,6 @@ public interface UserService {
 	boolean isUserJoinedAndAprovedToCompetition(User user, Competition comp);
 
 
+	Collection<UserStatus> getUserStatusList();
 
 }

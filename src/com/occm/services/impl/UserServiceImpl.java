@@ -187,6 +187,12 @@ public class UserServiceImpl implements UserService {
 		return dao.isUserJoinedAndApprovedToCompetition(user, comp);
 	}
 
+	@Override
+	public Collection<UserStatus> getUserStatusList() {
+		// TODO Auto-generated method stub
+		return dao.getUserStatusList();
+	}
+
 	
 
 }

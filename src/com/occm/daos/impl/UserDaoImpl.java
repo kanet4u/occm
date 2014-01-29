@@ -149,6 +149,14 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<UserStatus> getUserStatusList() {
+		String hql = "select u from UserStatus u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
