@@ -12,7 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -53,9 +57,13 @@ public class Submission {
 	private String path;
 	
 	@Column(name="creation_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
 	private Date creationTime;
 	
 	@Column(name="updation_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
 	private Date updationTime;
 	
 	private String log;

@@ -1,5 +1,6 @@
 package com.occm.daos.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -273,6 +274,20 @@ public class UserDaoImpl implements UserDao {
 		submission.setId(id);
 		factory.getCurrentSession().flush();
 		return submission;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<User> getUserList(String[] ids) {
+		
+		ArrayList<Long> lids = new ArrayList();
+		for(String id : ids){
+			lids.add(Long.parseLong(id));
+		}
+		
+		String hql = "select u from User u where u.id in (:lids)";
+
+		return factory.getCurrentSession().createQuery(hql).setParameterList("lids", lids).list();
 	}
 
 }

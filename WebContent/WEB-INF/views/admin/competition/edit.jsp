@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,8 +30,9 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<form:form class="form-horizontal" role="form" method="post" modelAttribute="competition">
-
+					<form:form class="form-horizontal" role="form" method="post"
+						modelAttribute="competition">
+						<form:errors path="*"></form:errors>
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#c_details" data-toggle="tab">Details</a></li>
 							<li><a href="#c_problems" data-toggle="tab">Problems</a></li>
@@ -38,7 +40,8 @@
 						</ul>
 
 						<div class="panel-body">
-							<input type="hidden" name="id" id="competition_id" value="${competition.id}">
+							<input type="hidden" name="id" id="competition_id"
+								value="${competition.id}">
 
 							<div class="tab-content">
 								<div class="tab-pane active" id="c_details">
@@ -47,7 +50,8 @@
 
 										<div class="col-sm-10">
 											<input class="form-control" name="title"
-												id="competition_title" placeholder="Competition Title" value="${competition.title}" />
+												id="competition_title" placeholder="Competition Title"
+												value="${competition.title}" />
 										</div>
 
 									</div>
@@ -57,8 +61,9 @@
 
 										<div class="col-sm-5">
 											<div class="input-group date" id="start_time_picker">
-												<input class="form-control" name="start_time"
-													id="competition_start_time" placeholder="Start Time" value="${competition.startTime}" />
+												<input class="form-control" name="startTime"
+													id="competition_start_time" placeholder="Start Time"
+													value="<fmt:formatDate pattern="MM/dd/yyyy HH:mm a" value="${competition.startTime}" />" />
 												<span class="input-group-addon"><span
 													class="fa fa-calendar"></span> </span>
 											</div>
@@ -69,9 +74,10 @@
 
 										<div class="col-sm-5">
 											<div class="input-group date" id="end_time_picker">
-												<input class="form-control" name="end_time"
-													id="competition_end_time" placeholder="End Time" value="${competition.endTime}" /> <span
-													class="input-group-addon"><span
+												<input class="form-control" name="endTime"
+													id="competition_end_time" placeholder="End Time"
+													value="<fmt:formatDate pattern="MM/dd/yyyy HH:mm a" value="${competition.endTime}" />" />
+												<span class="input-group-addon"><span
 													class="fa fa-calendar"></span> </span>
 											</div>
 										</div>
@@ -86,13 +92,18 @@
 												id="competition_details" placeholder="Description">${competition.details}</textarea>
 										</div>
 									</div>
-									<%-- 
+
 									<hr>
 									<div class="form-group">
 										<label for="competition_details"
 											class="col-sm-2 control-label">Teachers</label>
 
 										<div class="col-sm-10">
+
+											<form:checkboxes items="${userList}" path="users"
+												itemLabel="fname" itemValue="id"
+												delimiter='<a href="admin_user_edit.html">view</a>'
+												element='div class="checkbox"' />
 											<div class="checkbox">
 												<label> <input type="checkbox"
 													value="create_problem"> <span class="c_teacher">Vivek
@@ -209,104 +220,30 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>y</b><a href="#"><i
-														class="fa fa-check-square-o"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>n</b><a href="#"><i
-														class="fa fa-ban"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>y</b><a href="#"><i
-														class="fa fa-check-square-o"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>n</b><a href="#"><i
-														class="fa fa-ban"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>y</b><a href="#"><i
-														class="fa fa-check-square-o"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
-											<tr>
-												<td class="col_title"><label> <input
-														type="checkbox" class="action_select" name="problems[]"
-														value="1" checked="checked">Some Problem Title
-														Here ... Some Problem Title Here ...
-												</label></td>
-												<td class="col_id">23</td>
-												<td class="col_alias">A</td>
-												<td class="col_level">1</td>
-												<td class="action col_status"><b>n</b><a href="#"><i
-														class="fa fa-ban"></i></a></td>
-												<td class="action col_edit"><a
-													href="admin_user_edit.html"><i class="fa fa-edit"></i>
-												</a></td>
-											</tr>
+											<c:forEach items="${problemList}" var="p">
+												<tr>
+													<td class="col_title"><label> <input
+																type="checkbox" class="action_select" name="problems"
+																value="${p.id}" />${p.title }
+													</label></td>
+													<td class="col_id">${p.id}</td>
+													<td class="col_alias">${p.alias}</td>
+													<td class="col_level">${p.level}</td>
+													<td class="action col_status"><b>y</b><a href="#"><i
+															class="fa fa-check-square-o"></i></a></td>
+													<td class="action col_edit"><a
+														href="admin_user_edit.html"><i class="fa fa-edit"></i>
+													</a></td>
+												</tr>
+											</c:forEach>
+
 
 										</tbody>
 									</table>
 
 								</div>
 							</div>
-							--%>
-				
+
 
 							<hr>
 							<input type="hidden" name="continue" id="continue" value="0">
@@ -319,8 +256,7 @@
 									action="some/delete/action">Delete</button>
 								<input type="submit" class="btn btn-success" value="Save" />
 								<button type="submit" class="btn btn-success"
-									onclick="return $('#continue').val(1)">Save & Continue
-								</button>
+									onclick="return $('#continue').val(1)">Save & Continue</button>
 							</div>
 							<div class="clearfix"></div>
 

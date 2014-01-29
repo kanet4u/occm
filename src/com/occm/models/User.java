@@ -180,8 +180,7 @@ public class User {
 		return "\nUser [id=" + id + ", email=" + email + ", password="
 				+ password + ", fname=" + fname + ", sname=" + sname
 				+ ", status=" + status + ", image=" + image + ", role=" + role
-				+ ", competitions=" + competitions + ", submissions="
-				+ submissions + "]";
+				+  "]";
 	}
 
 	public void setLoggedIn(HttpSession hs) {

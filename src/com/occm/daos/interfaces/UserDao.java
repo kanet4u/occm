@@ -67,6 +67,8 @@ public interface UserDao {
 	boolean deleteProblem(Long id);
 	
 	Submission addSubmission(Submission submission);
+
+	Collection<User> getUserList(String[] ids);
 	
 	
 	

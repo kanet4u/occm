@@ -169,4 +169,10 @@ public class UserServiceImpl implements UserService {
 		return dao.addSubmission(submission);
 	}
 
+	@Override
+	public Collection<User> getUserList(String[] ids) {
+		// TODO Auto-generated method stub
+		return dao.getUserList(ids);
+	}
+
 }
