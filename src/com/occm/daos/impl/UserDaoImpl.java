@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
+import com.occm.models.Language;
 import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
@@ -194,7 +195,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Competition getCompetitionDetails(Long id) {
 		Session ref = factory.getCurrentSession();
-		Competition comp=(Competition) ref.get(Competition.class, id);
+		Competition comp = (Competition) ref.get(Competition.class, id);
 		comp.setAdditionalData();
 		return comp;
 	}
@@ -317,6 +318,21 @@ public class UserDaoImpl implements UserDao {
 		String hql = "select u from User u where u.id in (:lids)";
 
 		return factory.getCurrentSession().createQuery(hql).setParameterList("lids", lids).list();
+	}
+
+	@Override
+	public Language getLanguage(Long id) {
+		Session ref = factory.getCurrentSession();
+		System.out.println("In Language Dao : getDetails : Session Ref => ( " + ref
+				+ " ) ");
+		return (Language) ref.get(Language.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Language> getLanguageList() {
+		String hql = "select u from Language u";
+		return factory.getCurrentSession().createQuery(hql).list();
 	}
 
 }

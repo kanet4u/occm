@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2014-01-29 09:40:33
+Date: 2014-01-29 23:36:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,19 +64,22 @@ INSERT INTO `actions` VALUES ('28', 'competition_join_approve', '');
 DROP TABLE IF EXISTS `competitions`;
 CREATE TABLE `competitions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `details` varchar(255) NOT NULL,
+  `details` text,
   `duration` varchar(255) DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `is_limited` tinyint(1) NOT NULL,
   `start_time` datetime DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of competitions
 -- ----------------------------
-INSERT INTO `competitions` VALUES ('1', 'sadads', '120', '2014-01-31 22:11:09', '0', '2014-01-28 22:11:13', 'Some title');
+INSERT INTO `competitions` VALUES ('1', '<p>OCCM open testing competition. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', null, null, '0', null, 'OCCM open testing competition');
+INSERT INTO `competitions` VALUES ('2', '<p>CDAC Open Community Coders. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '23 : 59 : 44', '2014-02-01 10:34:03', '1', '2014-01-31 10:34:19', 'CDAC Open Community Coders');
+INSERT INTO `competitions` VALUES ('3', '<p>FIRST batch competition. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '', '2014-01-28 10:36:05', '1', '2014-01-26 10:36:15', 'FIRST batch competition');
+INSERT INTO `competitions` VALUES ('4', '<p>Real power, real code. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '', '2014-01-31 10:36:30', '1', '2014-01-26 10:36:34', 'Real power, real code.');
 
 -- ----------------------------
 -- Table structure for `competition_problems`
@@ -95,6 +98,10 @@ CREATE TABLE `competition_problems` (
 -- ----------------------------
 -- Records of competition_problems
 -- ----------------------------
+INSERT INTO `competition_problems` VALUES ('1', '1');
+INSERT INTO `competition_problems` VALUES ('2', '1');
+INSERT INTO `competition_problems` VALUES ('3', '1');
+INSERT INTO `competition_problems` VALUES ('4', '1');
 
 -- ----------------------------
 -- Table structure for `languages`
@@ -147,15 +154,15 @@ CREATE TABLE `problems` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `alias` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
-  `details` varchar(255) NOT NULL,
-  `input1` varchar(255) NOT NULL,
-  `input2` varchar(255) NOT NULL,
-  `input3` varchar(255) DEFAULT NULL,
+  `details` text NOT NULL,
+  `input1` text NOT NULL,
+  `input2` text NOT NULL,
+  `input3` text,
   `level` int(11) NOT NULL,
   `memory_limit` int(11) NOT NULL,
-  `output1` varchar(255) NOT NULL,
-  `output2` varchar(255) NOT NULL,
-  `output3` varchar(255) DEFAULT NULL,
+  `output1` text NOT NULL,
+  `output2` text NOT NULL,
+  `output3` text,
   `score` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `time_limit` int(11) NOT NULL,
@@ -166,7 +173,7 @@ CREATE TABLE `problems` (
 -- ----------------------------
 -- Records of problems
 -- ----------------------------
-INSERT INTO `problems` VALUES ('1', 'A', '2014-01-28 21:56:09', 'A+B', 'A and B', '1 2', '2 -2', '1', '64', 'A+B', '3', '0', '1', '1', '2', 'Very difficult problem');
+INSERT INTO `problems` VALUES ('1', 'A', '2014-01-28 21:56:09', ' <p>\r\n                Now and then you play the following game with your friend. Your friend writes down a sequence consisting\r\n                of zeroes and ones. You choose a continuous subsequence (for example the subsequence from the third to\r\n                the fifth digit inclusively) and ask him, whether this subsequence contains even or odd number of ones.\r\n                Your friend answers your question and you can ask him about another subsequence and so on.\r\n            </p>\r\n\r\n            <p>\r\n                Your task is to guess the entire sequence of numbers. You suspect some of your friend\'s answers may not\r\n                be correct and you want to convict him of falsehood. Thus you have decided to write a program to help\r\n                you in this matter.\r\n            </p>', '<p>Input contains a series of tests. The first line of each test contains one number, which is the length of\r\n                the sequence of zeroes and ones. This length is less or equal to 109. In the second line, there is one\r\n                non-negative integer which is the number of questions asked and answers to them. The number of questions\r\n                and answers is less or equal to 5 000. </p>', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n7 10 odd\r\n-1', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n5 6 even\r\n1 6 even\r\n7 10 odd', '1', '64', '<p>\r\n                Each line of output containing one integer X. Number X says that there exists a sequence of zeroes and\r\n                ones satisfying first X parity conditions, but there exists none satisfying X + 1 conditions. If there\r\n                exists a sequence of zeroes and ones satisfying all the given conditions, then number X should be the\r\n                number of all the questions asked. </p>', '3', '5', '1', '1', '2', 'Very difficult problem');
 
 -- ----------------------------
 -- Table structure for `problem_tags`
@@ -206,8 +213,8 @@ CREATE TABLE `ranks` (
   PRIMARY KEY (`id`),
   KEY `FK67439C7678780F9` (`competition_id`),
   KEY `FK67439C7EC1431B` (`user_id`),
-  CONSTRAINT `FK67439C7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FK67439C7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`)
+  CONSTRAINT `FK67439C7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
+  CONSTRAINT `FK67439C7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -241,8 +248,8 @@ CREATE TABLE `role_actions` (
   PRIMARY KEY (`role_id`,`action_id`),
   KEY `FKD1909A34381B5AFB` (`action_id`),
   KEY `FKD1909A3469967F3B` (`role_id`),
-  CONSTRAINT `FKD1909A3469967F3B` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-  CONSTRAINT `FKD1909A34381B5AFB` FOREIGN KEY (`action_id`) REFERENCES `actions` (`id`)
+  CONSTRAINT `FKD1909A34381B5AFB` FOREIGN KEY (`action_id`) REFERENCES `actions` (`id`),
+  CONSTRAINT `FKD1909A3469967F3B` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -304,11 +311,11 @@ CREATE TABLE `submissions` (
   KEY `FK2912EA77F23FC79` (`problem_id`),
   KEY `FK2912EA7C76AE11` (`status`),
   KEY `FK2912EA7EC1431B` (`user_id`),
-  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK2912EA721729CDE` FOREIGN KEY (`failed_test_case`) REFERENCES `testcases` (`id`),
   CONSTRAINT `FK2912EA7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
   CONSTRAINT `FK2912EA77F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`),
   CONSTRAINT `FK2912EA7C76AE11` FOREIGN KEY (`status`) REFERENCES `submission_status` (`code`),
+  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -432,8 +439,8 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `FK6A68E0817BA6A2D` (`role`),
   KEY `FK6A68E08267DE810` (`status`),
-  CONSTRAINT `FK6A68E08267DE810` FOREIGN KEY (`status`) REFERENCES `user_status` (`id`),
-  CONSTRAINT `FK6A68E0817BA6A2D` FOREIGN KEY (`role`) REFERENCES `roles` (`id`)
+  CONSTRAINT `FK6A68E0817BA6A2D` FOREIGN KEY (`role`) REFERENCES `roles` (`id`),
+  CONSTRAINT `FK6A68E08267DE810` FOREIGN KEY (`status`) REFERENCES `user_status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -447,22 +454,23 @@ INSERT INTO `users` VALUES ('2', 'jamshids@mal.com', 'Kerak', 'user.png', 'rando
 -- ----------------------------
 DROP TABLE IF EXISTS `user_competitions`;
 CREATE TABLE `user_competitions` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `approved` tinyint(1) NOT NULL,
   `competition_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`user_id`,`competition_id`),
+  `user_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `FKD519E688678780F9` (`competition_id`),
   KEY `FKD519E688EC1431B` (`user_id`),
-  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
+  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_competitions
 -- ----------------------------
-INSERT INTO `user_competitions` VALUES ('0', '0', '1', '1');
-INSERT INTO `user_competitions` VALUES ('1', '0', '1', '2');
+INSERT INTO `user_competitions` VALUES ('1', '1', '1', '2');
+INSERT INTO `user_competitions` VALUES ('6', '0', '4', '1');
+INSERT INTO `user_competitions` VALUES ('8', '0', '2', '1');
 
 -- ----------------------------
 -- Table structure for `user_status`

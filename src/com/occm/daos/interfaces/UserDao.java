@@ -3,6 +3,7 @@ package com.occm.daos.interfaces;
 import java.util.Collection;
 
 import com.occm.models.Competition;
+import com.occm.models.Language;
 import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Submission;
@@ -76,6 +77,7 @@ public interface UserDao {
 
 	Collection<UserStatus> getUserStatusList();
 	
+	Language getLanguage(Long id);
 	
-	
+	Collection<Language> getLanguageList();
 }

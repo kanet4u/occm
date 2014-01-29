@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,8 +30,8 @@ public class Problem {
 	private Long id;
 	
 	
-	@ManyToMany(mappedBy="problems", fetch = FetchType.LAZY)
-	private Set<Competition> competitions = new HashSet<Competition>();
+	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private Competition competition;
 	
 	@NotNull
 	private String title;
@@ -111,14 +112,14 @@ public class Problem {
 		super();
 	}
 
-	public Problem(Long id, Set<Competition> competitions, String title,
+	public Problem(Long id, Competition competition, String title,
 			String details, String input1, String output1, String input2,
 			String output2, String input3, String output3, int timeLimit,
 			int memoryLimit, int level, int score, Set<TestCase> testCases,
 			Set<Tag> tags, Set<Submission> submissions) {
 		super();
 		this.id = id;
-		this.competitions = competitions;
+		this.competition = competition;
 		this.title = title;
 		this.details = details;
 		this.input1 = input1;
@@ -144,12 +145,12 @@ public class Problem {
 		this.id = id;
 	}
 
-	public Set<Competition> getCompetitions() {
-		return competitions;
+	public Competition getCompetition() {
+		return competition;
 	}
 
-	public void setCompetitions(Set<Competition> competitions) {
-		this.competitions = competitions;
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
 	}
 
 	public String getTitle() {
@@ -280,16 +281,6 @@ public class Problem {
 		this.submissions = submissions;
 	}
 
-	@Override
-	public String toString() {
-		return "\nProblem [id=" + id + ", competitions=" + competitions
-				+ ", title=" + title + ", details=" + details + ", input1="
-				+ input1 + ", output1=" + output1 + ", input2=" + input2
-				+ ", output2=" + output2 + ", input3=" + input3 + ", output3="
-				+ output3 + ", timeLimit=" + timeLimit + ", memoryLimit="
-				+ memoryLimit + ", level=" + level + ", score=" + score
-				+ ", testCases=" + testCases + ", tags=" + tags
-				+ ", submissions=" + submissions + "]";
-	}
+	
 	
 }

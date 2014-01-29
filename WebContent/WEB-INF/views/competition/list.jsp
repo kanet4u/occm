@@ -45,23 +45,7 @@
 							<td><a
 								href="${pageContext.request.contextPath}/competition/${comp.id}">${comp.title}</a></td>
 
-							<td><c:if test="${comp.status =='RUNNING'}">
-
-									<span class="label label-success"><spring:message
-											code="competition.status.running" /></span>
-								</c:if> <c:if test="${comp.status =='UPCOMMING'}">
-									<span class="label label-info"><spring:message
-											code="competition.status.upcomming" /></span>
-
-								</c:if> <c:if test="${comp.status =='ARCHIEVED'}">
-									<span class="label label-warning"><spring:message
-											code="competition.status.archieved" /></span>
-
-								</c:if> <c:if test="${comp.status =='NEVERENDING'}">
-									<span class="label label-danger"><spring:message
-											code="competition.status.neverending" /></span>
-
-								</c:if></td>
+							<td><span class="label label-${comp.status}">${comp.status}</span></td>
 							<c:if test="${comp.isLimited}">
 								<c:if test="${comp.status =='RUNNING'}">
 									<td colspan="2" class="counter"><h4>

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.occm.daos.interfaces.UserDao;
 import com.occm.models.Competition;
+import com.occm.models.Language;
 import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
@@ -193,6 +194,19 @@ public class UserServiceImpl implements UserService {
 		return dao.getUserStatusList();
 	}
 
+	@Override
+	public Language getLanguage(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getLanguage(id);
+	}
+
+	@Override
+	public Collection<Language> getLanguageList() {
+		// TODO Auto-generated method stub
+		return dao.getLanguageList();
+	}
+
+	
 	
 
 }
