@@ -59,7 +59,7 @@ public class CompetitionController {
 		return URL_MAPPING + "/list"; // show index.jsp
 	}
 	
-	@RequestMapping("/join")
+	@RequestMapping("/joined")
 	public ModelAndView showMyCompetitions(Model map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") == null) {
 			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
@@ -85,7 +85,9 @@ public class CompetitionController {
 	}
 	
 	@RequestMapping("/join/{comp_id}")
-	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId, Model map, HttpSession hs) {
+	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId, 
+			Model map, 
+			HttpSession hs) {
 		if (hs.getAttribute("activeUser") == null) {
 			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
 		}
@@ -93,15 +95,13 @@ public class CompetitionController {
 		UserCompetitions userComp = service.joinUserCompetition(((User)hs.getAttribute("activeUser")), service.getCompetitionDetails(compId));
 		hs.setAttribute("firstVisit", new FirstVisit(true));
 		if(userComp!=null){
-			hs.setAttribute("msgCode","SUCCESS");
-			hs.setAttribute("msgText","Join request has been send, please wait while the admin approves your request.");
+			hs.setAttribute("message_success", "Join request has been send, please wait while the admin approves your request.");
 		}
 		else{
-			hs.setAttribute("msgCode","FAILURE");
-			hs.setAttribute("msgText","Request Failed please try again later.");
+			hs.setAttribute("message_success", "Request Failed please try again later.");
 		}
 		
-		return new ModelAndView("redirect:"+URL_MAPPING + "/join"); 
+		return new ModelAndView("redirect:"+URL_MAPPING + "/joined"); 
 	}
 
 }

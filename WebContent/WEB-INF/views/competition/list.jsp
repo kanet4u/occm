@@ -35,12 +35,9 @@
 					</tr>
 				</thead>
 				<tbody>
-
-
 					<c:forEach var="comp" items="${requestScope.userCompetitions}"
 						varStatus="i">
-						<tr class="comp-running">
-
+						<tr <c:if test="${comp.status =='RUNNING'}">class="comp-running"</c:if> >
 							<td>${comp.id}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/competition/${comp.id}">${comp.title}</a></td>
@@ -64,8 +61,7 @@
 							<c:if test="${comp.isLimited}">
 								<c:if test="${comp.status =='RUNNING'}">
 									<td colspan="2" class="counter"><h4>
-											<i class="fa fa-spinner fa-spin"></i>
-											${comp.timeLeft}
+											<i class="fa fa-spinner fa-spin"></i> ${comp.timeLeft}
 										</h4></td>
 								</c:if>
 								<c:if test="${comp.status !='RUNNING'}">
