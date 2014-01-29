@@ -63,7 +63,7 @@ public class AdminCompetitionController {
 		return URL_MAPPING + "/index";
 	}
 
-	@RequestMapping(value="/request", method = RequestMethod.GET)
+	@RequestMapping(value = "/request", method = RequestMethod.GET)
 	public String joinRequests(final RedirectAttributes redirectAttributes,
 			ModelMap map, HttpSession hs) {
 		/* map.addAttribute("message_success", "Some Message Here"); */
@@ -74,13 +74,59 @@ public class AdminCompetitionController {
 			return "redirect:" + URL_MAPPING;
 		}
 
-		Collection<UserCompetitions> competitions = service.getJoinRequestList();
+		Collection<UserCompetitions> competitions = service
+				.getJoinRequestList();
 
 		map.addAttribute("userCompetitions", competitions);
 		map.addAttribute("compactive", "active");
 		return URL_MAPPING + "/request";
 	}
+
+	@RequestMapping("/request/delete/{id}")
+	public String requestDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("competition_join_delete") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+
+			redirectAttributes.addFlashAttribute("message_success",
+					"Join Request " + id + " is deleted.");
+		}
+		return "redirect:" + URL_MAPPING + "/request";
+	}
 	
+	@RequestMapping("/request/approve/{id}")
+	public String requestApprove(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("competition_join_approve") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+
+			redirectAttributes.addFlashAttribute("message_success",
+					"Join Request " + id + " is approved.");
+		}
+		return "redirect:" + URL_MAPPING + "/request";
+	}
+
+	@RequestMapping("/request/approveall")
+	public String requestApproveAll(
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+		if (hs.getAttribute("competition_join_approve") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+
+			redirectAttributes.addFlashAttribute("message_success",
+					"All Join Requests are approved.");
+		}
+		return "redirect:" + URL_MAPPING + "/request";
+	}
+
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView joinList(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, HttpSession hs) {

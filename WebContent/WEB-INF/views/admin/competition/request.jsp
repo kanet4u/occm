@@ -22,7 +22,7 @@
 								Management</a></li>
 						<li class="active">Join Requests</li>
 						<span class="pull-right admin_action"> <a
-							href="${pageContext.request.contextPath}/admin/competition/request/approve/all"><i
+							href="${pageContext.request.contextPath}/admin/competition/request/approveall"><i
 								class="fa fa-check"></i> Approve All Requests</a>
 						</span>
 					</ol>
