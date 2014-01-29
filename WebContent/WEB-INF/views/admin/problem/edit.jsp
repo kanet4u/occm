@@ -126,18 +126,6 @@
 									</div>
 
 									<div class="form-group">
-										<label for="problem_competition"
-											class="col-sm-2 control-label">Details</label>
-
-										<div class="col-sm-10">
-											<select class="form-control" name="competition_id"
-												id="problem_competition">
-												<option value="1">Some</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="form-group">
 										<label for="problem_details" class="col-sm-2 control-label">Details</label>
 
 										<div class="col-sm-10">
@@ -217,12 +205,10 @@
 										<div class="col-sm-12 tag_box" style="min-height: 90px;">
 
 											<form:checkboxes items="${tagsList}" path="tags"
-												delimiter='<span></span>' element='label class="badge"'
-												itemLabel="tag" itemValue="id" />
+												delimiter='<span></span>' element='label class="badge"'  itemLabel="tag" itemValue="id"/>
 											<label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Static
-													CheckBox</span>
-											</label>
+												name="tags[]" value="1"> <span class="">Static CheckBox</span>
+											</label> 
 
 										</div>
 									</div>
