@@ -13,6 +13,7 @@ import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
 import com.occm.models.Submission;
+import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -216,6 +217,18 @@ public class UserServiceImpl implements UserService {
 	public Tag getTagDetails(Long id) {
 		// TODO Auto-generated method stub
 		return dao.getTagDetails(id);
+	}
+
+	@Override
+	public Collection<Problem> getCompetitionProblemsList(Competition comp) {
+		// TODO Auto-generated method stub
+		return dao.getCompetitionProblemsList(comp);
+	}
+
+	@Override
+	public SubmissionStatus getSubmissionStatus(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getSubmissionStatus(id);
 	}
 
 	

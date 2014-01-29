@@ -328,38 +328,7 @@
     var key;//generate csrf key here
 
     $(document).ready(function () {
-        editor.setTheme("ace/theme/" + $("#theme_group input[checked='checked']").val().toString());
-        createNewSolution(language)
-        $("#language_group input").on('change', function () {
-            editor.getSession().setMode("ace/mode/" + this.value);
-        })
-        $("#theme_group input").on('change', function () {
-            editor.setTheme("ace/theme/" + this.value);
-        })
-        $("#btn_full_screen").on('change', function () {
-            if (this.checked) {
-                $("#editor_area").addClass('full_screen');
-                $("body").addClass('full_screen_open');
-            } else {
-                $("#editor_area").removeClass('full_screen');
-                $("body").removeClass('full_screen_open');
-            }
-        })
-        $("#btn_terminal").on('change', function () {
-            if (this.checked)$("#terminal").show(); else $("#terminal").hide();
-        })
-        $("#btn_undo").on('click', function () {
-            editor.undo();
-        })
-        $("#btn_redo").on('click', function () {
-            editor.redo();
-            editor.gotoLine(editor.selection.getCursor().row + 1);
-        })
-        $("#btn_font_size").on('click', function () {
-            fontSize += 2;
-            if (fontSize > 24)fontSize = 12;
-            document.getElementById('editor').style.fontSize = fontSize + 'px';
-        })
+
     });
 </script>
 

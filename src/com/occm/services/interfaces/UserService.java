@@ -8,6 +8,7 @@ import com.occm.models.Page;
 import com.occm.models.Problem;
 import com.occm.models.Role;
 import com.occm.models.Submission;
+import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
@@ -78,8 +79,11 @@ public interface UserService {
 	Collection<Language> getLanguageList();
 
 	Collection<UserStatus> getUserStatusList();
+	
+	Collection<Problem> getCompetitionProblemsList(Competition comp);
 
 	Collection<Tag> getTagList(String[] ids);
 
 	Tag getTagDetails(Long id);
+	SubmissionStatus getSubmissionStatus(Long id);
 }

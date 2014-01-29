@@ -56,7 +56,9 @@
 							<c:forEach var="language" items="${languages}" varStatus="i">
 								<label class="btn btn-default"> <input type="radio"
 									name="language" id="language_${language.code}"
-									value="${language.id}"> ${language.name}
+									lang_id="${language.id}" value="${language.code}">
+									${language.name}
+
 								</label>
 							</c:forEach>
 						</div>
@@ -71,7 +73,11 @@
 							</label>
 						</div>
 					</div>
-					<pre id="editor"></pre>
+					<script>
+						
+					</script>
+					<input type="hidden" id="last_submission" last_submission="${submission.language.code}" />
+					<pre id="editor">${submission.sourceCode}</pre>
 					<pre id="terminal">Code result here...</pre>
 				</div>
 
@@ -224,7 +230,7 @@
 	<div class="modal fade" id="modal_submit_solution" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<form class="" id="submit_solution_form" method="post" >
+			<form class="" id="submit_solution_form" method="post">
 				<div class="modal-content">
 
 					<div class="modal-header">
@@ -265,72 +271,9 @@
 		};
 		var key;//generate csrf key here
 
-		$(document)
-				.ready(
-						function() {
-							editor
-									.setTheme("ace/theme/"
-											+ $(
-													"#theme_group input[checked='checked']")
-													.val().toString());
-							createNewSolution(language);
-							$("#language_group input").on(
-									'change',
-									function() {
-										editor.getSession().setMode(
-												"ace/mode/" + this.value);
-									});
-							$("#theme_group input").on('change', function() {
-								editor.setTheme("ace/theme/" + this.value);
-							});
-							$("#btn_full_screen").on(
-									'change',
-									function() {
-										if (this.checked) {
-											$("#editor_area").addClass(
-													'full_screen');
-											$("body").addClass(
-													'full_screen_open');
-										} else {
-											$("#editor_area").removeClass(
-													'full_screen');
-											$("body").removeClass(
-													'full_screen_open');
-										}
-									});
-							$("#btn_terminal").on('change', function() {
-								if (this.checked)
-									$("#terminal").show();
-								else
-									$("#terminal").hide();
-							});
-							$("#btn_undo").on('click', function() {
-								editor.undo();
-							});
-							$("#btn_redo").on(
-									'click',
-									function() {
-										editor.redo();
-										editor.gotoLine(editor.selection
-												.getCursor().row + 1);
-									});
-							$("#btn_font_size")
-									.on(
-											'click',
-											function() {
-												fontSize += 2;
-												if (fontSize > 24)
-													fontSize = 12;
-												document
-														.getElementById('editor').style.fontSize = fontSize
-														+ 'px';
-											});
-
-							$('#submit_solution_form').submit(function() {
-								$('#submit_language').val($('input[name="language"]').val());
-								$('#submit_code').val(editor.getValue());
-							});
-						});
+		$(document).ready(function() {
+			setEditor();
+		});
 	</script>
 </body>
 </html>

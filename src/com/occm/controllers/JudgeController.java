@@ -19,17 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+
 import com.occm.models.Competition;
 import com.occm.models.FirstVisit;
+import com.occm.models.Submission;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
-
 import com.occm.services.interfaces.UserService;
 
 @Controller
-@RequestMapping(value = { CompetitionController.URL_MAPPING })
-public class CompetitionController {
-	public static final String URL_MAPPING = "/competition";
+@RequestMapping(value = { JudgeController.URL_MAPPING })
+public class JudgeController {
+	public static final String URL_MAPPING = "/submission";
 
 	@Autowired
 	@Qualifier("user_service_dao")
@@ -37,26 +38,11 @@ public class CompetitionController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap map, HttpSession hs) {
-		/*
-		 * Only if we want to restrict access to this page to only who are users
-		 * and logged in if (hs.getAttribute("activeUser") == null) { return
-		 * "/home/index"; }
-		 */
+		
+		Collection<Submission> submissions = service.getSubmissionList();
+		map.addAttribute("submissions", submissions);
 
-		Collection<Competition> competitions = service.getCompetitionList();
-
-		for (Competition competition : competitions) {
-			competition.setAdditionalData();
-
-		}
-
-		ArrayList<Competition> sorted = new ArrayList<Competition>();
-		sorted.addAll(competitions);
-		Collections.sort(sorted, Competition.CompetitionStatusComparator);
-
-		map.addAttribute("userCompetitions", sorted);
-
-		return URL_MAPPING + "/list"; // show index.jsp
+		return URL_MAPPING + "/list"; 
 	}
 
 	@RequestMapping("/mylist")
