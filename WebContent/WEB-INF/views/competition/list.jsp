@@ -16,8 +16,9 @@
 			Competitions <small style="font-size: 11px;"><a href="">See
 					Competitions FAQ</a></small>
 		</h1>
-		<hr>
 		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
+		<hr>
+		
 		<div style="min-height: 360px;">
 
 			<table
@@ -87,7 +88,7 @@
 
 							<td><c:if test="${comp.status =='RUNNING'}">
 									<a
-										href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
+										href="${pageContext.request.contextPath}/competition/view/${comp.id}">Attend</a>
 								</c:if> <c:if test="${comp.status =='UPCOMMING'}">
 									<a
 										href="${pageContext.request.contextPath}/competition/join/${comp.id}">Join</a>
@@ -96,7 +97,7 @@
 										href="${pageContext.request.contextPath}/competition/view/${comp.id}">View</a>
 								</c:if> <c:if test="${comp.status =='NEVERENDING'}">
 									<a
-										href="${pageContext.request.contextPath}/competition/attend/${comp.id}">Attend</a>
+										href="${pageContext.request.contextPath}/competition/view/${comp.id}">Attend</a>
 								</c:if></td>
 						</tr>
 					</c:forEach>

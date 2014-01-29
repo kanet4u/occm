@@ -41,10 +41,10 @@ public class CompetitionController {
 		 */
 
 		Collection<Competition> competitions = service.getCompetitionList();
-		
+
 		for (Competition competition : competitions) {
 			competition.setAdditionalData();
-			
+
 		}
 
 		ArrayList<Competition> sorted = new ArrayList<Competition>();
@@ -82,26 +82,56 @@ public class CompetitionController {
 	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId,
 			Model map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") == null) {
-			hs.setAttribute(
-					"message_error",
-					"Sign in to join competition.");
+			hs.setAttribute("message_error", "Sign in to join competition.");
 			return new ModelAndView("redirect:" + URL_MAPPING);
 		}
-
-		UserCompetitions userComp = service.joinUserCompetition(
-				((User) hs.getAttribute("activeUser")),
-				service.getCompetitionDetails(compId));
-		hs.setAttribute("firstVisit", new FirstVisit(true));
-		if (userComp != null) {
-			hs.setAttribute(
-					"message_success",
-					"Join request has been send, please wait while the admin approves your request.");
-		} else {
-			hs.setAttribute("message_success",
-					"Request Failed please try again later.");
+		Competition comp = service.getCompetitionDetails(compId);
+		if (comp.getStatus() == Competition.UPCOMMING) {
+			UserCompetitions userComp = service.joinUserCompetition(
+					((User) hs.getAttribute("activeUser")), comp);
+			hs.setAttribute("firstVisit", new FirstVisit(true));
+			if (userComp != null) {
+				hs.setAttribute(
+						"message_success",
+						"Join request has been send, please wait while the admin approves your request.");
+			} else {
+				hs.setAttribute("message_success",
+						"Your Request is pending, please wait while the admin approves your request.");
+			}
+		}else{
+			hs.setAttribute("message_error",
+					"You can join only to UPCOMING competitions.");
 		}
-
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 
+	@RequestMapping("/view/{id}")
+	public String viewCompetition(@PathVariable("id") Long compId, Model map,
+			HttpSession hs) {
+		if (hs.getAttribute("activeUser") == null) {
+			hs.setAttribute("message_error", "Please, sign in to continue.");
+			return "redirect:" + URL_MAPPING;
+		}
+		User user = (User) hs.getAttribute("activeUser");
+		Competition comp = service.getCompetitionDetails(compId);
+		if (comp.getStatus() == Competition.RUNNING
+				|| comp.getStatus() == Competition.UPCOMMING) {
+			if (service.isUserJoinedAndAprovedToCompetition(user, comp)) {
+				if (comp.getStatus() == Competition.UPCOMMING) {
+					hs.setAttribute("message_error",
+							"This Competition not started yet. Please wait.");
+					return "redirect:" + URL_MAPPING;
+				}
+			} else {
+				hs.setAttribute(
+						"message_error",
+						"User not approved to this competition. You should send the join request before start of competition or contact administrator.");
+				return "redirect:" + URL_MAPPING;
+			}
+		}
+
+		map.addAttribute("competition", comp);
+		map.addAttribute("user", user);
+		return URL_MAPPING + "/view";
+	}
 }

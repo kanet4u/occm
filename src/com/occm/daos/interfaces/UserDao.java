@@ -68,6 +68,10 @@ public interface UserDao {
 	
 	Submission addSubmission(Submission submission);
 
+	UserCompetitions isUserJoinedToCompetition(User user, Competition comp);
+
+	boolean isUserJoinedAndApprovedToCompetition(User user, Competition comp);
+
 	Collection<User> getUserList(String[] ids);
 	
 	

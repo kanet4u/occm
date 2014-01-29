@@ -68,4 +68,10 @@ public interface UserService {
 	
 	Collection<User> getUserList(String[] ids);
 
+	UserCompetitions isUserJoinedToCompetition(User user, Competition comp);
+
+	boolean isUserJoinedAndAprovedToCompetition(User user, Competition comp);
+
+
+
 }

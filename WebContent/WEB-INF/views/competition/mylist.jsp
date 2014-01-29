@@ -16,8 +16,9 @@
 			Competitions <small style="font-size: 11px;"><a href="">See
 					Competitions FAQ</a></small>
 		</h1>
-		<hr>
 		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
+		<hr>
+		
 		<div style="min-height: 360px;">
 
 			<table
@@ -40,7 +41,7 @@
 
 					<c:forEach var="comp" items="${requestScope.userCompetitions}"
 						varStatus="i">
-						<tr class="comp-running">
+						<tr <c:if test="${comp.status =='RUNNING'}">class="comp-running"</c:if>>
 
 							<td>${comp.competition.id}</td>
 							<td><a

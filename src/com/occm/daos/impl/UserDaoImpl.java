@@ -186,23 +186,43 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Competition getCompetitionDetails(Long id) {
 		Session ref = factory.getCurrentSession();
-		return (Competition) ref.get(Competition.class, id);
+		Competition comp=(Competition) ref.get(Competition.class, id);
+		comp.setAdditionalData();
+		return comp;
 	}
 
 	@Override
 	public UserCompetitions joinUserCompetition(User user, Competition comp) {
-		String hql = "select u from UserCompetitions u where u.user = :user and u.competition = :competition";
-		UserCompetitions userComp;
-		userComp = (UserCompetitions) factory.getCurrentSession()
-				.createQuery(hql).setParameter("user", user)
-				.setParameter("competition", comp).uniqueResult();
-		if (userComp == null) {
+		UserCompetitions userComp = null;
+		if (this.isUserJoinedToCompetition(user, comp) == null) {
 			userComp = new UserCompetitions(user, comp, false);
 			Long id = (Long) factory.getCurrentSession().save(userComp);
 			userComp.setId(id);
 			factory.getCurrentSession().flush();
 		}
 		return userComp;
+	}
+
+	@Override
+	public UserCompetitions isUserJoinedToCompetition(User user,
+			Competition comp) {
+		String hql = "select u from UserCompetitions u where u.user = :user and u.competition = :competition";
+		UserCompetitions userComp;
+		userComp = (UserCompetitions) factory.getCurrentSession()
+				.createQuery(hql).setParameter("user", user)
+				.setParameter("competition", comp).uniqueResult();
+
+		return userComp;
+	}
+
+	@Override
+	public boolean isUserJoinedAndApprovedToCompetition(User user,
+			Competition comp) {
+		UserCompetitions userComp = isUserJoinedToCompetition(user, comp);
+		if (userComp != null && userComp.isApproved()) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -225,7 +245,7 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public Problem getProblemDetails(Long id) {
 		Session ref = factory.getCurrentSession();
@@ -237,7 +257,8 @@ public class UserDaoImpl implements UserDao {
 	public Collection<Problem> getProblemList(Competition comp) {
 		String hql = "select p from Problem p where p.competition = :comp ";
 
-		return factory.getCurrentSession().createQuery(hql).setParameter("comp", comp).list();
+		return factory.getCurrentSession().createQuery(hql)
+				.setParameter("comp", comp).list();
 	}
 
 	@SuppressWarnings("unchecked")
