@@ -62,6 +62,9 @@ public class Competition implements Comparable<Competition> {
 	@Transient
 	private String timeLeft;
 
+	@Transient
+	private long timeLeftInSeconds=0;
+
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinTable(name = "competition_problems", joinColumns = { @JoinColumn(name = "competition_id") }, inverseJoinColumns = { @JoinColumn(name = "problem_id") })
 	private Set<Problem> problems = new HashSet<Problem>();
@@ -185,8 +188,7 @@ public class Competition implements Comparable<Competition> {
 
 			this.duration = "" + diffHours + " : " + diffMinutes + " : "
 					+ diffSeconds;
-		}
-		else{
+		} else {
 			duration = "";
 		}
 	}
@@ -195,7 +197,8 @@ public class Competition implements Comparable<Competition> {
 		return status;
 	}
 
-	public void setStatus(Date current) {
+	public void putStatus() {
+		Date current = new Date();
 		if (this.isLimited()) {
 			if (current.compareTo(this.getStartTime()) >= 0
 					&& current.compareTo(this.getEndTime()) <= 0) {
@@ -211,6 +214,8 @@ public class Competition implements Comparable<Competition> {
 
 				this.timeLeft = "" + diffHours + " : " + diffMinutes + " : "
 						+ diffSeconds;
+
+				timeLeftInSeconds = TimeUnit.MILLISECONDS.toSeconds(endTime.getTime() -current.getTime());
 			} else if (current.compareTo(this.getStartTime()) < 0) {
 				status = "UPCOMMING";
 			} else if (current.compareTo(this.getEndTime()) > 0) {
@@ -220,6 +225,14 @@ public class Competition implements Comparable<Competition> {
 		} else {
 			status = "NEVERENDING";
 		}
+	}
+
+	public void setAdditionalData() {
+
+		putStatus();
+		setDuration();
+		setUserCount(getUsers().size());
+		setProblemCount(getProblems().size());
 	}
 
 	public void setStatus(String status) {
@@ -245,6 +258,15 @@ public class Competition implements Comparable<Competition> {
 	public String getTimeLeft() {
 		return timeLeft;
 	}
+	
+	public long getTimeLeftInSeconds() {
+		return timeLeftInSeconds;
+	}
+	
+	public void setTimeLeftInSeconds(long timeLeftInSeconds) {
+		this.timeLeftInSeconds=timeLeftInSeconds;
+	}
+	
 
 	public void setTimeLeft(String timeLeft) {
 		this.timeLeft = timeLeft;

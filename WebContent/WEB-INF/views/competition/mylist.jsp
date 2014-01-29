@@ -12,31 +12,12 @@
 	<jsp:include page="/WEB-INF/views/includes/navigation.jsp" />
 
 	<div class="container">
-		<c:if test="${sessionScope.firstVisit.visit}">
-			<c:if test="${sessionScope.msgCode != null}">
-				<div id="messages-area">
-					<c:if test="${sessionScope.msgCode == 'FAILURE'}">
-						<div class="alert alert-danger alert-dismissable">
-							<button aria-hidden="true" data-dismiss="alert" class="close"
-								type="button">Ã—</button>
-							${sessionScope.msgText}
-						</div>
-					</c:if>
-					<c:if test="${requestScope.msgCode == 'SUCCESS'}">
-						<div class="alert alert-success alert-dismissable">
-							<button aria-hidden="true" data-dismiss="alert" class="close"
-								type="button">Ã—</button>
-							${sessionScope.msgText}
-						</div>
-					</c:if>
-				</div>
-			</c:if>
-		</c:if>
 		<h1>
 			Competitions <small style="font-size: 11px;"><a href="">See
 					Competitions FAQ</a></small>
 		</h1>
 		<hr>
+		<jsp:include page="/WEB-INF/views/includes/messages.jsp" />
 		<div style="min-height: 360px;">
 
 			<table
@@ -84,8 +65,8 @@
 							<c:if test="${comp.competition.isLimited}">
 								<c:if test="${comp.competition.status =='RUNNING'}">
 									<td colspan="2" class="counter"><h4>
-											<i class="fa fa-spinner fa-spin"></i>
-											${comp.competition.timeLeft}
+											<i class="fa fa-spinner fa-spin"></i> <span id="counter"
+												left="${comp.competition.timeLeftInSeconds}">${comp.competition.timeLeft}</span>
 										</h4></td>
 								</c:if>
 								<c:if test="${comp.competition.status !='RUNNING'}">
@@ -125,5 +106,13 @@
 	</div>
 	<!-- /container -->
 	<jsp:include page="/WEB-INF/views/includes/before_body_end.jsp" />
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			ticker("#counter");
+		});
+
+		
+	</script>
 </body>
 </html>

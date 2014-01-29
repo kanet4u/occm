@@ -34,74 +34,74 @@ public class CompetitionController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap map, HttpSession hs) {
-		/* Only if we want to restrict access to this page to only who are users and logged in
-		 * if (hs.getAttribute("activeUser") == null) {
-			return "/home/index";
-		}*/
+		/*
+		 * Only if we want to restrict access to this page to only who are users
+		 * and logged in if (hs.getAttribute("activeUser") == null) { return
+		 * "/home/index"; }
+		 */
 
 		Collection<Competition> competitions = service.getCompetitionList();
-
+		
 		for (Competition competition : competitions) {
-			Date current = new Date();
-			competition.setStatus(current);
-			competition.setDuration();
+			competition.setAdditionalData();
 			
-			competition.setUserCount(competition.getUsers().size());
-			competition.setProblemCount(competition.getProblems().size());
 		}
 
 		ArrayList<Competition> sorted = new ArrayList<Competition>();
 		sorted.addAll(competitions);
-		Collections.sort(sorted,Competition.CompetitionStatusComparator);
-		
+		Collections.sort(sorted, Competition.CompetitionStatusComparator);
+
 		map.addAttribute("userCompetitions", sorted);
 
 		return URL_MAPPING + "/list"; // show index.jsp
 	}
-	
-	@RequestMapping("/joined")
+
+	@RequestMapping("/mylist")
 	public ModelAndView showMyCompetitions(Model map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") == null) {
-			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
+			return new ModelAndView("redirect:" + HomeController.URL_MAPPING);
 		}
-		Collection<UserCompetitions> competitions = service.getUserCompetitionList(((User)hs.getAttribute("activeUser")));
+		Collection<UserCompetitions> competitions = service
+				.getUserCompetitionList(((User) hs.getAttribute("activeUser")));
 
 		for (UserCompetitions competition : competitions) {
-			Date current = new Date();
-			competition.getCompetition().setStatus(current);
-			competition.getCompetition().setDuration();
-			
-			competition.getCompetition().setUserCount(competition.getCompetition().getUsers().size());
-			competition.getCompetition().setProblemCount(competition.getCompetition().getProblems().size());
+			competition.getCompetition().setAdditionalData();
 		}
 
 		ArrayList<UserCompetitions> sorted = new ArrayList<UserCompetitions>();
 		sorted.addAll(competitions);
-		Collections.sort(sorted,UserCompetitions.UserCompetitionsStatusComparator);
-		
+		Collections.sort(sorted,
+				UserCompetitions.UserCompetitionsStatusComparator);
+
 		map.addAttribute("userCompetitions", sorted);
 
 		return new ModelAndView(URL_MAPPING + "/mylist"); // show index.jsp
 	}
-	
+
 	@RequestMapping("/join/{comp_id}")
-	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId, 
-			Model map, 
-			HttpSession hs) {
+	public ModelAndView joinCompetition(@PathVariable("comp_id") Long compId,
+			Model map, HttpSession hs) {
 		if (hs.getAttribute("activeUser") == null) {
-			return new ModelAndView("redirect:"+HomeController.URL_MAPPING);
+			hs.setAttribute(
+					"message_error",
+					"Sign in to join competition.");
+			return new ModelAndView("redirect:" + URL_MAPPING);
 		}
-		
-		UserCompetitions userComp = service.joinUserCompetition(((User)hs.getAttribute("activeUser")), service.getCompetitionDetails(compId));
+
+		UserCompetitions userComp = service.joinUserCompetition(
+				((User) hs.getAttribute("activeUser")),
+				service.getCompetitionDetails(compId));
 		hs.setAttribute("firstVisit", new FirstVisit(true));
-		if(userComp!=null){
-			hs.setAttribute("message_success", "Join request has been send, please wait while the admin approves your request.");
+		if (userComp != null) {
+			hs.setAttribute(
+					"message_success",
+					"Join request has been send, please wait while the admin approves your request.");
+		} else {
+			hs.setAttribute("message_success",
+					"Request Failed please try again later.");
 		}
-		else{
-			hs.setAttribute("message_success", "Request Failed please try again later.");
-		}
-		
-		return new ModelAndView("redirect:"+URL_MAPPING + "/joined"); 
+
+		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
 
 }

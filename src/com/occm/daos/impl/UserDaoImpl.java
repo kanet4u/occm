@@ -53,8 +53,7 @@ public class UserDaoImpl implements UserDao {
 		user = (User) factory.getCurrentSession().createQuery(hql)
 				.setParameter("em", user.getEmail())
 				.setParameter("pa", user.getPassword()).uniqueResult();
-		
-		
+
 		return user;
 	}
 
@@ -68,7 +67,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User update(User user) {
-		//System.out.println("In User Dao : Update : user => ( " + user + " ) ");
+		// System.out.println("In User Dao : Update : user => ( " + user +
+		// " ) ");
 		factory.getCurrentSession().update(user);
 		factory.getCurrentSession().flush();
 		return user;
@@ -76,40 +76,45 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User unsubscribe(Long id) {
-		Session ref=factory.getCurrentSession();
-		System.out.println("In User Dao : Unsubscribe : Session Ref => ( " + ref + " ) ");
+		Session ref = factory.getCurrentSession();
+		System.out.println("In User Dao : Unsubscribe : Session Ref => ( "
+				+ ref + " ) ");
 		User user = getDetails(id);
-		if(user != null){
+		if (user != null) {
 			ref.delete(user);
 			factory.getCurrentSession().flush();
-		}
-		else
-			System.out.println("In User Dao : Unsubscribe : User Not Found  : ID => ( " + id + " ) ");
+		} else
+			System.out
+					.println("In User Dao : Unsubscribe : User Not Found  : ID => ( "
+							+ id + " ) ");
 		return user;
 	}
 
 	@Override
 	public User getDetails(Long id) {
-		
-		Session ref=factory.getCurrentSession();
-		System.out.println("In User Dao : getDetails : Session Ref => ( " + ref + " ) ");
-		return (User) ref.get(User.class,id);
+
+		Session ref = factory.getCurrentSession();
+		System.out.println("In User Dao : getDetails : Session Ref => ( " + ref
+				+ " ) ");
+		return (User) ref.get(User.class, id);
 	}
-	
+
 	@Override
 	public Role getRole(Long id) {
-		
-		Session ref=factory.getCurrentSession();
-		System.out.println("In User Dao : getRole : Session Ref => ( " + ref + " ) ");
-		return (Role) ref.get(Role.class,id);
+
+		Session ref = factory.getCurrentSession();
+		System.out.println("In User Dao : getRole : Session Ref => ( " + ref
+				+ " ) ");
+		return (Role) ref.get(Role.class, id);
 	}
-	
+
 	@Override
 	public UserStatus getUserStatus(Long id) {
-		
-		Session ref=factory.getCurrentSession();
-		System.out.println("In User Dao : getUserStatus : Session Ref => ( " + ref + " ) ");
-		return (UserStatus) ref.get(UserStatus.class,id);
+
+		Session ref = factory.getCurrentSession();
+		System.out.println("In User Dao : getUserStatus : Session Ref => ( "
+				+ ref + " ) ");
+		return (UserStatus) ref.get(UserStatus.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -119,7 +124,7 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Problem> getProblemList() {
@@ -135,7 +140,7 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Role> getRoleList() {
@@ -143,7 +148,7 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Submission> getSubmissionList() {
@@ -151,7 +156,6 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -160,16 +164,16 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<UserCompetitions> getUserCompetitionList(User user) {
 		String hql = "select u from UserCompetitions u where u.user = :usr and u.approved = 1";
 
-		return factory.getCurrentSession().createQuery(hql).setParameter("usr", user).list();
+		return factory.getCurrentSession().createQuery(hql)
+				.setParameter("usr", user).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<UserCompetitions> getJoinRequestList() {
@@ -177,33 +181,37 @@ public class UserDaoImpl implements UserDao {
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
-	
 
-	
 	@Override
 	public Competition getCompetitionDetails(Long id) {
-		Session ref=factory.getCurrentSession();
-		return (Competition) ref.get(Competition.class,id);
+		Session ref = factory.getCurrentSession();
+		return (Competition) ref.get(Competition.class, id);
 	}
-	
+
 	@Override
 	public UserCompetitions joinUserCompetition(User user, Competition comp) {
-		UserCompetitions userComp = new UserCompetitions(user,comp,false);
-		Long id = (Long) factory.getCurrentSession().save(userComp);
-		userComp.setId(id);
-		factory.getCurrentSession().flush();
+		String hql = "select u from UserCompetitions u where u.user = :user and u.competition = :competition";
+		UserCompetitions userComp;
+		userComp = (UserCompetitions) factory.getCurrentSession()
+				.createQuery(hql).setParameter("user", user)
+				.setParameter("competition", comp).uniqueResult();
+		if (userComp == null) {
+			userComp = new UserCompetitions(user, comp, false);
+			Long id = (Long) factory.getCurrentSession().save(userComp);
+			userComp.setId(id);
+			factory.getCurrentSession().flush();
+		}
+
 		return userComp;
 	}
-	
-	
+
 	@Override
 	@Transactional
 	public Competition updateCompetition(Competition comp) {
-		System.out.println("compe==> "+comp.getTitle());
+		System.out.println("compe==> " + comp.getTitle());
 		factory.getCurrentSession().update(comp);
 		factory.getCurrentSession().flush();
 		return comp;
 	}
-	
 
 }

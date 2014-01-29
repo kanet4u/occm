@@ -122,4 +122,5 @@ public class UserCompetitions implements Comparable<UserCompetitions> {
 		}
 
 	};
+	
 }
