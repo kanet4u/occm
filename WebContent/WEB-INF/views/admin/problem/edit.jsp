@@ -15,7 +15,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header">Edit User</h3>
+					<h3 class="page-header">Edit Problem</h3>
 					<ol class="breadcrumb">
 						<li><a href="admin_index.html">Administration</a></li>
 						<li><a href="admin_users.html">Problem Management</a></li>

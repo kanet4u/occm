@@ -371,6 +371,22 @@ public class UserDaoImpl implements UserDao {
 		return (SubmissionStatus) ref.get(SubmissionStatus.class, id);
 	}
 
+	@Override
+	public Problem addProblem(Problem prob) {
+		Long id = (Long) factory.getCurrentSession().save(prob);
+		prob.setId(id);
+		factory.getCurrentSession().flush();
+		return prob;
+	}
+
+	@Override
+	public Competition addCompetition(Competition comp) {
+		Long id = (Long) factory.getCurrentSession().save(comp);
+		comp.setId(id);
+		factory.getCurrentSession().flush();
+		return comp;
+	}
+
 	
 
 }

@@ -188,7 +188,7 @@ public class Competition implements Comparable<Competition> {
 
 	public void putStatus() {
 		Date current = new Date();
-		if (this.isLimited()) {
+		if (this.endTime!=null) {
 			if (current.compareTo(this.getStartTime()) >= 0
 					&& current.compareTo(this.getEndTime()) <= 0) {
 				status = "RUNNING";

@@ -90,12 +90,13 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
+			service.deleteCompetition(id);
 			redirectAttributes.addFlashAttribute("message_success",
 					"Join Request " + id + " is deleted.");
 		}
 		return "redirect:" + URL_MAPPING + "/request";
 	}
-	
+
 	@RequestMapping("/request/approve/{id}")
 	public String requestApprove(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
@@ -104,7 +105,7 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-
+			
 			redirectAttributes.addFlashAttribute("message_success",
 					"Join Request " + id + " is approved.");
 		}
@@ -119,7 +120,6 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-
 			redirectAttributes.addFlashAttribute("message_success",
 					"All Join Requests are approved.");
 		}
@@ -138,12 +138,77 @@ public class AdminCompetitionController {
 		return new ModelAndView(URL_MAPPING + "/index");
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addCompetition(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse, HttpSession hs) {
-		return new ModelAndView(URL_MAPPING + "/index");
+	
+
+	@RequestMapping("/add")
+	public ModelAndView addCompetition(
+			final RedirectAttributes redirectAttributes, Model map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("management_dashboard") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"You don't have proper authorization.");
+			return new ModelAndView(AdministratorController.URL_MAPPING
+					+ "/login");
+		}
+
+		Competition comp = new Competition();
+		Collection<User> userList = service.viewAll();
+		Collection<Problem> problemList = service.getProblemList();
+
+		map.addAttribute("competition", comp);
+		map.addAttribute("userList", userList);
+		map.addAttribute("problemList", problemList);
+		return new ModelAndView(URL_MAPPING + "/add");
 	}
 
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addCompetition(
+			@Valid/* @ModelAttribute("user") */Competition comp,
+			BindingResult results, final RedirectAttributes redirectAttributes,
+			Model map, HttpSession hs, HttpServletRequest req) {
+
+		System.out.println("post data :" + req.getParameterValues("users"));
+		if(req.getAttribute("endTime")==null){
+			comp.setLimited(false);
+		}
+		else{
+			comp.setLimited(true);
+		}
+		comp.putStatus();
+
+		if (req.getParameterValues("users") != null) {
+			for (String id : req.getParameterValues("users")) {
+				// comp.getUsers().add(service.getDetails(Long.parseLong(id)));
+				service.joinUserCompetition(
+						service.getDetails(Long.parseLong(id)), comp);
+
+			}
+		}
+
+		// chk for P.L errs
+		/*
+		 * if (results.hasErrors()) { Collection<User> userList =
+		 * service.viewAll(); Collection<Problem> problemList =
+		 * service.getProblemList(); map.addAttribute("userList", userList);
+		 * map.addAttribute("problemList", problemList); return new
+		 * ModelAndView(URL_MAPPING + "/edit"); }
+		 */
+
+		comp = service.addCompetition(comp);
+		if (comp == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Competition Updation Failed");
+			return new ModelAndView("redirect:" + URL_MAPPING + "/edit/"
+					+ comp.getId());
+		}
+
+		redirectAttributes.addFlashAttribute("message_success",
+				"Competition Updated Successfully " + comp.getTitle());
+		return new ModelAndView("redirect:" + URL_MAPPING);
+	}
+	
+	
 	@RequestMapping("/edit/{comp_id}")
 	public ModelAndView editCompetition(@PathVariable("comp_id") Long compId,
 			final RedirectAttributes redirectAttributes, Model map,
@@ -159,7 +224,7 @@ public class AdminCompetitionController {
 		Competition comp = (Competition) service.getCompetitionDetails(compId);
 		Collection<User> userList = service.viewAll();
 		Collection<Problem> problemList = service.getProblemList();
-		
+
 		if (comp == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Competition Not Found");
@@ -177,36 +242,46 @@ public class AdminCompetitionController {
 			BindingResult results, final RedirectAttributes redirectAttributes,
 			Model map, HttpSession hs, HttpServletRequest req) {
 
-		System.out.println("post data :"+req.getParameterValues("users"));
-		
-		
-		for(String id : req.getParameterValues("users")){
-			//comp.getUsers().add(service.getDetails(Long.parseLong(id)));
-			service.joinUserCompetition(service.getDetails(Long.parseLong(id)),comp);
-			
+		System.out.println("post data :" + req.getParameterValues("users"));
+		if(req.getAttribute("endTime")==null){
+			comp.setLimited(false);
 		}
-		
-		
+		else{
+			comp.setLimited(true);
+		}
+		comp.putStatus();
+
+		if (req.getParameterValues("users") != null) {
+			for (String id : req.getParameterValues("users")) {
+				// comp.getUsers().add(service.getDetails(Long.parseLong(id)));
+				service.joinUserCompetition(
+						service.getDetails(Long.parseLong(id)), comp);
+
+			}
+		}
+
 		// chk for P.L errs
-		/*if (results.hasErrors()) {
-			Collection<User> userList = service.viewAll();
-			Collection<Problem> problemList = service.getProblemList();
-			map.addAttribute("userList", userList);
-			map.addAttribute("problemList", problemList);
-			return new ModelAndView(URL_MAPPING + "/edit");
-		}*/
-		
+		/*
+		 * if (results.hasErrors()) { Collection<User> userList =
+		 * service.viewAll(); Collection<Problem> problemList =
+		 * service.getProblemList(); map.addAttribute("userList", userList);
+		 * map.addAttribute("problemList", problemList); return new
+		 * ModelAndView(URL_MAPPING + "/edit"); }
+		 */
+
 		comp = service.updateCompetition(comp);
-		if(comp==null){
-			redirectAttributes.addFlashAttribute("message_error", "Competition Updation Failed");
-			return new ModelAndView("redirect:"+URL_MAPPING + "/edit/"+comp.getId());
+		if (comp == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Competition Updation Failed");
+			return new ModelAndView("redirect:" + URL_MAPPING + "/edit/"
+					+ comp.getId());
 		}
-		
 
 		redirectAttributes.addFlashAttribute("message_success",
-				"Competition Updated Successfully "+comp.getTitle());
+				"Competition Updated Successfully " + comp.getTitle());
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
+	
 
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Long id,
@@ -216,19 +291,16 @@ public class AdminCompetitionController {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
 		} else {
-			if( service.deleteCompetition(id)){
+			if (service.deleteCompetition(id)) {
 				redirectAttributes.addFlashAttribute("message_success",
-					"Competition " + id + " is deleted.");
-			}
-			else{
+						"Competition " + id + " is deleted.");
+			} else {
 				redirectAttributes.addFlashAttribute("message_error",
 						"Competition " + id + " is NOT deleted.");
 			}
 		}
 		return "redirect:" + URL_MAPPING;
 	}
-	
-	
 
 	/*
 	 * 

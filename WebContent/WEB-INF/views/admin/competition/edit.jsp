@@ -16,7 +16,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header">Create Competition</h3>
+					<h3 class="page-header">Edit Competition</h3>
 					<ol class="breadcrumb">
 						<li><a href="admin_index.html">Administration</a></li>
 						<li><a href="admin_competitions.html">Competition

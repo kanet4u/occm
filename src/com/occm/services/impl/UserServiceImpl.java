@@ -231,6 +231,18 @@ public class UserServiceImpl implements UserService {
 		return dao.getSubmissionStatus(id);
 	}
 
+	@Override
+	public Problem addProblem(Problem prob) {
+		// TODO Auto-generated method stub
+		return dao.addProblem(prob);
+	}
+
+	@Override
+	public Competition addCompetition(Competition comp) {
+		// TODO Auto-generated method stub
+		return dao.addCompetition(comp);
+	}
+
 	
 	
 
