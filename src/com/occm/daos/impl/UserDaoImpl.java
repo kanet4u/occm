@@ -335,4 +335,12 @@ public class UserDaoImpl implements UserDao {
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
 
+	@Override
+	public Collection<Problem> getCompetitionProblemsList(Competition comp) {
+		
+		return null;
+	}
+	
+	
+
 }

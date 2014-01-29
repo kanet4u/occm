@@ -206,6 +206,12 @@ public class UserServiceImpl implements UserService {
 		return dao.getLanguageList();
 	}
 
+	@Override
+	public Collection<Problem> getCompetitionProblemsList(Competition comp) {
+		// TODO Auto-generated method stub
+		return dao.getCompetitionProblemsList(comp);
+	}
+
 	
 	
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.occm.models.Competition;
 import com.occm.models.FirstVisit;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
+
 import com.occm.services.interfaces.UserService;
 
 @Controller
@@ -114,6 +117,9 @@ public class CompetitionController {
 		}
 		User user = (User) hs.getAttribute("activeUser");
 		Competition comp = service.getCompetitionDetails(compId);
+		
+		Collection<com.occm.models.Problem> problems = service.getProblemList(comp);
+		
 		if (comp.getStatus() == Competition.RUNNING
 				|| comp.getStatus() == Competition.UPCOMMING) {
 			if (service.isUserJoinedAndAprovedToCompetition(user, comp)) {
@@ -129,7 +135,7 @@ public class CompetitionController {
 				return "redirect:" + URL_MAPPING;
 			}
 		}
-
+		map.addAttribute("problems", problems);
 		map.addAttribute("competition", comp);
 		map.addAttribute("user", user);
 		return URL_MAPPING + "/view";

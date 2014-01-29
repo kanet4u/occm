@@ -80,4 +80,6 @@ public interface UserDao {
 	Language getLanguage(Long id);
 	
 	Collection<Language> getLanguageList();
+	
+	Collection<Problem> getCompetitionProblemsList(Competition comp);
 }

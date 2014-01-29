@@ -36,7 +36,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="problem" items="${competition.problems}"
+						<c:forEach var="problem" items="${problems}"
 							varStatus="i">
 							<tr>
 								<td>${ problem.alias}</td>

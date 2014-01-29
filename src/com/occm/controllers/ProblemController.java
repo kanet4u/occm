@@ -59,13 +59,14 @@ public class ProblemController {
 			return "redirect:" + URL_MAPPING + "/view/" + id;
 		}
 		Problem problem = service.getProblemDetails(id);
-		Collection<Language> languages=service.getLanguageList();
-		
+		Collection<Language> languages = service.getLanguageList();
+
 		if (problem == null || !problem.getStatus()) {
 			hs.setAttribute("message_error", "Problem not found.");
 			return "redirect:" + HomeController.URL_MAPPING;
 		}
-
+		Submission submission=(Submission)hs.getAttribute("last_submission");
+		map.addAttribute("submission", submission);
 		map.addAttribute("languages", languages);
 		map.addAttribute("problem", problem);
 		return URL_MAPPING + "/send";
@@ -74,7 +75,7 @@ public class ProblemController {
 	@RequestMapping(value = "/send/{id}", method = RequestMethod.POST)
 	public String sendSolutionProblem(
 			@RequestParam(value = "language", required = true) Long languageId,
-			@RequestParam(value = "code", required = true) String solutionCode,
+			@RequestParam(value = "code", required = true) String sourceCode,
 			@PathVariable("id") Long id, Model map, HttpSession hs) {
 		User user = (User) hs.getAttribute("activeUser");
 
@@ -82,20 +83,34 @@ public class ProblemController {
 			hs.setAttribute("message_error", "Sign in to write solution.");
 			return "redirect:" + URL_MAPPING + "/view/" + id;
 		}
-		Language language=service.getLanguage(languageId);
+		Language language = service.getLanguage(languageId);
 		Problem problem = service.getProblemDetails(id);
-		
-		if (language==null || problem == null || !problem.getStatus()) {
+
+		if (language == null || problem == null || !problem.getStatus()) {
 			hs.setAttribute("message_error", "Request params not valid.");
 			return "redirect:" + URL_MAPPING + "/send/" + id;
 		}
-		
+		Competition comp = problem.getCompetition();
+
 		Submission submission = new Submission();
 		submission.setUser(user);
 		submission.setProblem(problem);
-
-		map.addAttribute("problem", problem);
-		return URL_MAPPING + "/send";
+		submission.setCompetition(comp);
+		submission.setLanguage(language);
+		submission.setSourceCode(sourceCode);
+		submission.setCreationTime(new Date());
+		submission.setPath("");
+		submission = service.addSubmission(submission);
+		
+		if(submission.getId()>0){
+			hs.setAttribute("message_success", "Submission saved successfully.");
+		}else{
+			hs.setAttribute("message_error", "Submission not saved, try later.");
+		}
+		
+		hs.setAttribute("last_submission", submission);
+		
+		return "redirect:" + URL_MAPPING + "/send/" + id;
 	}
 
 	/*

@@ -78,5 +78,7 @@ public interface UserService {
 	Collection<Language> getLanguageList();
 
 	Collection<UserStatus> getUserStatusList();
+	
+	Collection<Problem> getCompetitionProblemsList(Competition comp);
 
 }
