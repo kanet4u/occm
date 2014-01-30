@@ -155,7 +155,8 @@ public class AdminCompetitionController {
 		Competition comp = new Competition();
 		Collection<User> userList = service.viewAll();
 		Collection<Problem> problemList = service.getProblemList();
-
+		
+		map.addAttribute("compactive", "active");
 		map.addAttribute("competition", comp);
 		map.addAttribute("userList", userList);
 		map.addAttribute("problemList", problemList);
@@ -230,6 +231,7 @@ public class AdminCompetitionController {
 					"Competition Not Found");
 			return new ModelAndView("redirect: " + URL_MAPPING);
 		}
+		map.addAttribute("compactive", "active");
 		map.addAttribute("competition", comp);
 		map.addAttribute("userList", userList);
 		map.addAttribute("problemList", problemList);

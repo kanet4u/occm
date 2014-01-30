@@ -9,6 +9,7 @@ import com.occm.models.Problem;
 import com.occm.models.Submission;
 import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
+import com.occm.models.TestCase;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
 import com.occm.models.Role;
@@ -93,5 +94,13 @@ public interface UserDao {
 	Problem addProblem(Problem prob);
 
 	Competition addCompetition(Competition comp);
+	
+	Collection<TestCase> getTestCaseList();
+	
+	boolean deleteTestCase(Long id);
+	
+	TestCase getTestCaseDetails(Long id);
+
+	TestCase addTestCase(TestCase test);
 }
 

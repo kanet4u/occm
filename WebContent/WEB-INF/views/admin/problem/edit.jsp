@@ -17,9 +17,11 @@
 				<div class="col-lg-12">
 					<h3 class="page-header">Edit Problem</h3>
 					<ol class="breadcrumb">
-						<li><a href="admin_index.html">Administration</a></li>
-						<li><a href="admin_users.html">Problem Management</a></li>
-						<li class="active">Add Problem</li>
+						<li><a href="${pageContext.request.contextPath}/admin">Administration</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/admin/problem">Problem
+								Management</a></li>
+						<li class="active">Edit Problem</li>
 					</ol>
 				</div>
 				<div class="col-lg-12">
@@ -31,13 +33,7 @@
 				<div class="col-lg-12">
 					<form:form class="form-horizontal" role="form" method="post"
 						modelAttribute="problem">
-						<div id="messages-area">
-							<div class="alert alert-success alert-dismissable">
-								<button aria-hidden="true" data-dismiss="alert" class="close"
-									type="button">×</button>
-								<form:errors path="*"></form:errors>
-							</div>
-						</div> 
+						
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#c_details" data-toggle="tab">Details</a></li>
 							<li><a href="#c_input" data-toggle="tab">Input</a></li>
@@ -126,7 +122,7 @@
 									</div>
 									<div class="form-group">
 										<label for="problem_competition"
-											class="col-sm-2 control-label">Details</label>
+											class="col-sm-2 control-label">Competition</label>
 
 										<div class="col-sm-10">
 											<form:select class="form-control" path="competition" items="${competitionList}" 
@@ -220,10 +216,7 @@
 											<form:checkboxes items="${tagsList}" path="tags"
 												delimiter='<span></span>' element='label class="badge"'
 												itemLabel="tag" itemValue="id" />
-											<label class="badge"> <input type="checkbox"
-												name="tags[]" value="1"> <span class="">Static
-													CheckBox</span>
-											</label>
+											
 
 										</div>
 									</div>
@@ -237,12 +230,9 @@
 							<button type="reset" class="btn btn-default"
 								onclick="return confirm('Do you want to reset changes')">Reset
 							</button>
-							<button type="button" class="btn btn-danger btn-delete"
+							<button type="button" class="btn btn-default btn-delete"
 								action="some/delete/action">Delete</button>
-							<input type="submit" class="btn btn-default" value="Save" />
-							<button type="submit" class="btn btn-default"
-								onclick="return $('#continue').val(1)">Save & Continue
-							</button>
+							<button type="submit" class="btn btn-success" value="Save" >Save Item</button>
 						</div>
 						<div class="clearfix"></div>
 

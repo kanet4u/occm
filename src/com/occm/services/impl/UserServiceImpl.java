@@ -15,6 +15,7 @@ import com.occm.models.Role;
 import com.occm.models.Submission;
 import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
+import com.occm.models.TestCase;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -244,6 +245,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	
+	@Override
+	public Collection<TestCase> getTestCaseList() {
+		return dao.getTestCaseList();
+	}
 	
+	@Override
+	public boolean deleteTestCase(Long id) {
+		// TODO Auto-generated method stub
+		return dao.deleteTestCase(id);
+	}
+	
+	@Override
+	public TestCase getTestCaseDetails(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getTestCaseDetails(id);
+	}
+	
+	@Override
+	public TestCase addTestCase(TestCase test) {
+		// TODO Auto-generated method stub
+		return dao.addTestCase(test);
+	}
 
 }

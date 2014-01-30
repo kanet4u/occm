@@ -18,10 +18,11 @@
 				<div class="col-lg-12">
 					<h3 class="page-header">Edit Competition</h3>
 					<ol class="breadcrumb">
-						<li><a href="admin_index.html">Administration</a></li>
-						<li><a href="admin_competitions.html">Competition
+						<li><a href="${pageContext.request.contextPath}/admin">Administration</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/admin/competition">Competition
 								Management</a></li>
-						<li class="active">Create Competition</li>
+						<li class="active">Edit Competition</li>
 					</ol>
 				</div>
 				<div class="col-lg-12">
@@ -101,9 +102,10 @@
 										id="users_table">
 										<thead>
 											<tr>
-												<th class="col_email hidden-md hidden-sm">Email</th>
-												<th class="col_firstname">Firstname</th>
-												<th class="col_lastname">Lastname</th>
+												<th class="col_email">ID</th>
+												<th class="col_email">Email</th>
+												<th class="col_firstname hidden-sm">Firstname</th>
+												<th class="col_lastname hidden-sm">Lastname</th>
 												<th class="col_status">Joined</th>
 												<th class="action col_edit">Edit</th>
 											</tr>
@@ -114,9 +116,9 @@
 												<td class="col_username"><label> <input
 														type="checkbox" class="action_select" name="users" value="${u.id}" />
 												</label></td>
-												<td class="col_email hidden-md hidden-sm">${u.email}</td>
-												<td class="col_firstname">${u.fname}</td>
-												<td class="col_lastname"> ${u.sname}</td>
+												<td class="col_email hidden-sm">${u.email}</td>
+												<td class="col_firstname hidden-sm">${u.fname}</td>
+												<td class="col_lastname hidden-sm"> ${u.sname}</td>
 												<td class="action col_status"><b>a</b><a href="#"><i
 														class="fa fa-check-square-o"></i></a></td>
 												<td class="action col_edit"><a
@@ -176,11 +178,9 @@
 								<button type="reset" class="btn btn-default"
 									onclick="return confirm('Do you want to reset changes')">Reset
 								</button>
-								<button type="button" class="btn btn-danger btn-delete"
+								<button type="button" class="btn btn-default btn-delete"
 									action="some/delete/action">Delete</button>
-								<input type="submit" class="btn btn-success" value="Save" />
-								<button type="submit" class="btn btn-success"
-									onclick="return $('#continue').val(1)">Save & Continue</button>
+								<button type="submit" class="btn btn-success" value="Save" >Save Item</button>
 							</div>
 							<div class="clearfix"></div>
 

@@ -26,8 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.occm.models.Competition;
+import com.occm.models.Language;
 import com.occm.models.Problem;
+import com.occm.models.Submission;
 import com.occm.models.Tag;
+import com.occm.models.TestCase;
 import com.occm.models.User;
 import com.occm.services.interfaces.UserService;
 
@@ -168,7 +171,7 @@ public class AdminProblemController {
 		map.addAttribute("tagsList", tagsList);
 		map.addAttribute("aliasList", aliasList);
 		map.addAttribute("statusList", statusList);
-
+		map.addAttribute("problemsactive", "active");
 		return new ModelAndView(URL_MAPPING + "/edit");
 	}
 
@@ -241,7 +244,7 @@ public class AdminProblemController {
 		map.addAttribute("tagsList", tagsList);
 		map.addAttribute("aliasList", aliasList);
 		map.addAttribute("statusList", statusList);
-
+		map.addAttribute("problemsactive", "active");
 		return new ModelAndView(URL_MAPPING + "/edit");
 	}
 
@@ -262,12 +265,6 @@ public class AdminProblemController {
 			}
 		}
 
-		/*
-		 * // chk for P.L errs if (results.hasErrors()) {
-		 * //System.out.println("P.L errs"); return new ModelAndView(URL_MAPPING
-		 * + "/edit"); }
-		 */
-
 		prob = service.addProblem(prob);
 		if (prob == null) {
 			redirectAttributes.addFlashAttribute("message_error",
@@ -280,4 +277,149 @@ public class AdminProblemController {
 				"Competition Updated Successfully " + prob.getTitle());
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
+	
+	
+	@RequestMapping(value = "/tests", method = RequestMethod.GET)
+	public String tests(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
+		if (hs.getAttribute("problem_test_list") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:"+AdministratorController.URL_MAPPING;
+		}
+		Collection<TestCase> tests = service.getTestCaseList();
+
+		map.addAttribute("tests", tests);
+		map.addAttribute("problemsactive", "active");
+		return URL_MAPPING + "/tests";
+	}
+	
+	@RequestMapping("/tests/delete/{id}")
+	public String problemTestDelete(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("problem_test_edit") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+		} else {
+			if (service.deleteTestCase(id)) {
+				redirectAttributes.addFlashAttribute("message_success",
+						"Test Case #" + id + " is deleted.");
+			} else {
+				redirectAttributes.addFlashAttribute("message_error",
+						"Test Case #" + id + " is NOT deleted.");
+			}
+		}
+		return "redirect:" + URL_MAPPING+"/tests";
+	}
+	
+	
+	@RequestMapping(value = "/tests/add", method = RequestMethod.GET)
+	public String problemTestAdd(
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("problem_test_edit") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:" + URL_MAPPING+"/tests";
+		} 
+		
+		map.addAttribute("problems", service.getProblemList());
+		map.addAttribute("problemsactive", "active");
+		return URL_MAPPING+"/tests/add";
+	}
+	
+	
+	@RequestMapping(value = "/tests/add", method = RequestMethod.POST)
+	public String addTest(
+			@RequestParam(value = "problem_id", required = true) Long problem_id,
+			@RequestParam(value = "input", required = true) String input,
+			@RequestParam(value = "output", required = true) String output,
+			final RedirectAttributes redirectAttributes,
+			Model map, HttpSession hs, HttpServletRequest req) {
+
+		User user = (User) hs.getAttribute("activeUser");
+
+		if (hs.getAttribute("competition_list") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission Denied");
+			return "redirect:" + URL_MAPPING+"/tests";
+		}
+		
+		TestCase test = new TestCase();
+		Problem problem = service.getProblemDetails(problem_id);
+
+		test.setProblem(problem);
+		test.setInput(input);
+		test.setOutput(output);
+		
+		test = service.addTestCase(test);
+		
+		if(test.getId()>0){
+			hs.setAttribute("message_success", "Test Case Saved Successfully.");
+			
+		}else{
+			hs.setAttribute("message_error", "Test Case not saved, try later.");
+		}
+		
+		
+		return "redirect:" + URL_MAPPING + "/tests";
+	}
+	
+	
+	@RequestMapping(value = "/tests/edit/{id}", method = RequestMethod.GET)
+	public String problemTestEdit(@PathVariable("id") Long id,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("problem_test_edit") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:" + URL_MAPPING+"/tests";
+		} 
+		
+		map.addAttribute("problems", service.getProblemList());
+		map.addAttribute("test", service.getTestCaseDetails(id));
+		map.addAttribute("problemsactive", "active");
+		return URL_MAPPING+"/tests/add";
+	}
+	
+	@RequestMapping(value = "/tests/edit/{id}", method = RequestMethod.POST)
+	public String problemTestEditSave(@PathVariable("id") Long id,
+			@RequestParam(value = "problem_id", required = true) Long problem_id,
+			@RequestParam(value = "input", required = true) String input,
+			@RequestParam(value = "output", required = true) String output,
+			final RedirectAttributes redirectAttributes, ModelMap map,
+			HttpSession hs) {
+
+		if (hs.getAttribute("problem_test_edit") == null) {
+			redirectAttributes.addFlashAttribute("message_error",
+					"Permission denied!");
+			return "redirect:" + URL_MAPPING+"/tests";
+		} 
+		
+		TestCase test = service.getTestCaseDetails(id);
+		Problem problem = service.getProblemDetails(problem_id);
+
+		test.setProblem(problem);
+		test.setInput(input);
+		test.setOutput(output);
+		
+		test = service.addTestCase(test);
+		
+		if(test.getId()>0){
+			hs.setAttribute("message_success", "Test Case Saved Successfully.");
+			
+		}else{
+			hs.setAttribute("message_error", "Test Case not saved, try later.");
+		}
+		
+		
+		return "redirect:" + URL_MAPPING + "/tests";
+	}
+	
+	
+
 }

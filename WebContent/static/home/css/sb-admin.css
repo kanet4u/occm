@@ -406,13 +406,16 @@ td.action a{
 .tag_box{
 
 }
-.tag_box label *{
+.tag_box label.badge *{
    vertical-align: middle;
 }
 .tag_box input{
     margin: -1px 4px 0 0;
 }
-.tag_box label{
+.tag_box label.badge label{
+	margin:0;
+}
+.tag_box label.badge{
     background-color: #e3e3e3;
     color: #005174;
     display: table-cell;
@@ -423,7 +426,7 @@ td.action a{
     cursor: pointer;
     display: table-cell;
     font-weight: normal;
-    padding: 7px 18px;
+    padding: 11px 18px;
     margin: 4px;
     float: left;
 }

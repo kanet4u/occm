@@ -57,17 +57,17 @@ public class Problem {
 	
 	@NotNull
 	@Column(name="time_limit")
-	private int timeLimit;
+	private int timeLimit=2;
 	
 	@NotNull
 	@Column(name="memory_limit")
-	private int memoryLimit;
+	private int memoryLimit=64;
 	
 	@NotNull
-	private int level;
+	private int level=1;
 	
 	@NotNull
-	private int score;
+	private int score=0;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)

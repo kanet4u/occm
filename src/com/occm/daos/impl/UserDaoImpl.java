@@ -20,6 +20,7 @@ import com.occm.models.Role;
 import com.occm.models.Submission;
 import com.occm.models.SubmissionStatus;
 import com.occm.models.Tag;
+import com.occm.models.TestCase;
 import com.occm.models.User;
 import com.occm.models.UserCompetitions;
 import com.occm.models.UserStatus;
@@ -262,6 +263,12 @@ public class UserDaoImpl implements UserDao {
 		return (Problem) ref.get(Problem.class, id);
 	}
 
+	@Override
+	public TestCase getTestCaseDetails(Long id) {
+		Session ref = factory.getCurrentSession();
+		return (TestCase) ref.get(TestCase.class, id);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Problem> getProblemList(Competition comp) {
@@ -387,6 +394,34 @@ public class UserDaoImpl implements UserDao {
 		return comp;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<TestCase> getTestCaseList() {
+		String hql = "select u from TestCase u";
+
+		return factory.getCurrentSession().createQuery(hql).list();
+	}
+
+	@Override
+	public boolean deleteTestCase(Long id) {
+		Session ref = factory.getCurrentSession();
+		TestCase prob = getTestCaseDetails(id);
+		if (prob != null) {
+			ref.delete(prob);
+			factory.getCurrentSession().flush();
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
+	
+	@Override
+	public TestCase addTestCase(TestCase test) {
+		Long id = (Long) factory.getCurrentSession().save(test);
+		test.setId(id);
+		factory.getCurrentSession().flush();
+		return test;
+	}
 
 }

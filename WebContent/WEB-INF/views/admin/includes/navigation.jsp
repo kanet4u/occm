@@ -75,7 +75,9 @@
 					Problems <span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="${pageContext.request.contextPath}/admin/problem">Problems List</a> <a
-						href="${pageContext.request.contextPath}/admin/problem/add">Add Problem</a> <a
+						href="${pageContext.request.contextPath}/admin/problem/add">Add Problem</a><a
+						href="${pageContext.request.contextPath}/admin/problem/tests">Test Cases</a><a
+						href="${pageContext.request.contextPath}/admin/problem/tests/add">Add Test Case</a> <a
 						href="${pageContext.request.contextPath}/admin/problem/tags">Problem Tags</a></li>
 				</ul></li>
 			<li><a href="${pageContext.request.contextPath}/admin/submission"><i
