@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2014-01-30 03:27:55
+Date: 2014-01-30 07:30:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `actions` (
   `action` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of actions
@@ -57,6 +57,8 @@ INSERT INTO `actions` VALUES ('25', 'pages_delete', '');
 INSERT INTO `actions` VALUES ('26', 'competition_join_list', '');
 INSERT INTO `actions` VALUES ('27', 'competition_join_delete', '');
 INSERT INTO `actions` VALUES ('28', 'competition_join_approve', '');
+INSERT INTO `actions` VALUES ('29', 'problem_test_list', '');
+INSERT INTO `actions` VALUES ('30', 'problem_test_edit', '');
 
 -- ----------------------------
 -- Table structure for `competitions`
@@ -71,15 +73,11 @@ CREATE TABLE `competitions` (
   `start_time` datetime DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of competitions
 -- ----------------------------
-INSERT INTO `competitions` VALUES ('1', '<p>OCCM open testing competition. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', null, null, '0', null, 'OCCM open testing competition');
-INSERT INTO `competitions` VALUES ('2', '<p>CDAC Open Community Coders. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '23 : 59 : 44', '2014-02-01 10:34:03', '1', '2014-01-31 10:34:19', 'CDAC Open Community Coders');
-INSERT INTO `competitions` VALUES ('3', '<p>FIRST batch competition. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '', '2014-01-28 10:36:05', '1', '2014-01-26 10:36:15', 'FIRST batch competition');
-INSERT INTO `competitions` VALUES ('4', '<p>Real power, real code. One user can be only one competition at current time. Only\r\n						logged in users can view own active competition, judge status and\r\n						ranklist.</p>\r\n\r\n					<p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '', '2014-01-31 10:36:30', '1', '2014-01-26 10:36:34', 'Real power, real code.');
 
 -- ----------------------------
 -- Table structure for `languages`
@@ -108,7 +106,7 @@ INSERT INTO `languages` VALUES ('2', 'java', null, 'Java', null, null);
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) NOT NULL,
+  `content` text NOT NULL,
   `created` datetime NOT NULL,
   `status` tinyint(1) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -148,13 +146,12 @@ CREATE TABLE `problems` (
   `competition_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKC40B91B4678780F9` (`competition_id`),
-  CONSTRAINT `FKC40B91B4678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKC40B91B4678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of problems
 -- ----------------------------
-INSERT INTO `problems` VALUES ('1', 'A', '2014-01-28 21:56:09', ' <p>\r\n                Now and then you play the following game with your friend. Your friend writes down a sequence consisting\r\n                of zeroes and ones. You choose a continuous subsequence (for example the subsequence from the third to\r\n                the fifth digit inclusively) and ask him, whether this subsequence contains even or odd number of ones.\r\n                Your friend answers your question and you can ask him about another subsequence and so on.\r\n            </p>\r\n\r\n            <p>\r\n                Your task is to guess the entire sequence of numbers. You suspect some of your friend\'s answers may not\r\n                be correct and you want to convict him of falsehood. Thus you have decided to write a program to help\r\n                you in this matter.\r\n            </p>', '<p>Input contains a series of tests. The first line of each test contains one number, which is the length of\r\n                the sequence of zeroes and ones. This length is less or equal to 109. In the second line, there is one\r\n                non-negative integer which is the number of questions asked and answers to them. The number of questions\r\n                and answers is less or equal to 5 000. </p>', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n7 10 odd\r\n-1', '10\r\n5\r\n1 2 even\r\n3 4 odd\r\n5 6 even\r\n1 6 even\r\n7 10 odd', '1', '64', '<p>\r\n                Each line of output containing one integer X. Number X says that there exists a sequence of zeroes and\r\n                ones satisfying first X parity conditions, but there exists none satisfying X + 1 conditions. If there\r\n                exists a sequence of zeroes and ones satisfying all the given conditions, then number X should be the\r\n                number of all the questions asked. </p>', '3', '5', '1', '1', '2', 'Very difficult problem', '3');
 
 -- ----------------------------
 -- Table structure for `problem_tags`
@@ -173,11 +170,6 @@ CREATE TABLE `problem_tags` (
 -- ----------------------------
 -- Records of problem_tags
 -- ----------------------------
-INSERT INTO `problem_tags` VALUES ('1', '1');
-INSERT INTO `problem_tags` VALUES ('1', '4');
-INSERT INTO `problem_tags` VALUES ('1', '6');
-INSERT INTO `problem_tags` VALUES ('1', '7');
-INSERT INTO `problem_tags` VALUES ('1', '8');
 
 -- ----------------------------
 -- Table structure for `ranks`
@@ -264,6 +256,8 @@ INSERT INTO `role_actions` VALUES ('1', '25');
 INSERT INTO `role_actions` VALUES ('1', '26');
 INSERT INTO `role_actions` VALUES ('1', '27');
 INSERT INTO `role_actions` VALUES ('1', '28');
+INSERT INTO `role_actions` VALUES ('1', '29');
+INSERT INTO `role_actions` VALUES ('1', '30');
 
 -- ----------------------------
 -- Table structure for `submissions`
@@ -292,18 +286,17 @@ CREATE TABLE `submissions` (
   KEY `FK2912EA77F23FC79` (`problem_id`),
   KEY `FK2912EA7C76AE11` (`status`),
   KEY `FK2912EA7EC1431B` (`user_id`),
-  CONSTRAINT `FK2912EA721729CDE` FOREIGN KEY (`failed_test_case`) REFERENCES `testcases` (`id`),
-  CONSTRAINT `FK2912EA7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
-  CONSTRAINT `FK2912EA77F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`),
-  CONSTRAINT `FK2912EA7C76AE11` FOREIGN KEY (`status`) REFERENCES `submission_status` (`code`),
-  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA721729CDE` FOREIGN KEY (`failed_test_case`) REFERENCES `testcases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA77F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA7C76AE11` FOREIGN KEY (`status`) REFERENCES `submission_status` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of submissions
 -- ----------------------------
-INSERT INTO `submissions` VALUES ('1', '2014-01-30 03:25:05', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for `submission_status`
@@ -346,14 +339,7 @@ CREATE TABLE `tags` (
 -- ----------------------------
 -- Records of tags
 -- ----------------------------
-INSERT INTO `tags` VALUES ('1', 'Dynamic Programming');
 INSERT INTO `tags` VALUES ('2', 'Arrays');
-INSERT INTO `tags` VALUES ('3', 'String Matching');
-INSERT INTO `tags` VALUES ('4', 'Data Structures');
-INSERT INTO `tags` VALUES ('5', 'OOP in C++');
-INSERT INTO `tags` VALUES ('6', 'Programming Fundamentals');
-INSERT INTO `tags` VALUES ('7', 'Euclyd Algorithm');
-INSERT INTO `tags` VALUES ('8', 'Big Numbers');
 
 -- ----------------------------
 -- Table structure for `testcases`
@@ -366,16 +352,12 @@ CREATE TABLE `testcases` (
   `problem_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKB9D8B1F17F23FC79` (`problem_id`),
-  CONSTRAINT `FKB9D8B1F17F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKB9D8B1F17F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of testcases
 -- ----------------------------
-INSERT INTO `testcases` VALUES ('1', '1 2', '3', '1');
-INSERT INTO `testcases` VALUES ('2', '-2 2', '0', '1');
-INSERT INTO `testcases` VALUES ('3', '0 0 ', '0', '1');
-INSERT INTO `testcases` VALUES ('4', '32 -1', '31', '1');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -415,16 +397,13 @@ CREATE TABLE `user_competitions` (
   PRIMARY KEY (`id`),
   KEY `FKD519E688678780F9` (`competition_id`),
   KEY `FKD519E688EC1431B` (`user_id`),
-  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`),
-  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_competitions
 -- ----------------------------
-INSERT INTO `user_competitions` VALUES ('1', '1', '1', '2');
-INSERT INTO `user_competitions` VALUES ('6', '0', '4', '1');
-INSERT INTO `user_competitions` VALUES ('8', '0', '2', '1');
 
 -- ----------------------------
 -- Table structure for `user_status`
