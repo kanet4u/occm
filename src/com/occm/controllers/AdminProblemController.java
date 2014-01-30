@@ -463,9 +463,6 @@ public class AdminProblemController {
 		FileWriter fw2 = new FileWriter(pathOut); 
 		fw2.write(output); 
 		fw2.flush();
-
-		
-
 		return true;
 	}
 }

@@ -266,7 +266,7 @@
 		var fontSize = 12;
 		var language = "java";
 		var code = {
-			java : "import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}",
+			java : "import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}",
 			cpp : "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout << \"Hello world!\" << endl;\n    return 0;\n}\n",
 			c : "#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\n    printf(\"Hello world!\");\n    return 0;\n}\n",
 			python : ""
