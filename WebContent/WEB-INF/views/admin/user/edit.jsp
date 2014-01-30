@@ -19,7 +19,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header">
-						Edit User
+						Add User
 						</h1>
 						<ol class="breadcrumb">
 							<li><a href="admin_index.html">Administration</a></li>
@@ -30,7 +30,8 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<form:form class="form-horizontal" role="form" method="post" modelAttribute="user">
+					<form:form class="form-horizontal" role="form" method="post"
+						modelAttribute="user">
 						<div class="panel panel-default">
 							<div class="panel-heading">User Details</div>
 							<div class="panel-body">
@@ -49,14 +50,7 @@
 											id="user_lname" placeholder="Lastname">
 									</div>
 								</div>
-								<!-- <div class="form-group">
-									<label for="user_username" class="col-sm-2 control-label">Username</label>
-
-									<div class="col-sm-10">
-										<input type="email" class="form-control" name="username"
-											id="user_username" placeholder="Username">
-									</div>
-								</div> -->
+								
 
 								<div class="form-group">
 									<label for="user_email" class="col-sm-2 control-label">Email</label>
@@ -82,7 +76,15 @@
 									<label for="user_status" class="col-sm-2 control-label ">Status</label>
 
 									<div class="col-sm-5">
-										<form:select class="form-control" path="status" id="user_status" items="${statusList}" /><%-- 
+										<select class="form-control" name="status" id="user_status">
+											<c:forEach var="status" items="${statusList}" varStatus="i">
+												<option value="${status.id}">${status.status}</option>
+
+											</c:forEach>
+										</select>
+										<%-- <form:select class="form-control" path="status"
+											id="user_status" items="${statusList}" />
+										
 											<option value="1">Enabled</option>
 											<option value="0">Disabled</option>
 										</select>  --%>
@@ -92,7 +94,15 @@
 									<label for="user_role" class="col-sm-2 control-label">Role</label>
 
 									<div class="col-sm-5">
-										<form:select class="form-control" path="role" id="user_role" items="${roleList}" /><%-- 
+										<select class="form-control" name="role" id="user_role">
+											<c:forEach var="role" items="${roleList}" varStatus="i">
+												<option value="${role.id}">${role.role}</option>
+
+											</c:forEach>
+										</select>
+										<%--<form:select class="form-control" path="role" id="user_role"
+											items="${roleList}" />
+										 
 											<option value="admin">Admin</option>
 											<option value="teacher">Teacher</option>
 											<option value="user">User</option>
