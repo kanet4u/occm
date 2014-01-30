@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2014-01-30 07:30:55
+Date: 2014-01-30 10:54:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -73,11 +73,14 @@ CREATE TABLE `competitions` (
   `start_time` datetime DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of competitions
 -- ----------------------------
+INSERT INTO `competitions` VALUES ('1', '<p>One user can be only one competition at current time. Only logged in users can view own active\r\n                    competition, judge status and ranklist.</p>\r\n\r\n                <p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '29 : 0 : 0', '2014-01-30 08:10:00', '0', '2014-01-29 03:10:00', 'OCCM Test Competition');
+INSERT INTO `competitions` VALUES ('2', '<p>One user can be only one competition at current time. Only logged in users can view own active\r\n                    competition, judge status and ranklist.</p>\r\n\r\n                <p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '24 : 0 : 0', '2014-02-01 08:12:00', '0', '2014-01-31 08:12:00', 'CDAC Open Community Coders');
+INSERT INTO `competitions` VALUES ('3', '<p>One user can be only one competition at current time. Only logged in users can view own active\r\n                    competition, judge status and ranklist.</p>\r\n\r\n                <p>Here competition info. Rules and rating system clarification. Maybe some hints for problems. </p>', '22 : 0 : 0', '2014-01-31 06:12:00', '0', '2014-01-30 08:12:00', 'Fast Code - High Score');
 
 -- ----------------------------
 -- Table structure for `languages`
@@ -147,11 +150,14 @@ CREATE TABLE `problems` (
   PRIMARY KEY (`id`),
   KEY `FKC40B91B4678780F9` (`competition_id`),
   CONSTRAINT `FKC40B91B4678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of problems
 -- ----------------------------
+INSERT INTO `problems` VALUES ('1', 'A', '2014-01-30 08:32:41', 'Calculate a + b ', 'a and b', '-1 1', '-1 -11', '1', '64', 'a+b', '0', '-12', '0', '1', '2', 'A+B Problem', '1');
+INSERT INTO `problems` VALUES ('2', 'B', '2014-01-30 08:18:26', 'The problem is so easy, that the authors were lazy to write a statement for it!', 'The input stream contains a&nbsp;set of&nbsp;integer numbers <i>A<sub>i</sub></i> (0&nbsp;â¤ <i>A<sub>i</sub></i> â¤ 10<sup>18</sup>). The numbers are separated by&nbsp;any number of&nbsp;spaces and line breaks. A&nbsp;size of&nbsp;the input stream does not exceed 256&nbsp;KB.', '1', '1427  0   \r\n\r\n   876652098643267843 \r\n5276538', '1', '64', 'For each number <i>A<sub>i</sub></i> from the last one till the first one you should output its square root. Each square root should be&nbsp;printed in&nbsp;a&nbsp;separate line with at&nbsp;least four digits after decimal point.', '1', '2297.0716\r\n936297014.1164\r\n0.0000\r\n37.7757', '0', '1', '2', 'Reverse Root', '2');
+INSERT INTO `problems` VALUES ('3', 'A', '2014-01-30 08:20:53', 'You have a number of stones with known weights <i>w</i><sub>1</sub>, â¦, <i>w<sub>n</sub></i>.  Write a program that will rearrange the stones into two piles such that weight difference between the piles is minimal.', 'Input contains the number of stones <i>n</i> (1 â¤ <i>n</i> â¤ 20) and weights of the stones <i>w</i><sub>1</sub>, â¦, <i>w<sub>n</sub></i> (integers, 1 â¤ <i>w<sub>i</sub></i> â¤ 100000) delimited by white spaces.', '5\r\n5 8 13 27 14', '5\r\n5 8 13 27 14', '1', '64', 'Your program should output a number representing the minimal possible weight difference between stone piles.', '3', '3', '0', '1', '2', 'Stone Pile', '3');
 
 -- ----------------------------
 -- Table structure for `problem_tags`
@@ -279,6 +285,8 @@ CREATE TABLE `submissions` (
   `problem_id` bigint(20) NOT NULL,
   `status` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) NOT NULL,
+  `input` text,
+  `test` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2912EA7678780F9` (`competition_id`),
   KEY `FK2912EA721729CDE` (`failed_test_case`),
@@ -286,17 +294,49 @@ CREATE TABLE `submissions` (
   KEY `FK2912EA77F23FC79` (`problem_id`),
   KEY `FK2912EA7C76AE11` (`status`),
   KEY `FK2912EA7EC1431B` (`user_id`),
-  CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK2912EA721729CDE` FOREIGN KEY (`failed_test_case`) REFERENCES `testcases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK2912EA7678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK2912EA77F23FC79` FOREIGN KEY (`problem_id`) REFERENCES `problems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK2912EA7C76AE11` FOREIGN KEY (`status`) REFERENCES `submission_status` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK2912EA7EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK2912EA7FCC3737B` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of submissions
 -- ----------------------------
+INSERT INTO `submissions` VALUES ('1', '2014-01-30 08:33:02', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '1', null, '2', '1', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('2', '2014-01-30 08:34:12', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '3', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('3', '2014-01-30 08:37:22', null, '0', '', '0', '0', '#include <iostream>\r\n\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    cout << \"Hello world!\" << endl;\r\n    return 0;\r\n}\r\n', null, '1', null, '1', '1', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('4', '2014-01-30 08:37:52', null, '0', '', '0', '0', '#include <stdio.h>\r\n#include <stdlib.h>\r\n\r\nint main()\r\n{\r\n    printf(\"Hello world!\");\r\n    return 0;\r\n}\r\n', null, '3', null, '0', '3', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('5', '2014-01-30 09:28:33', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '3', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('6', '2014-01-30 09:45:08', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '3', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('7', '2014-01-30 09:57:12', '11111111111', '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasd', '1');
+INSERT INTO `submissions` VALUES ('8', '2014-01-30 09:59:46', 'wwe', '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'eqweqe', '1');
+INSERT INTO `submissions` VALUES ('9', '2014-01-30 10:03:08', '1312', '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'fff', '1');
+INSERT INTO `submissions` VALUES ('10', '2014-01-30 10:07:48', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdas', '1');
+INSERT INTO `submissions` VALUES ('11', '2014-01-30 10:19:33', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdsad', '1');
+INSERT INTO `submissions` VALUES ('12', '2014-01-30 10:26:13', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasd', '1');
+INSERT INTO `submissions` VALUES ('13', '2014-01-30 10:27:22', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'sdasdas', '1');
+INSERT INTO `submissions` VALUES ('14', '2014-01-30 10:35:01', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsad', '1');
+INSERT INTO `submissions` VALUES ('15', '2014-01-30 10:35:14', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsad', '1');
+INSERT INTO `submissions` VALUES ('16', '2014-01-30 10:37:15', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsadasdsadas', '1');
+INSERT INTO `submissions` VALUES ('17', '2014-01-30 10:37:24', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsadasdsadas', '1');
+INSERT INTO `submissions` VALUES ('18', '2014-01-30 10:37:32', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsadasdsadas', '1');
+INSERT INTO `submissions` VALUES ('19', '2014-01-30 10:41:35', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsadasdsadas', '1');
+INSERT INTO `submissions` VALUES ('20', '2014-01-30 10:42:34', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasdasdsadasdsadas', '1');
+INSERT INTO `submissions` VALUES ('21', '2014-01-30 10:43:30', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', '', '1');
+INSERT INTO `submissions` VALUES ('22', '2014-01-30 10:43:44', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdsad', '1');
+INSERT INTO `submissions` VALUES ('23', '2014-01-30 10:43:59', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasda', '1');
+INSERT INTO `submissions` VALUES ('24', '2014-01-30 10:44:08', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasda', '1');
+INSERT INTO `submissions` VALUES ('25', '2014-01-30 10:45:13', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasda', '1');
+INSERT INTO `submissions` VALUES ('26', '2014-01-30 10:45:48', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdasda', '1');
+INSERT INTO `submissions` VALUES ('27', '2014-01-30 10:46:37', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'asdas', '1');
+INSERT INTO `submissions` VALUES ('28', '2014-01-30 10:50:19', null, '0', '', '0', '0', 'import java.util.Scanner;\r\nimport java.io.PrintWriter;\r\n\r\npublic class Problem {\r\n    public static void main(String[] args) {\r\n        Scanner scanner = new Scanner(System.in);\r\n        PrintWriter writer = new PrintWriter(System.out);\r\n\r\n        int i = scanner.nextInt();\r\n        writer.println(i);\r\n        writer.flush();\r\n    }\r\n}', null, '3', null, '2', '3', '0', '1', null, '0');
+INSERT INTO `submissions` VALUES ('29', '2014-01-30 10:50:39', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'adsasda', '1');
+INSERT INTO `submissions` VALUES ('30', '2014-01-30 10:50:48', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'adsasda', '1');
+INSERT INTO `submissions` VALUES ('31', '2014-01-30 10:50:57', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'adsasda', '1');
+INSERT INTO `submissions` VALUES ('32', '2014-01-30 10:51:12', null, '0', '', '0', '0', 'import java.util.Scanner;\nimport java.io.PrintWriter;\n\npublic class Problem {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        PrintWriter writer = new PrintWriter(System.out);\n\n        int i = scanner.nextInt();\n        writer.println(i);\n        writer.flush();\n    }\n}', null, '3', null, '2', '3', '0', '1', 'adsasda', '1');
 
 -- ----------------------------
 -- Table structure for `submission_status`
@@ -334,7 +374,7 @@ CREATE TABLE `tags` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tag` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tags
@@ -358,6 +398,14 @@ CREATE TABLE `testcases` (
 -- ----------------------------
 -- Records of testcases
 -- ----------------------------
+INSERT INTO `testcases` VALUES ('1', '1 2', '3', '1');
+INSERT INTO `testcases` VALUES ('2', '-1 1', '0', '1');
+INSERT INTO `testcases` VALUES ('3', '0 0', '0', '1');
+INSERT INTO `testcases` VALUES ('4', '9 16', '4\r\n3', '2');
+INSERT INTO `testcases` VALUES ('5', '25\r\n\r\n16  64', '8\r\n4\r\n5', '2');
+INSERT INTO `testcases` VALUES ('6', '5\r\n5 8 13 27 14', '3', '3');
+INSERT INTO `testcases` VALUES ('7', '5\r\n5 8 13 27 14', '3', '3');
+INSERT INTO `testcases` VALUES ('8', '1 4', '5', '1');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -397,13 +445,15 @@ CREATE TABLE `user_competitions` (
   PRIMARY KEY (`id`),
   KEY `FKD519E688678780F9` (`competition_id`),
   KEY `FKD519E688EC1431B` (`user_id`),
-  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKD519E688678780F9` FOREIGN KEY (`competition_id`) REFERENCES `competitions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKD519E688EC1431B` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_competitions
 -- ----------------------------
+INSERT INTO `user_competitions` VALUES ('1', '1', '3', '1');
+INSERT INTO `user_competitions` VALUES ('2', '1', '2', '1');
 
 -- ----------------------------
 -- Table structure for `user_status`

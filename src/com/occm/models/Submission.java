@@ -56,6 +56,9 @@ public class Submission {
 	@NotNull
 	private String path;
 	
+	private boolean test;
+	private String input;
+	
 	@Column(name="creation_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm a")
@@ -223,6 +226,23 @@ public class Submission {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	
+	public boolean isTest() {
+		return test;
+	}
+
+	public void setTest(boolean test) {
+		this.test = test;
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
 	}
 
 	@Override

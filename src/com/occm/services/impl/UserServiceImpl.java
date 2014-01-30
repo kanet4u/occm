@@ -268,4 +268,10 @@ public class UserServiceImpl implements UserService {
 		return dao.addTestCase(test);
 	}
 
+	@Override
+	public Submission getSubmission(Long id) {
+		// TODO Auto-generated method stub
+		return dao.getSubmission(id);
+	}
+
 }

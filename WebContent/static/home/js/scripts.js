@@ -26,15 +26,32 @@ function runSolution() {
 	var data = {
 		code : editor.getValue(),
 		input : $('#run_input').val(),
-		key : key
+		language : $("input[name='language']:checked").attr('lang_id')
 	};
-
+	$("#defender").show();
+	$("body").addClass('full_screen_open');
 	$.ajax({
+		type : "POST",
 		dataType : "json",
-		url : 'submissions/test',
+		url : $("#run_solution_form").attr('action'),
 		data : data,
 		success : function(response) {
-			// process response here
+			
+			setTimeout(function() {
+				$.ajax({
+					type : "POST",
+					dataType : "json",
+					url : $("#run_solution_form").attr('action_2') + "/"
+							+ response.id,
+					data : data,
+					success : function(response) {
+						$("#btn_terminal").click();
+						$("#defender").hide();
+						$("body").removeClass('full_screen_open');
+						$("#terminal").append(response.output);
+					}
+				});
+			}, 4000);
 		}
 	});
 }

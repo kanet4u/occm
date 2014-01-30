@@ -102,5 +102,7 @@ public interface UserDao {
 	TestCase getTestCaseDetails(Long id);
 
 	TestCase addTestCase(TestCase test);
+
+	Submission getSubmission(Long id);
 }
 

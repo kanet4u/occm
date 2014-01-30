@@ -78,7 +78,7 @@
 					</script>
 					<input type="hidden" id="last_submission" last_submission="${submission.language.code}" />
 					<pre id="editor">${submission.sourceCode}</pre>
-					<pre id="terminal">Code result here...</pre>
+					<pre id="terminal"></pre>
 				</div>
 
 			</div>
@@ -211,6 +211,8 @@
 				</div>
 				<div class="modal-body">
 					<form class="form-data form-horizontal" role="form"
+					action="${pageContext.request.contextPath}/problem/test/${problem.id }"
+					action_2="${pageContext.request.contextPath}/problem/test/result"
 						id="run_solution_form">
 						<div class="form-group">
 							<textarea class="form-control" id="run_input" rows="5"
@@ -275,5 +277,6 @@
 			setEditor();
 		});
 	</script>
+	<div id="defender"></div>
 </body>
 </html>

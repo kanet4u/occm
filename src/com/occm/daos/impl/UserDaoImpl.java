@@ -164,7 +164,7 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Submission> getSubmissionList() {
-		String hql = "select u from Submission u Order by u.id DESC";
+		String hql = "select u from Submission u where u.test=0 Order by u.id DESC";
 
 		return factory.getCurrentSession().createQuery(hql).list();
 	}
@@ -422,6 +422,12 @@ public class UserDaoImpl implements UserDao {
 		test.setId(id);
 		factory.getCurrentSession().flush();
 		return test;
+	}
+
+	@Override
+	public Submission getSubmission(Long id) {
+		Session ref = factory.getCurrentSession();
+		return (Submission) ref.get(Submission.class, id);
 	}
 
 }

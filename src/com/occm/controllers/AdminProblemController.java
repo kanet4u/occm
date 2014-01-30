@@ -1,5 +1,10 @@
 package com.occm.controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,6 +44,8 @@ import com.occm.services.interfaces.UserService;
 @RequestMapping(value = { AdminProblemController.URL_MAPPING })
 public class AdminProblemController {
 	public static final String URL_MAPPING = "/admin/problem";
+	@Autowired
+	ServletContext context;
 
 	@Autowired
 	@Qualifier("user_service_dao")
@@ -186,10 +194,14 @@ public class AdminProblemController {
 		prob.setCompetition(service.getCompetitionDetails(Long.parseLong(req
 				.getParameter("competition"))));
 
-		for (String id : req.getParameterValues("tags")) {
-			prob.getTags().add(service.getTagDetails(Long.parseLong(id)));
+		if (req.getParameterMap().keySet().contains("tags")) {
+			String[] tags = req.getParameterValues("tags");
+			if (tags.length > 0)
+				for (String id : tags) {
+					prob.getTags().add(
+							service.getTagDetails(Long.parseLong(id)));
+				}
 		}
-
 		/*
 		 * // chk for P.L errs if (results.hasErrors()) {
 		 * //System.out.println("P.L errs"); return new ModelAndView(URL_MAPPING
@@ -259,7 +271,7 @@ public class AdminProblemController {
 			prob.setCompetition(service.getCompetitionDetails(Long
 					.parseLong(req.getParameter("competition"))));
 		}
-		if(req.getParameterValues("tags")!= null){
+		if (req.getParameterValues("tags") != null) {
 			for (String id : req.getParameterValues("tags")) {
 				prob.getTags().add(service.getTagDetails(Long.parseLong(id)));
 			}
@@ -277,15 +289,14 @@ public class AdminProblemController {
 				"Competition Updated Successfully " + prob.getTitle());
 		return new ModelAndView("redirect:" + URL_MAPPING);
 	}
-	
-	
+
 	@RequestMapping(value = "/tests", method = RequestMethod.GET)
 	public String tests(final RedirectAttributes redirectAttributes,
 			ModelMap map, HttpSession hs) {
 		if (hs.getAttribute("problem_test_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
-			return "redirect:"+AdministratorController.URL_MAPPING;
+			return "redirect:" + AdministratorController.URL_MAPPING;
 		}
 		Collection<TestCase> tests = service.getTestCaseList();
 
@@ -293,7 +304,7 @@ public class AdminProblemController {
 		map.addAttribute("problemsactive", "active");
 		return URL_MAPPING + "/tests";
 	}
-	
+
 	@RequestMapping("/tests/delete/{id}")
 	public String problemTestDelete(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
@@ -311,64 +322,67 @@ public class AdminProblemController {
 						"Test Case #" + id + " is NOT deleted.");
 			}
 		}
-		return "redirect:" + URL_MAPPING+"/tests";
+		return "redirect:" + URL_MAPPING + "/tests";
 	}
-	
-	
+
 	@RequestMapping(value = "/tests/add", method = RequestMethod.GET)
-	public String problemTestAdd(
-			final RedirectAttributes redirectAttributes, ModelMap map,
-			HttpSession hs) {
+	public String problemTestAdd(final RedirectAttributes redirectAttributes,
+			ModelMap map, HttpSession hs) {
 
 		if (hs.getAttribute("problem_test_edit") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
-			return "redirect:" + URL_MAPPING+"/tests";
-		} 
-		
+			return "redirect:" + URL_MAPPING + "/tests";
+		}
+
 		map.addAttribute("problems", service.getProblemList());
 		map.addAttribute("problemsactive", "active");
-		return URL_MAPPING+"/tests/add";
+		return URL_MAPPING + "/tests/add";
 	}
-	
-	
+
 	@RequestMapping(value = "/tests/add", method = RequestMethod.POST)
 	public String addTest(
 			@RequestParam(value = "problem_id", required = true) Long problem_id,
 			@RequestParam(value = "input", required = true) String input,
 			@RequestParam(value = "output", required = true) String output,
-			final RedirectAttributes redirectAttributes,
-			Model map, HttpSession hs, HttpServletRequest req) {
+			final RedirectAttributes redirectAttributes, Model map,
+			HttpSession hs, HttpServletRequest req) {
 
 		User user = (User) hs.getAttribute("activeUser");
 
 		if (hs.getAttribute("competition_list") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission Denied");
-			return "redirect:" + URL_MAPPING+"/tests";
+			return "redirect:" + URL_MAPPING + "/tests";
 		}
-		
+
 		TestCase test = new TestCase();
 		Problem problem = service.getProblemDetails(problem_id);
 
 		test.setProblem(problem);
 		test.setInput(input);
 		test.setOutput(output);
-		
+
 		test = service.addTestCase(test);
-		
-		if(test.getId()>0){
+
+		if (test.getId() > 0) {
 			hs.setAttribute("message_success", "Test Case Saved Successfully.");
-			
-		}else{
+
+		} else {
 			hs.setAttribute("message_error", "Test Case not saved, try later.");
 		}
-		
-		
+
+		try {
+			saveTestToFile(problem.getId(), test.getId(), input, output);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			hs.setAttribute("message_error", e.getMessage());
+			e.printStackTrace();
+		}
+
 		return "redirect:" + URL_MAPPING + "/tests";
 	}
-	
-	
+
 	@RequestMapping(value = "/tests/edit/{id}", method = RequestMethod.GET)
 	public String problemTestEdit(@PathVariable("id") Long id,
 			final RedirectAttributes redirectAttributes, ModelMap map,
@@ -377,17 +391,18 @@ public class AdminProblemController {
 		if (hs.getAttribute("problem_test_edit") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
-			return "redirect:" + URL_MAPPING+"/tests";
-		} 
-		
+			return "redirect:" + URL_MAPPING + "/tests";
+		}
+
 		map.addAttribute("problems", service.getProblemList());
 		map.addAttribute("test", service.getTestCaseDetails(id));
 		map.addAttribute("problemsactive", "active");
-		return URL_MAPPING+"/tests/add";
+		return URL_MAPPING + "/tests/add";
 	}
-	
+
 	@RequestMapping(value = "/tests/edit/{id}", method = RequestMethod.POST)
-	public String problemTestEditSave(@PathVariable("id") Long id,
+	public String problemTestEditSave(
+			@PathVariable("id") Long id,
 			@RequestParam(value = "problem_id", required = true) Long problem_id,
 			@RequestParam(value = "input", required = true) String input,
 			@RequestParam(value = "output", required = true) String output,
@@ -397,29 +412,60 @@ public class AdminProblemController {
 		if (hs.getAttribute("problem_test_edit") == null) {
 			redirectAttributes.addFlashAttribute("message_error",
 					"Permission denied!");
-			return "redirect:" + URL_MAPPING+"/tests";
-		} 
-		
+			return "redirect:" + URL_MAPPING + "/tests";
+		}
+
 		TestCase test = service.getTestCaseDetails(id);
 		Problem problem = service.getProblemDetails(problem_id);
 
 		test.setProblem(problem);
 		test.setInput(input);
 		test.setOutput(output);
-		
+
 		test = service.addTestCase(test);
-		
-		if(test.getId()>0){
+
+		if (test.getId() > 0) {
 			hs.setAttribute("message_success", "Test Case Saved Successfully.");
-			
-		}else{
+
+		} else {
 			hs.setAttribute("message_error", "Test Case not saved, try later.");
 		}
-		
-		
+
+		try {
+			saveTestToFile(problem.getId(), test.getId(), input, output);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			hs.setAttribute("message_error", e.getMessage());
+			e.printStackTrace();
+		}
 		return "redirect:" + URL_MAPPING + "/tests";
 	}
-	
-	
 
+	protected boolean saveTestToFile(Long problemId, Long testId, String input,
+			String output) throws IOException {
+		
+		File dir = new File("C:/test/" + problemId);
+		dir.mkdir();
+
+		String pathIn = dir.getAbsoluteFile() + "/" + testId + ".in";
+		String pathOut = dir.getAbsoluteFile() + "/" + testId + ".out";
+
+		File file1 = new File(pathIn);
+		File file2 = new File(pathOut);
+		
+		file1.createNewFile();
+		file2.createNewFile();
+	
+		FileWriter fw = new FileWriter(pathIn); 
+		fw.write(input); 
+		fw.flush();
+		
+		FileWriter fw2 = new FileWriter(pathOut); 
+		fw2.write(output); 
+		fw2.flush();
+
+		
+
+		return true;
+	}
 }

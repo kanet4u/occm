@@ -47,7 +47,7 @@
 										<td>${test.id}</td>
 										
 										<td class="col_title visible-lg visible-md"><a
-											href="${pageContext.request.contextPath}/admin/problem/edit/${problem.id}">
+											href="${pageContext.request.contextPath}/admin/problem/edit/${test.problem.id}">
 												${test.problem.title}</a></td>
 										
 										<td class="action col_edit"><a

@@ -277,3 +277,20 @@ body.full_screen_open {
 .problem_editor .col{
 	padding:0;
 }
+#defender{
+	background-color: white;
+	background-image:url('../img/loader.gif');
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+    bottom: 0;
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    opacity:0.6;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10000000;
+}

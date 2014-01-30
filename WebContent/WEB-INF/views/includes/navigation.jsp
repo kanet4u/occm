@@ -51,7 +51,7 @@
 								href="${pageContext.request.contextPath}/competition/mylist"><i
 									class="fa fa-bar-chart-o"></i> My Competitions</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/account/submissions"><i
+								href="${pageContext.request.contextPath}/submission?user=${sessionScope.activeUser.id}"><i
 									class="fa fa-code"></i> Submissions</a></li>
 							<li class="divider"></li>
 							<li><a
